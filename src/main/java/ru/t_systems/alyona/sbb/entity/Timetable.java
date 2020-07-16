@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.math.BigInteger;
-import java.time.LocalDate;
+import java.util.Calendar;
 
 @Entity
 @Data
@@ -25,7 +25,7 @@ public class Timetable {
     private Train train;
 
     private boolean arrival;
-    private LocalDate time;
+    private Calendar time;
 
     @ManyToOne
     private Station station;
