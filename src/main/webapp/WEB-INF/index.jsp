@@ -18,10 +18,10 @@
         <input type="text" placeholder="To">
     </label>
     <label> Date interval from
-        <input type="date">
+        <input type="datetime-local">
     </label>
     <label> to
-        <input type="date">
+        <input type="datetime-local">
     </label>
     <button>Find</button>
 </form>
