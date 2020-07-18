@@ -6,21 +6,20 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigInteger;
-import java.util.Collection;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Station {
+@Table(name = "station")
+public class StationPO {
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private BigInteger id;
 
+    @Column(name = "name")
     private String name;
-
-    @ManyToMany
-    private Collection<Train> trains;
 
 }
