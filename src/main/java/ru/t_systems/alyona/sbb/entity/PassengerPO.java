@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -31,5 +32,8 @@ public class PassengerPO {
 
     @OneToOne(mappedBy = "passenger")
     private UserPO user;
+
+    @OneToMany(mappedBy = "passenger")
+    private Collection<TicketPO> tickets;
 
 }

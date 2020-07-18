@@ -4,23 +4,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.math.BigInteger;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Ticket {
+@Table(name = "ticket")
+public class TicketPO {
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private BigInteger id;
 
     @ManyToOne
-    private UserPO user;
+    @JoinColumn(name = "id_passenger")
+    private PassengerPO passenger;
 
 }
