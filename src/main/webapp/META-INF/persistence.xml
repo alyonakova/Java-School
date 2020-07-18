@@ -4,9 +4,10 @@
              version="2.0">
     <persistence-unit name="ru.t-systems.alyona.t_systems_sbb">
       <properties>
-          <property name="javax.persistence.jdbc.url" value=""/>
-          <property name="javax.persistence.jdbc.user" value=""/>
-          <property name="javax.persistence.jdbc.password" value=""/>
+          <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/sbb"/>
+          <property name="javax.persistence.jdbc.user" value="postgres"/>
+          <property name="javax.persistence.jdbc.password" value="njF4roGe"/>
+          <property name="hbm2ddl.auto" value="validate"/>
       </properties>
     </persistence-unit>
 </persistence>
