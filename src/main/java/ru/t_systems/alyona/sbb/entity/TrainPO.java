@@ -4,24 +4,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import java.util.Collection;
+import javax.persistence.Table;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Train {
+@Table(name = "train")
+public class TrainPO {
 
     @Id
+    @Column(name = "id")
     private String id;
 
+    @Column(name = "seats_count")
     private int seatsCount;
-
-    @ManyToMany
-    private Collection<Station> stations;
 
 }
