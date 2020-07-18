@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -22,5 +23,11 @@ public class TicketPO {
     @ManyToOne
     @JoinColumn(name = "id_passenger")
     private PassengerPO passenger;
+
+    @ManyToMany
+    @JoinTable(name = "ticket_segment",
+            joinColumns = @JoinColumn(name = "id_ticket"),
+            inverseJoinColumns = @JoinColumn(name = "id_segment"))
+    private Collection<SegmentPO> segments;
 
 }

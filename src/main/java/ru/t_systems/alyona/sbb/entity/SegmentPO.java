@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Calendar;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -49,4 +50,10 @@ public class SegmentPO {
 
     @Column(name = "delayed")
     private Boolean delayed;
+
+    @ManyToMany
+    @JoinTable(name = "ticket_segment",
+    joinColumns = @JoinColumn(name = "id_segment"),
+    inverseJoinColumns = @JoinColumn(name = "id_ticket"))
+    private Collection<TicketPO> tickets;
 }
