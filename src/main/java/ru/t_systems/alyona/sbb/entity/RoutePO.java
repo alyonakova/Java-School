@@ -6,27 +6,24 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigInteger;
-import java.util.Collection;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "station")
-public class StationPO {
+@AllArgsConstructor
+@Table(name = "route")
+public class RoutePO {
 
     @Id
     @GeneratedValue
     @Column(name = "id")
     private BigInteger id;
 
-    @Column(name = "name")
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "id_station_from")
+    private StationPO from;
 
-    @OneToMany(mappedBy = "from")
-    private Collection<RoutePO> routesFrom;
-
-    @OneToMany(mappedBy = "to")
-    private Collection<RoutePO> routesTo;
-
+    @ManyToOne
+    @JoinColumn(name = "id_station_to")
+    private StationPO to;
 }
