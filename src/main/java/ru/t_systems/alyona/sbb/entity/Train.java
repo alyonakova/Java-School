@@ -21,9 +21,6 @@ public class Train {
 
     private int seatsCount;
 
-    @OneToMany(mappedBy = "train")
-    private Collection<Timetable> timetables;
-
     @ManyToMany
     private Collection<Station> stations;
 

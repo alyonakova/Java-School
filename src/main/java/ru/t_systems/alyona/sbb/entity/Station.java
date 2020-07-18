@@ -20,9 +20,6 @@ public class Station {
 
     private String name;
 
-    @OneToMany(mappedBy = "station")
-    private Collection<Timetable> timetables;
-
     @ManyToMany
     private Collection<Train> trains;
 
