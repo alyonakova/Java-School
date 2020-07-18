@@ -56,4 +56,10 @@ public class SegmentPO {
     joinColumns = @JoinColumn(name = "id_segment"),
     inverseJoinColumns = @JoinColumn(name = "id_ticket"))
     private Collection<TicketPO> tickets;
+
+    @ManyToMany
+    @JoinTable(name = "route_segment",
+            joinColumns = @JoinColumn(name = "id_segment"),
+            inverseJoinColumns = @JoinColumn(name = "id_route"))
+    private Collection<RoutePO> routes;
 }
