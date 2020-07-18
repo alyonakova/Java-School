@@ -4,7 +4,6 @@ import lombok.Data;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.Collection;
 
 @Data
 public class PassengerDTO {
@@ -13,7 +12,6 @@ public class PassengerDTO {
     private String name;
     private String surname;
     private LocalDate birthday;
-    private Collection<TicketDTO> tickets;
 
     @Override
     public boolean equals(Object o) {
