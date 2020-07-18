@@ -29,4 +29,10 @@ public class StationPO {
     @OneToMany(mappedBy = "to")
     private Collection<RoutePO> routesTo;
 
+    @OneToMany(mappedBy = "from")
+    private Collection<SegmentPO> segmentsFromStation;
+
+    @OneToMany(mappedBy = "to")
+    private Collection<SegmentPO> segmentsToStation;
+
 }
