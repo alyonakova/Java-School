@@ -21,6 +21,6 @@ public class Ticket {
     private BigInteger id;
 
     @ManyToOne
-    private User user;
+    private UserPO user;
 
 }

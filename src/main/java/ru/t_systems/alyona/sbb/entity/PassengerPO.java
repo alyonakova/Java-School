@@ -29,4 +29,7 @@ public class PassengerPO {
     @Column(name = "birthday")
     private LocalDate birthday;
 
+    @OneToOne(mappedBy = "passenger")
+    private UserPO user;
+
 }

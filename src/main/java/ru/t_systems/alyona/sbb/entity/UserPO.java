@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -16,18 +13,21 @@ import java.util.Collection;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@Table(name = "users")
+public class UserPO {
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private BigInteger id;
 
-    private String name;
-    private String surname;
-    private LocalDate birthday;
-    private boolean employee;
+    @Column(name = "login")
     private String login;
 
-    @OneToMany(mappedBy = "user")
-    private Collection<Ticket> tickets;
+    @Column(name = "is_passenger")
+    private Boolean isPassenger;
+
+    @OneToOne(optional = false)
+    @JoinColumn(name = "id_passenger")
+    private PassengerPO passenger;
 }
