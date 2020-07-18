@@ -1,14 +1,21 @@
 package ru.t_systems.alyona.sbb.dto;
 
 import lombok.Data;
+import ru.t_systems.alyona.sbb.entity.RoutePO;
+import ru.t_systems.alyona.sbb.entity.SegmentPO;
 
 import java.math.BigInteger;
+import java.util.Collection;
 
 @Data
 public class StationDTO {
 
     private BigInteger id;
     private String name;
+    private Collection<RouteDTO> routesFrom;
+    private Collection<RouteDTO> routesTo;
+    private Collection<SegmentDTO> segmentsFromStation;
+    private Collection<SegmentDTO> segmentsToStation;
 
     @Override
     public boolean equals(Object o) {
@@ -16,12 +23,15 @@ public class StationDTO {
         if (o == null || getClass() != o.getClass()) return false;
         StationDTO that = (StationDTO) o;
         return id.equals(that.id) &&
-                name.equals(that.name);
+                name.equals(that.name) && routesFrom.equals(that.routesFrom) &&
+                routesTo.equals(that.routesTo) && segmentsFromStation.equals(that.segmentsFromStation) &&
+                segmentsToStation.equals(that.segmentsToStation);
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
-        return prime * (id.hashCode() + name.hashCode());
+        return prime * (id.hashCode() + name.hashCode() + routesFrom.size() + routesTo.size() +
+                segmentsFromStation.size() + segmentsToStation.size());
     }
 }

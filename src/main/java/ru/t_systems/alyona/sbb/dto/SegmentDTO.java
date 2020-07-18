@@ -1,9 +1,12 @@
 package ru.t_systems.alyona.sbb.dto;
 
 import lombok.Data;
+import ru.t_systems.alyona.sbb.entity.RoutePO;
+import ru.t_systems.alyona.sbb.entity.TicketPO;
 
 import java.math.BigInteger;
 import java.util.Calendar;
+import java.util.Collection;
 
 @Data
 public class SegmentDTO {
@@ -18,6 +21,8 @@ public class SegmentDTO {
     private int price;
     private Boolean cancelled;
     private Boolean delayed;
+    private Collection<TicketDTO> tickets;
+    private Collection<RouteDTO> routes;
 
     @Override
     public boolean equals(Object o) {
@@ -33,7 +38,9 @@ public class SegmentDTO {
                 (ticketsLeft == that.ticketsLeft) &&
                 (price == that.price) &&
                 cancelled.equals(that.cancelled) &&
-                delayed.equals(that.delayed);
+                delayed.equals(that.delayed) &&
+                tickets.equals(that.tickets) &&
+                routes.equals(that.routes);
     }
 
     @Override
@@ -41,6 +48,7 @@ public class SegmentDTO {
         final int prime = 31;
         return prime * (id.hashCode() + from.hashCode() + to.hashCode() +
                 train.hashCode() + departure.hashCode() + arrival.hashCode() +
-                ticketsLeft + price + cancelled.hashCode() + delayed.hashCode());
+                ticketsLeft + price + cancelled.hashCode() + delayed.hashCode() +
+                tickets.size() + routes.size());
     }
 }
