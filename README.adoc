@@ -1,0 +1,24 @@
+= T-Systems Java School project
+
+A system for searching trains and selling tickets on Swiss Federal Railways (SBB) trains.
+
+== Build
+
+Assemble the WAR file:
+
+    mvn clean verify
+
+A `.war` file will be located in the `target/` directory.
+
+== Usage
+
+Dependencies:
+
+* https://tomcat.apache.org/[Apache Tomcat 8]
+* https://www.postgresql.org/download/[PostgreSQL]
+
+Start the application:
+
+. Boot Tomcat.
+. Start PostgreSQL.
+. Deploy the assembled `.war` file to the Tomcat’s `webapps` directory.
