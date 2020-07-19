@@ -1,6 +1,5 @@
 package ru.t_systems.alyona.sbb.config;
 
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.request.RequestContextListener;
@@ -27,7 +26,7 @@ public class ApplicationInitializer implements WebApplicationInitializer {
         dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
         ServletRegistration.Dynamic dynamic = servletContext.addServlet("dispatcher", dispatcherServlet);
         dynamic.addMapping("/");
-        dynamic.setLoadOnStartup(NumberUtils.INTEGER_ONE);
+        dynamic.setLoadOnStartup(1);
     }
 
 }
