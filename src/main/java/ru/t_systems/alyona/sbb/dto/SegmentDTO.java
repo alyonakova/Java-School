@@ -3,7 +3,7 @@ package ru.t_systems.alyona.sbb.dto;
 import lombok.Data;
 
 import java.math.BigInteger;
-import java.util.Calendar;
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -13,8 +13,8 @@ public class SegmentDTO {
     private StationDTO from;
     private StationDTO to;
     private TrainDTO train;
-    private Calendar departure;
-    private Calendar arrival;
+    private Instant departure;
+    private Instant arrival;
     private int ticketsLeft;
     private int price;
     private Boolean cancelled;

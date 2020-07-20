@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigInteger;
-import java.util.Calendar;
+import java.time.Instant;
 import java.util.List;
 
 @Entity
@@ -34,10 +34,10 @@ public class SegmentPO {
     private TrainPO train;
 
     @Column(name = "departure")
-    private Calendar departure;
+    private Instant departure;
 
     @Column(name = "arrival")
-    private Calendar arrival;
+    private Instant arrival;
 
     @Column(name = "tickets_left")
     private int ticketsLeft;
