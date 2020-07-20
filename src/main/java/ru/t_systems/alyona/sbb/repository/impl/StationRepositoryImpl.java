@@ -8,17 +8,7 @@ import javax.persistence.TypedQuery;
 import java.math.BigInteger;
 
 public class StationRepositoryImpl implements StationRepository {
-    //    private final EntityManager entityManager;
 
-    //    public StationRepository() {
-//        entityManager = Persistence
-//                .createEntityManagerFactory("ru.t-systems.alyona.t_systems_sbb")
-//                .createEntityManager();
-//    }
-//
-//    public Optional<StationPO> getById(BigInteger id) {
-//       return Optional.ofNullable(entityManager.find(StationPO.class, id));
-//    }
     private EntityManager em;
 
     public StationRepositoryImpl(EntityManager em) {
