@@ -14,6 +14,7 @@ public class StationDTO {
     private List<RouteDTO> routesTo;
     private List<SegmentDTO> segmentsFromStation;
     private List<SegmentDTO> segmentsToStation;
+    private Integer zoneId;
 
     @Override
     public boolean equals(Object o) {
@@ -23,13 +24,13 @@ public class StationDTO {
         return id.equals(that.id) &&
                 name.equals(that.name) && routesFrom.equals(that.routesFrom) &&
                 routesTo.equals(that.routesTo) && segmentsFromStation.equals(that.segmentsFromStation) &&
-                segmentsToStation.equals(that.segmentsToStation);
+                segmentsToStation.equals(that.segmentsToStation) && (zoneId.equals(that.zoneId));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         return prime * (id.hashCode() + name.hashCode() + routesFrom.size() + routesTo.size() +
-                segmentsFromStation.size() + segmentsToStation.size());
+                segmentsFromStation.size() + segmentsToStation.size() + zoneId.hashCode());
     }
 }

@@ -35,4 +35,7 @@ public class StationPO {
     @OneToMany(mappedBy = "to")
     private List<SegmentPO> segmentsToStation;
 
+    @Column(name = "id_zone")
+    private Integer zoneId;
+
 }
