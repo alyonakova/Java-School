@@ -1,8 +1,8 @@
 package ru.t_systems.alyona.sbb.service;
 
-import ru.t_systems.alyona.sbb.dto.StationDTO;
+import ru.t_systems.alyona.sbb.entity.StationPO;
 
 public interface StationService {
 
-    StationDTO getByName(String name);
+    StationPO getByName(String name);
 }
