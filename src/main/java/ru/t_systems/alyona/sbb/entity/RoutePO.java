@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigInteger;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -32,5 +32,5 @@ public class RoutePO {
     @JoinTable(name = "route_segment",
             joinColumns = @JoinColumn(name = "id_route"),
             inverseJoinColumns = @JoinColumn(name = "id_segment"))
-    private Collection<SegmentPO> segments;
+    private List<SegmentPO> segments;
 }

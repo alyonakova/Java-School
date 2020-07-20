@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigInteger;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -28,6 +28,6 @@ public class TicketPO {
     @JoinTable(name = "ticket_segment",
             joinColumns = @JoinColumn(name = "id_ticket"),
             inverseJoinColumns = @JoinColumn(name = "id_segment"))
-    private Collection<SegmentPO> segments;
+    private List<SegmentPO> segments;
 
 }

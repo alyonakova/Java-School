@@ -1,16 +1,14 @@
 package ru.t_systems.alyona.sbb.dto;
 
 import lombok.Data;
-import ru.t_systems.alyona.sbb.entity.SegmentPO;
-
-import java.util.Collection;
+import java.util.List;
 
 @Data
 public class TrainDTO {
 
     private String id;
     private int seatsCount;
-    private Collection<SegmentDTO> segments;
+    private List<SegmentDTO> segments;
 
     @Override
     public boolean equals(Object o) {

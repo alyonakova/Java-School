@@ -6,7 +6,7 @@ import ru.t_systems.alyona.sbb.entity.UserPO;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.List;
 
 @Data
 public class PassengerDTO {
@@ -16,7 +16,7 @@ public class PassengerDTO {
     private String surname;
     private LocalDate birthday;
     private UserDTO user;
-    private Collection<TicketDTO> tickets;
+    private List<TicketDTO> tickets;
 
     @Override
     public boolean equals(Object o) {

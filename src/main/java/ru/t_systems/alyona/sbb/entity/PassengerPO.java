@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -34,6 +34,6 @@ public class PassengerPO {
     private UserPO user;
 
     @OneToMany(mappedBy = "passenger")
-    private Collection<TicketPO> tickets;
+    private List<TicketPO> tickets;
 
 }

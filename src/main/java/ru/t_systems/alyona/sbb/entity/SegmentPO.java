@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Calendar;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -55,11 +55,11 @@ public class SegmentPO {
     @JoinTable(name = "ticket_segment",
     joinColumns = @JoinColumn(name = "id_segment"),
     inverseJoinColumns = @JoinColumn(name = "id_ticket"))
-    private Collection<TicketPO> tickets;
+    private List<TicketPO> tickets;
 
     @ManyToMany
     @JoinTable(name = "route_segment",
             joinColumns = @JoinColumn(name = "id_segment"),
             inverseJoinColumns = @JoinColumn(name = "id_route"))
-    private Collection<RoutePO> routes;
+    private List<RoutePO> routes;
 }

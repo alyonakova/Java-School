@@ -5,17 +5,17 @@ import ru.t_systems.alyona.sbb.entity.RoutePO;
 import ru.t_systems.alyona.sbb.entity.SegmentPO;
 
 import java.math.BigInteger;
-import java.util.Collection;
+import java.util.List;
 
 @Data
 public class StationDTO {
 
     private BigInteger id;
     private String name;
-    private Collection<RouteDTO> routesFrom;
-    private Collection<RouteDTO> routesTo;
-    private Collection<SegmentDTO> segmentsFromStation;
-    private Collection<SegmentDTO> segmentsToStation;
+    private List<RouteDTO> routesFrom;
+    private List<RouteDTO> routesTo;
+    private List<SegmentDTO> segmentsFromStation;
+    private List<SegmentDTO> segmentsToStation;
 
     @Override
     public boolean equals(Object o) {

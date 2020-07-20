@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigInteger;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,15 +24,15 @@ public class StationPO {
     private String name;
 
     @OneToMany(mappedBy = "from")
-    private Collection<RoutePO> routesFrom;
+    private List<RoutePO> routesFrom;
 
     @OneToMany(mappedBy = "to")
-    private Collection<RoutePO> routesTo;
+    private List<RoutePO> routesTo;
 
     @OneToMany(mappedBy = "from")
-    private Collection<SegmentPO> segmentsFromStation;
+    private List<SegmentPO> segmentsFromStation;
 
     @OneToMany(mappedBy = "to")
-    private Collection<SegmentPO> segmentsToStation;
+    private List<SegmentPO> segmentsToStation;
 
 }

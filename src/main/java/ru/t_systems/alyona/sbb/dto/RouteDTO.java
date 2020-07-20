@@ -3,7 +3,7 @@ package ru.t_systems.alyona.sbb.dto;
 import lombok.Data;
 
 import java.math.BigInteger;
-import java.util.Collection;
+import java.util.List;
 
 @Data
 public class RouteDTO {
@@ -11,7 +11,7 @@ public class RouteDTO {
     private BigInteger id;
     private StationDTO from;
     private StationDTO to;
-    private Collection<SegmentDTO> segments;
+    private List<SegmentDTO> segments;
 
     @Override
     public boolean equals(Object o) {

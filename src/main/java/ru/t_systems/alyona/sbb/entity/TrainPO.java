@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -22,7 +22,7 @@ public class TrainPO {
     private int seatsCount;
 
     @OneToMany(mappedBy = "train")
-    private Collection<SegmentPO> segments;
+    private List<SegmentPO> segments;
 
 
 }

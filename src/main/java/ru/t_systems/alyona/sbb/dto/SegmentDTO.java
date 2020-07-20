@@ -6,7 +6,7 @@ import ru.t_systems.alyona.sbb.entity.TicketPO;
 
 import java.math.BigInteger;
 import java.util.Calendar;
-import java.util.Collection;
+import java.util.List;
 
 @Data
 public class SegmentDTO {
@@ -21,8 +21,8 @@ public class SegmentDTO {
     private int price;
     private Boolean cancelled;
     private Boolean delayed;
-    private Collection<TicketDTO> tickets;
-    private Collection<RouteDTO> routes;
+    private List<TicketDTO> tickets;
+    private List<RouteDTO> routes;
 
     @Override
     public boolean equals(Object o) {
