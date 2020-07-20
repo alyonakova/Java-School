@@ -1,8 +1,6 @@
 package ru.t_systems.alyona.sbb.dto;
 
 import lombok.Data;
-import ru.t_systems.alyona.sbb.entity.RoutePO;
-import ru.t_systems.alyona.sbb.entity.SegmentPO;
 
 import java.math.BigInteger;
 import java.util.List;

@@ -1,8 +1,6 @@
 package ru.t_systems.alyona.sbb.dto;
 
 import lombok.Data;
-import ru.t_systems.alyona.sbb.entity.TicketPO;
-import ru.t_systems.alyona.sbb.entity.UserPO;
 
 import java.math.BigInteger;
 import java.time.LocalDate;

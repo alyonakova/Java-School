@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigInteger;
-import java.time.LocalDate;
-import java.util.Collection;
 
 @Entity
 @Data
