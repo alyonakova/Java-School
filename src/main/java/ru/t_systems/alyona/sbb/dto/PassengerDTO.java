@@ -4,7 +4,6 @@ import lombok.Data;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 public class PassengerDTO {
@@ -13,8 +12,6 @@ public class PassengerDTO {
     private String name;
     private String surname;
     private LocalDate birthday;
-    private UserDTO user;
-    private List<TicketDTO> tickets;
 
     @Override
     public boolean equals(Object o) {
@@ -24,16 +21,13 @@ public class PassengerDTO {
         return id.equals(that.id) &&
                 name.equals(that.name) &&
                 surname.equals(that.surname) &&
-                birthday.equals(that.birthday) &&
-                user.equals(that.user) &&
-                tickets.equals(that.tickets);
+                birthday.equals(that.birthday);
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
-        return prime * (id.hashCode() + name.hashCode() + surname.hashCode() + birthday.hashCode()
-        + user.hashCode() + tickets.size());
+        return prime * (id.hashCode() + name.hashCode() + surname.hashCode() + birthday.hashCode());
     }
 
 }
