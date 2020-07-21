@@ -9,6 +9,7 @@ import ru.t_systems.alyona.sbb.service.SegmentService;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,12 +20,14 @@ public class SegmentServiceImpl implements SegmentService {
     private final RouteServiceImpl routeService;
 
     @Override
-    public List<SegmentDTO> getSegmentsByStationsAndDates(String from, String to,
-                                                          Instant departure, Instant arrival) {
+    public List<List<SegmentDTO>> getSegmentGroupsByStationsAndDates(String from, String to,
+                                                                     Instant departure, Instant arrival) {
         StationPO stationFrom = stationService.getPOByName(from);
         StationPO stationTo = stationService.getPOByName(to);
         RouteDTO route = routeService.getByStations(stationFrom, stationTo);
-        return getSegmentsByRouteAndDatesAndTickets(route, departure, arrival);
+        return getSortedSegmentGroups(
+                getSegmentsByRouteAndDatesAndTickets(route, departure, arrival)
+        );
     }
 
     public List<SegmentDTO> getSegmentsByRouteAndDatesAndTickets(RouteDTO route, Instant departure, Instant arrival) {
@@ -38,5 +41,33 @@ public class SegmentServiceImpl implements SegmentService {
             }
         }
         return result;
+    }
+
+    public List<List<SegmentDTO>> getSortedSegmentGroups(List<SegmentDTO> segments) {
+        //sort list by trains
+        segments.sort(Comparator.comparing(s -> s.getTrain().getId()));
+        //group segments
+        List<List<SegmentDTO>> segmentGroups = separateIntoGroups(segments);
+        //sort every segment by arrival date
+        for (List<SegmentDTO> list : segmentGroups) {
+            list.sort(Comparator.comparing(SegmentDTO::getArrival));
+        }
+        return segmentGroups;
+    }
+
+    public List<List<SegmentDTO>> separateIntoGroups(List<SegmentDTO> segments) {
+        List<List<SegmentDTO>> segmentGroups = new ArrayList<>();
+        List<SegmentDTO> group = new ArrayList<>();
+        String trainName = segments.get(0).getTrain().getId();
+        for (SegmentDTO segment : segments) {
+            if (!segment.getTrain().getId().equals(trainName)) {
+                segmentGroups.add(group);
+                group.clear();
+                trainName = segment.getTrain().getId();
+            }
+            group.add(segment);
+        }
+        segmentGroups.add(group);
+        return segmentGroups;
     }
 }
