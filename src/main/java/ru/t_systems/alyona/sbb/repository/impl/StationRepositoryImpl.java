@@ -1,5 +1,7 @@
 package ru.t_systems.alyona.sbb.repository.impl;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 import ru.t_systems.alyona.sbb.entity.StationPO;
 import ru.t_systems.alyona.sbb.repository.StationRepository;
 
@@ -7,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.math.BigInteger;
 
+@Repository
+@RequiredArgsConstructor
 public class StationRepositoryImpl implements StationRepository {
 
     private EntityManager em;

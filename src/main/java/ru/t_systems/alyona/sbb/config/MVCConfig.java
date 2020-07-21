@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"ru.t_systems.alyona.sbb.controller"})
+@ComponentScan({"ru.t_systems.alyona.sbb"})
 public class MVCConfig implements WebMvcConfigurer {
 
     @Bean

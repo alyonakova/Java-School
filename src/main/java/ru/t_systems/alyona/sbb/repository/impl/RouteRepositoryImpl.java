@@ -1,5 +1,7 @@
 package ru.t_systems.alyona.sbb.repository.impl;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 import ru.t_systems.alyona.sbb.entity.RoutePO;
 import ru.t_systems.alyona.sbb.entity.StationPO;
 import ru.t_systems.alyona.sbb.repository.RouteRepository;
@@ -8,6 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.math.BigInteger;
 
+@Repository
+@RequiredArgsConstructor
 public class RouteRepositoryImpl implements RouteRepository {
 
     private EntityManager em;
