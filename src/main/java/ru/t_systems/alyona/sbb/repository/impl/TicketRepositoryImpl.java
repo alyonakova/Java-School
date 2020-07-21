@@ -6,17 +6,15 @@ import ru.t_systems.alyona.sbb.entity.TicketPO;
 import ru.t_systems.alyona.sbb.repository.TicketRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.math.BigInteger;
 
 @Repository
 @RequiredArgsConstructor
 public class TicketRepositoryImpl implements TicketRepository {
 
-    private EntityManager em;
-
-    public TicketRepositoryImpl(EntityManager em) {
-        this.em = em;
-    }
+    @PersistenceContext
+    private final EntityManager em;
 
     @Override
     public TicketPO getById(BigInteger id) {

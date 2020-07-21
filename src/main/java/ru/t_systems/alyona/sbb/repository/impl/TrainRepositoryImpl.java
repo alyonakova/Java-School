@@ -6,16 +6,14 @@ import ru.t_systems.alyona.sbb.entity.TrainPO;
 import ru.t_systems.alyona.sbb.repository.TrainRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Repository
 @RequiredArgsConstructor
 public class TrainRepositoryImpl implements TrainRepository {
 
-    private EntityManager em;
-
-    public TrainRepositoryImpl(EntityManager em) {
-        this.em = em;
-    }
+    @PersistenceContext
+    private final EntityManager em;
 
     @Override
     public TrainPO getById(String id) {

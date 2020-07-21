@@ -6,6 +6,7 @@ import ru.t_systems.alyona.sbb.entity.StationPO;
 import ru.t_systems.alyona.sbb.repository.StationRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.math.BigInteger;
 
@@ -13,11 +14,8 @@ import java.math.BigInteger;
 @RequiredArgsConstructor
 public class StationRepositoryImpl implements StationRepository {
 
-    private EntityManager em;
-
-    public StationRepositoryImpl(EntityManager em) {
-        this.em = em;
-    }
+    @PersistenceContext
+    private final EntityManager em;
 
     @Override
     public StationPO getById(BigInteger id) {

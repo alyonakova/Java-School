@@ -6,17 +6,15 @@ import ru.t_systems.alyona.sbb.entity.SegmentPO;
 import ru.t_systems.alyona.sbb.repository.SegmentRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.math.BigInteger;
 
 @Repository
 @RequiredArgsConstructor
 public class SegmentRepositoryImpl implements SegmentRepository {
 
-    private EntityManager em;
-
-    public SegmentRepositoryImpl(EntityManager em) {
-        this.em = em;
-    }
+    @PersistenceContext
+    private final EntityManager em;
 
     @Override
     public SegmentPO getById(BigInteger id) {

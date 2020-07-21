@@ -6,17 +6,15 @@ import ru.t_systems.alyona.sbb.entity.UserPO;
 import ru.t_systems.alyona.sbb.repository.UserRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.math.BigInteger;
 
 @Repository
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
 
-    private EntityManager em;
-
-    public UserRepositoryImpl(EntityManager em) {
-        this.em = em;
-    }
+    @PersistenceContext
+    private final EntityManager em;
 
     @Override
     public UserPO getById(BigInteger id) {

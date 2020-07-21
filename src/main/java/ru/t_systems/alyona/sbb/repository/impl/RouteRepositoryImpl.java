@@ -7,6 +7,7 @@ import ru.t_systems.alyona.sbb.entity.StationPO;
 import ru.t_systems.alyona.sbb.repository.RouteRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.math.BigInteger;
 
@@ -14,11 +15,8 @@ import java.math.BigInteger;
 @RequiredArgsConstructor
 public class RouteRepositoryImpl implements RouteRepository {
 
-    private EntityManager em;
-
-    public RouteRepositoryImpl(EntityManager em) {
-        this.em = em;
-    }
+    @PersistenceContext
+    private final EntityManager em;
 
     @Override
     public RoutePO getById(BigInteger id) {
