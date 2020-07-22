@@ -12,7 +12,7 @@ import java.math.BigInteger;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
-public class UserPO {
+public class UserEntity {
 
     @Id
     @GeneratedValue
@@ -27,5 +27,5 @@ public class UserPO {
 
     @OneToOne(optional = false)
     @JoinColumn(name = "id_passenger")
-    private PassengerPO passenger;
+    private PassengerEntity passenger;
 }

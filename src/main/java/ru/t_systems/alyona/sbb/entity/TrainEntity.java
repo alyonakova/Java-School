@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "train")
-public class TrainPO {
+public class TrainEntity {
 
     @Id
     @Column(name = "id")
@@ -22,7 +22,7 @@ public class TrainPO {
     private int seatsCount;
 
     @OneToMany(mappedBy = "train")
-    private List<SegmentPO> segments;
+    private List<SegmentEntity> segments;
 
 
 }

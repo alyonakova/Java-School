@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.t_systems.alyona.sbb.dto.RouteDTO;
 import ru.t_systems.alyona.sbb.dto.SegmentDTO;
-import ru.t_systems.alyona.sbb.entity.StationPO;
+import ru.t_systems.alyona.sbb.entity.StationEntity;
 import ru.t_systems.alyona.sbb.service.SegmentService;
 
 import java.time.Instant;
@@ -22,8 +22,8 @@ public class SegmentServiceImpl implements SegmentService {
     @Override
     public List<List<SegmentDTO>> getSegmentGroupsByStationsAndDates(String from, String to,
                                                                      Instant departure, Instant arrival) {
-        StationPO stationFrom = stationService.getPOByName(from);
-        StationPO stationTo = stationService.getPOByName(to);
+        StationEntity stationFrom = stationService.getEntityByName(from);
+        StationEntity stationTo = stationService.getEntityByName(to);
         RouteDTO route = routeService.getByStations(stationFrom, stationTo);
         return getSortedSegmentGroups(
                 getSegmentsByRouteAndDatesAndTickets(route, departure, arrival)

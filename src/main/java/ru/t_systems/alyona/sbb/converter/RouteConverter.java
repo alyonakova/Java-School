@@ -3,7 +3,7 @@ package ru.t_systems.alyona.sbb.converter;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 import ru.t_systems.alyona.sbb.dto.RouteDTO;
-import ru.t_systems.alyona.sbb.entity.RoutePO;
+import ru.t_systems.alyona.sbb.entity.RouteEntity;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import java.util.List;
 @Component
 public interface RouteConverter {
 
-    RoutePO routeToPO(RouteDTO routeDTO);
-    RouteDTO routeToDTO(RoutePO routePO);
-    List<RouteDTO> routeListToDTOList(List<RoutePO> routeListPO);
-    List<RoutePO> routeListToPOList(List<RouteDTO> routeListDTO);
+    RouteEntity routeToEntity(RouteDTO routeDTO);
+    RouteDTO routeToDTO(RouteEntity routeEntity);
+    List<RouteDTO> routeListToDTOList(List<RouteEntity> routeListEntities);
+    List<RouteEntity> routeListToEntityList(List<RouteDTO> routeListDTO);
 
 }

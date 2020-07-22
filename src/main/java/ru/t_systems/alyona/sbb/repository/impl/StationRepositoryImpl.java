@@ -2,7 +2,7 @@ package ru.t_systems.alyona.sbb.repository.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import ru.t_systems.alyona.sbb.entity.StationPO;
+import ru.t_systems.alyona.sbb.entity.StationEntity;
 import ru.t_systems.alyona.sbb.repository.StationRepository;
 
 import javax.persistence.EntityManager;
@@ -18,13 +18,13 @@ public class StationRepositoryImpl implements StationRepository {
     private final EntityManager em;
 
     @Override
-    public StationPO getById(BigInteger id) {
-        return em.find(StationPO.class, id);
+    public StationEntity getById(BigInteger id) {
+        return em.find(StationEntity.class, id);
     }
 
     @Override
-    public StationPO getByName(String name) {
-        TypedQuery<StationPO> query = em.createQuery("SELECT s FROM StationPO s WHERE s.name = :name", StationPO.class);
+    public StationEntity getByName(String name) {
+        TypedQuery<StationEntity> query = em.createQuery("SELECT s FROM StationEntity s WHERE s.name = :name", StationEntity.class);
         query.setParameter("name", name);
         return query.getSingleResult();
     }

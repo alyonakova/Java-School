@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "segment")
-public class SegmentPO {
+public class SegmentEntity {
 
     @Id
     @GeneratedValue
@@ -23,15 +23,15 @@ public class SegmentPO {
 
     @ManyToOne
     @JoinColumn(name = "id_station_from")
-    private StationPO from;
+    private StationEntity from;
 
     @ManyToOne
     @JoinColumn(name = "id_station_to")
-    private StationPO to;
+    private StationEntity to;
 
     @ManyToOne
     @JoinColumn(name = "id_train")
-    private TrainPO train;
+    private TrainEntity train;
 
     @Column(name = "departure")
     private Instant departure;
@@ -55,11 +55,11 @@ public class SegmentPO {
     @JoinTable(name = "ticket_segment",
     joinColumns = @JoinColumn(name = "id_segment"),
     inverseJoinColumns = @JoinColumn(name = "id_ticket"))
-    private List<TicketPO> tickets;
+    private List<TicketEntity> tickets;
 
     @ManyToMany
     @JoinTable(name = "route_segment",
             joinColumns = @JoinColumn(name = "id_segment"),
             inverseJoinColumns = @JoinColumn(name = "id_route"))
-    private List<RoutePO> routes;
+    private List<RouteEntity> routes;
 }

@@ -10,10 +10,10 @@ import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "route")
-public class RoutePO {
+@NoArgsConstructor
+@Table(name = "ticket")
+public class TicketEntity {
 
     @Id
     @GeneratedValue
@@ -21,16 +21,13 @@ public class RoutePO {
     private BigInteger id;
 
     @ManyToOne
-    @JoinColumn(name = "id_station_from")
-    private StationPO from;
-
-    @ManyToOne
-    @JoinColumn(name = "id_station_to")
-    private StationPO to;
+    @JoinColumn(name = "id_passenger")
+    private PassengerEntity passenger;
 
     @ManyToMany
-    @JoinTable(name = "route_segment",
-            joinColumns = @JoinColumn(name = "id_route"),
+    @JoinTable(name = "ticket_segment",
+            joinColumns = @JoinColumn(name = "id_ticket"),
             inverseJoinColumns = @JoinColumn(name = "id_segment"))
-    private List<SegmentPO> segments;
+    private List<SegmentEntity> segments;
+
 }

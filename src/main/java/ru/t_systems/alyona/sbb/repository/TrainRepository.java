@@ -1,10 +1,10 @@
 package ru.t_systems.alyona.sbb.repository;
 
 import org.springframework.stereotype.Repository;
-import ru.t_systems.alyona.sbb.entity.TrainPO;
+import ru.t_systems.alyona.sbb.entity.TrainEntity;
 
 @Repository
 public interface TrainRepository {
 
-    TrainPO getById(String id);
+    TrainEntity getById(String id);
 }

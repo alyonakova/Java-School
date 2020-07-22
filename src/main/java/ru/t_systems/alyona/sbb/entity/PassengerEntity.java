@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "passenger")
-public class PassengerPO {
+public class PassengerEntity {
 
     @Id
     @GeneratedValue
@@ -31,9 +31,9 @@ public class PassengerPO {
     private LocalDate birthday;
 
     @OneToOne(mappedBy = "passenger")
-    private UserPO user;
+    private UserEntity user;
 
     @OneToMany(mappedBy = "passenger")
-    private List<TicketPO> tickets;
+    private List<TicketEntity> tickets;
 
 }

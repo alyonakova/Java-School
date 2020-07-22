@@ -3,7 +3,7 @@ package ru.t_systems.alyona.sbb.converter;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 import ru.t_systems.alyona.sbb.dto.SegmentDTO;
-import ru.t_systems.alyona.sbb.entity.SegmentPO;
+import ru.t_systems.alyona.sbb.entity.SegmentEntity;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import java.util.List;
 @Component
 public interface SegmentConverter {
 
-    SegmentPO segmentToPO(SegmentDTO segmentDTO);
-    SegmentDTO segmentToDTO(SegmentPO segmentPO);
-    List<SegmentDTO> segmentListToDTOList(List<SegmentPO> segmentListPO);
-    List<SegmentPO> segmentListToPOList(List<SegmentDTO> segmentListDTO);
+    SegmentEntity segmentToEntity(SegmentDTO segmentDTO);
+    SegmentDTO segmentToDTO(SegmentEntity segmentEntity);
+    List<SegmentDTO> segmentListToDTOList(List<SegmentEntity> segmentListEntities);
+    List<SegmentEntity> segmentListToEntityList(List<SegmentDTO> segmentListDTO);
 
 }

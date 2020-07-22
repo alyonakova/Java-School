@@ -3,7 +3,7 @@ package ru.t_systems.alyona.sbb.converter;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 import ru.t_systems.alyona.sbb.dto.TrainDTO;
-import ru.t_systems.alyona.sbb.entity.TrainPO;
+import ru.t_systems.alyona.sbb.entity.TrainEntity;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import java.util.List;
 @Component
 public interface TrainConverter {
 
-    TrainPO trainToPO(TrainDTO trainDTO);
-    TrainDTO trainToDTO(TrainPO trainPO);
-    List<TrainDTO> trainListToDTOList(List<TrainPO> trainListPO);
-    List<TrainPO> trainListToPOList(List<TrainDTO> trainListDTO);
+    TrainEntity trainToEntity(TrainDTO trainDTO);
+    TrainDTO trainToDTO(TrainEntity trainEntity);
+    List<TrainDTO> trainListToDTOList(List<TrainEntity> trainListEntities);
+    List<TrainEntity> trainListToEntityList(List<TrainDTO> trainListDTO);
 
 }

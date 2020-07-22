@@ -2,7 +2,7 @@ package ru.t_systems.alyona.sbb.repository.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import ru.t_systems.alyona.sbb.entity.UserPO;
+import ru.t_systems.alyona.sbb.entity.UserEntity;
 import ru.t_systems.alyona.sbb.repository.UserRepository;
 
 import javax.persistence.EntityManager;
@@ -17,7 +17,7 @@ public class UserRepositoryImpl implements UserRepository {
     private final EntityManager em;
 
     @Override
-    public UserPO getById(BigInteger id) {
-        return em.find(UserPO.class, id);
+    public UserEntity getById(BigInteger id) {
+        return em.find(UserEntity.class, id);
     }
 }

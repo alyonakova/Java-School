@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "station")
-public class StationPO {
+public class StationEntity {
 
     @Id
     @GeneratedValue
@@ -24,16 +24,16 @@ public class StationPO {
     private String name;
 
     @OneToMany(mappedBy = "from")
-    private List<RoutePO> routesFrom;
+    private List<RouteEntity> routesFrom;
 
     @OneToMany(mappedBy = "to")
-    private List<RoutePO> routesTo;
+    private List<RouteEntity> routesTo;
 
     @OneToMany(mappedBy = "from")
-    private List<SegmentPO> segmentsFromStation;
+    private List<SegmentEntity> segmentsFromStation;
 
     @OneToMany(mappedBy = "to")
-    private List<SegmentPO> segmentsToStation;
+    private List<SegmentEntity> segmentsToStation;
 
     @Column(name = "id_zone")
     private Integer zoneId;

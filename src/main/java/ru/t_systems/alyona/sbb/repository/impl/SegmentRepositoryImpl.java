@@ -2,7 +2,7 @@ package ru.t_systems.alyona.sbb.repository.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import ru.t_systems.alyona.sbb.entity.SegmentPO;
+import ru.t_systems.alyona.sbb.entity.SegmentEntity;
 import ru.t_systems.alyona.sbb.repository.SegmentRepository;
 
 import javax.persistence.EntityManager;
@@ -17,8 +17,8 @@ public class SegmentRepositoryImpl implements SegmentRepository {
     private final EntityManager em;
 
     @Override
-    public SegmentPO getById(BigInteger id) {
-        return em.find(SegmentPO.class, id);
+    public SegmentEntity getById(BigInteger id) {
+        return em.find(SegmentEntity.class, id);
     }
 
 }

@@ -2,8 +2,8 @@ package ru.t_systems.alyona.sbb.repository.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import ru.t_systems.alyona.sbb.entity.RoutePO;
-import ru.t_systems.alyona.sbb.entity.StationPO;
+import ru.t_systems.alyona.sbb.entity.RouteEntity;
+import ru.t_systems.alyona.sbb.entity.StationEntity;
 import ru.t_systems.alyona.sbb.repository.RouteRepository;
 
 import javax.persistence.EntityManager;
@@ -19,14 +19,14 @@ public class RouteRepositoryImpl implements RouteRepository {
     private final EntityManager em;
 
     @Override
-    public RoutePO getById(BigInteger id) {
-        return em.find(RoutePO.class, id);
+    public RouteEntity getById(BigInteger id) {
+        return em.find(RouteEntity.class, id);
     }
 
     @Override
-    public RoutePO getByFromAndTo(StationPO from, StationPO to) {
-        TypedQuery<RoutePO> query = em.createQuery("SELECT r FROM RoutePO r WHERE r.from = :from " +
-                "AND r.to = :to", RoutePO.class);
+    public RouteEntity getByFromAndTo(StationEntity from, StationEntity to) {
+        TypedQuery<RouteEntity> query = em.createQuery("SELECT r FROM RouteEntity r WHERE r.from = :from " +
+                "AND r.to = :to", RouteEntity.class);
         query.setParameter("from", from);
         query.setParameter("to", to);
         return query.getSingleResult();

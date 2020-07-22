@@ -3,7 +3,7 @@ package ru.t_systems.alyona.sbb.converter;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 import ru.t_systems.alyona.sbb.dto.StationDTO;
-import ru.t_systems.alyona.sbb.entity.StationPO;
+import ru.t_systems.alyona.sbb.entity.StationEntity;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import java.util.List;
 @Component
 public interface StationConverter {
 
-    StationPO stationToPO(StationDTO stationDTO);
-    StationDTO stationToDTO(StationPO stationPO);
-    List<StationDTO> stationListToDTOList(List<StationPO> stationListPO);
-    List<StationPO> stationListToPOList(List<StationDTO> stationListDTO);
+    StationEntity stationToEntity(StationDTO stationDTO);
+    StationDTO stationToDTO(StationEntity stationEntity);
+    List<StationDTO> stationListToDTOList(List<StationEntity> stationListEntities);
+    List<StationEntity> stationListToEntityList(List<StationDTO> stationListDTO);
 
 }

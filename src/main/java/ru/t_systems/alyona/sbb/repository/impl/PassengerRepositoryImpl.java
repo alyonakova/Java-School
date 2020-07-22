@@ -2,7 +2,7 @@ package ru.t_systems.alyona.sbb.repository.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import ru.t_systems.alyona.sbb.entity.PassengerPO;
+import ru.t_systems.alyona.sbb.entity.PassengerEntity;
 import ru.t_systems.alyona.sbb.repository.PassengerRepository;
 
 import javax.persistence.EntityManager;
@@ -17,7 +17,7 @@ public class PassengerRepositoryImpl implements PassengerRepository {
     private final EntityManager em;
 
     @Override
-    public PassengerPO getById(BigInteger id) {
-        return em.find(PassengerPO.class, id);
+    public PassengerEntity getById(BigInteger id) {
+        return em.find(PassengerEntity.class, id);
     }
 }

@@ -2,7 +2,7 @@ package ru.t_systems.alyona.sbb.repository.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import ru.t_systems.alyona.sbb.entity.TicketPO;
+import ru.t_systems.alyona.sbb.entity.TicketEntity;
 import ru.t_systems.alyona.sbb.repository.TicketRepository;
 
 import javax.persistence.EntityManager;
@@ -17,7 +17,7 @@ public class TicketRepositoryImpl implements TicketRepository {
     private final EntityManager em;
 
     @Override
-    public TicketPO getById(BigInteger id) {
-        return em.find(TicketPO.class, id);
+    public TicketEntity getById(BigInteger id) {
+        return em.find(TicketEntity.class, id);
     }
 }

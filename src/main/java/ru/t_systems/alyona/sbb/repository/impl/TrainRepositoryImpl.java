@@ -2,7 +2,7 @@ package ru.t_systems.alyona.sbb.repository.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import ru.t_systems.alyona.sbb.entity.TrainPO;
+import ru.t_systems.alyona.sbb.entity.TrainEntity;
 import ru.t_systems.alyona.sbb.repository.TrainRepository;
 
 import javax.persistence.EntityManager;
@@ -16,7 +16,7 @@ public class TrainRepositoryImpl implements TrainRepository {
     private final EntityManager em;
 
     @Override
-    public TrainPO getById(String id) {
-        return em.find(TrainPO.class, id);
+    public TrainEntity getById(String id) {
+        return em.find(TrainEntity.class, id);
     }
 }

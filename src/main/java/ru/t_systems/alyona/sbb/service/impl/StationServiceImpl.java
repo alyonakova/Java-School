@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.t_systems.alyona.sbb.converter.StationConverter;
 import ru.t_systems.alyona.sbb.dto.StationDTO;
-import ru.t_systems.alyona.sbb.entity.StationPO;
+import ru.t_systems.alyona.sbb.entity.StationEntity;
 import ru.t_systems.alyona.sbb.repository.StationRepository;
 import ru.t_systems.alyona.sbb.service.StationService;
 
@@ -16,7 +16,7 @@ public class StationServiceImpl implements StationService {
     private final StationRepository stationRepository;
 
     @Override
-    public StationPO getPOByName(String name) {
+    public StationEntity getEntityByName(String name) {
         return stationRepository.getByName(name);
     }
 

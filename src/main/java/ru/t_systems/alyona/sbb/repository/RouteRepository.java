@@ -1,15 +1,15 @@
 package ru.t_systems.alyona.sbb.repository;
 
 import org.springframework.stereotype.Repository;
-import ru.t_systems.alyona.sbb.entity.RoutePO;
-import ru.t_systems.alyona.sbb.entity.StationPO;
+import ru.t_systems.alyona.sbb.entity.RouteEntity;
+import ru.t_systems.alyona.sbb.entity.StationEntity;
 
 import java.math.BigInteger;
 
 @Repository
 public interface RouteRepository {
 
-    RoutePO getById(BigInteger id);
-    RoutePO getByFromAndTo(StationPO from, StationPO to);
+    RouteEntity getById(BigInteger id);
+    RouteEntity getByFromAndTo(StationEntity from, StationEntity to);
 
 }
