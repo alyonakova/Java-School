@@ -61,7 +61,8 @@ public class SegmentServiceImpl implements SegmentService {
         String trainName = segments.get(0).getTrain().getId();
         for (SegmentDTO segment : segments) {
             if (!segment.getTrain().getId().equals(trainName)) {
-                segmentGroups.add(group);
+                List<SegmentDTO> oldGroup = new ArrayList<>(group);
+                segmentGroups.add(oldGroup);
                 group.clear();
                 trainName = segment.getTrain().getId();
             }
