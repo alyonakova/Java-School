@@ -13,21 +13,4 @@ public class RouteDTO {
     private StationDTO to;
     private List<SegmentDTO> segments;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RouteDTO that = (RouteDTO) o;
-        return id.equals(that.id) &&
-                from.equals(that.from) &&
-                to.equals(that.to) &&
-                segments.equals(that.segments);
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        return prime * (id.hashCode() + from.hashCode() + to.hashCode() + segments.size());
-    }
-
 }

@@ -13,21 +13,4 @@ public class PassengerDTO {
     private String surname;
     private LocalDate birthday;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PassengerDTO that = (PassengerDTO) o;
-        return id.equals(that.id) &&
-                name.equals(that.name) &&
-                surname.equals(that.surname) &&
-                birthday.equals(that.birthday);
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        return prime * (id.hashCode() + name.hashCode() + surname.hashCode() + birthday.hashCode());
-    }
-
 }
