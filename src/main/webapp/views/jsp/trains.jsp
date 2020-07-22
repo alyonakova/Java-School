@@ -89,6 +89,8 @@
             <br>
         </c:forEach>
         <h3>Tickets available: <%= tickets %>, total price: <%= price %>₣</h3>
+        <%tickets = Integer.MAX_VALUE;
+          price = 0;%>
         <p><a class="btn btn-lg btn-success find-button mx-auto" href="#" role="button">Buy ticket</a></p>
     </c:forEach>
 
