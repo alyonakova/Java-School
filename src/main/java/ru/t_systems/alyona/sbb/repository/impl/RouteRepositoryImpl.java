@@ -25,8 +25,6 @@ public class RouteRepositoryImpl implements RouteRepository {
 
     @Override
     public RoutePO getByFromAndTo(StationPO from, StationPO to) {
-        BigInteger idFrom = from.getId();
-        BigInteger idTo = to.getId();
         TypedQuery<RoutePO> query = em.createQuery("SELECT r FROM RoutePO r WHERE r.from = :from " +
                 "AND r.to = :to", RoutePO.class);
         query.setParameter("from", from);

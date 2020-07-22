@@ -15,7 +15,6 @@ import java.time.Instant;
 @RequiredArgsConstructor
 public class TrainController {
 
-    private final StationService stationService;
     private final SegmentService segmentService;
 
     @GetMapping(value = "/trains")
