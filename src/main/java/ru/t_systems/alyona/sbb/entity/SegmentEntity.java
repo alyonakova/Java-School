@@ -51,6 +51,9 @@ public class SegmentEntity {
     @Column(name = "delayed")
     private Boolean delayed;
 
+    @Column(name = "base_route_id")
+    private Integer baseRouteId;
+
     @ManyToMany
     @JoinTable(name = "ticket_segment",
     joinColumns = @JoinColumn(name = "id_segment"),
