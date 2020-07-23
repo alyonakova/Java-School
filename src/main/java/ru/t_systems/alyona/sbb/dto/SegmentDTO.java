@@ -18,6 +18,5 @@ public class SegmentDTO {
     private int price;
     private Boolean cancelled;
     private Boolean delayed;
-    private Integer baseRouteId;
 
 }
