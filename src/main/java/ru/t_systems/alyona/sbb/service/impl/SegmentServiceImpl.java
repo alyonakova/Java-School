@@ -2,9 +2,11 @@ package ru.t_systems.alyona.sbb.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.t_systems.alyona.sbb.converter.SegmentConverter;
 import ru.t_systems.alyona.sbb.dto.RouteDTO;
 import ru.t_systems.alyona.sbb.dto.SegmentDTO;
 import ru.t_systems.alyona.sbb.entity.StationEntity;
+import ru.t_systems.alyona.sbb.repository.SegmentRepository;
 import ru.t_systems.alyona.sbb.service.SegmentService;
 
 import java.time.Instant;
@@ -18,6 +20,8 @@ public class SegmentServiceImpl implements SegmentService {
 
     private final StationServiceImpl stationService;
     private final RouteServiceImpl routeService;
+    private final SegmentRepository segmentRepository;
+    private final SegmentConverter segmentConverter;
 
     @Override
     public List<List<SegmentDTO>> getSegmentGroupsByStationsAndDates(String from, String to,
@@ -28,6 +32,11 @@ public class SegmentServiceImpl implements SegmentService {
         return getSortedSegmentGroups(
                 getSegmentsByRouteAndDatesAndTickets(route, departure, arrival)
         );
+    }
+
+    @Override
+    public List<SegmentDTO> getAllSegments() {
+        return segmentConverter.segmentListToDTOList(segmentRepository.getAll());
     }
 
     public List<SegmentDTO> getSegmentsByRouteAndDatesAndTickets(RouteDTO route, Instant departure, Instant arrival) {

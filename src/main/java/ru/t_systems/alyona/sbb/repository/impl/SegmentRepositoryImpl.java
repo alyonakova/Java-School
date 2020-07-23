@@ -8,6 +8,7 @@ import ru.t_systems.alyona.sbb.repository.SegmentRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigInteger;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -19,6 +20,14 @@ public class SegmentRepositoryImpl implements SegmentRepository {
     @Override
     public SegmentEntity getById(BigInteger id) {
         return em.find(SegmentEntity.class, id);
+    }
+
+    @Override
+    public List<SegmentEntity> getAll() {
+        List<SegmentEntity> allSegments = em.createQuery(
+                "SELECT s FROM SegmentEntity s", SegmentEntity.class
+        ).getResultList();
+        return allSegments;
     }
 
 }

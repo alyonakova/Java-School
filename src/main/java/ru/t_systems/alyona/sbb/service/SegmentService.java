@@ -10,4 +10,5 @@ import java.util.List;
 public interface SegmentService {
 
     List<List<SegmentDTO>> getSegmentGroupsByStationsAndDates(String from, String to, Instant departure, Instant arrival);
+    List<SegmentDTO> getAllSegments();
 }
