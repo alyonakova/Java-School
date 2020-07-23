@@ -8,6 +8,7 @@ import ru.t_systems.alyona.sbb.repository.PassengerRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigInteger;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -19,5 +20,13 @@ public class PassengerRepositoryImpl implements PassengerRepository {
     @Override
     public PassengerEntity getById(BigInteger id) {
         return em.find(PassengerEntity.class, id);
+    }
+
+    @Override
+    public List<PassengerEntity> getAll() {
+        List<PassengerEntity> allPassengers = em.createQuery(
+                "SELECT p FROM PassengerEntity p", PassengerEntity.class
+        ).getResultList();
+        return allPassengers;
     }
 }
