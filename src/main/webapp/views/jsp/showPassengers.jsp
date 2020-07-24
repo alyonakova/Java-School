@@ -59,11 +59,16 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/timetable">Timetable</a>
+                </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/timetable">Timetable<span class="sr-only">(current)</span></a
-                    >
+                    <a class="nav-link" href="/passengers">Passengers<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
+            <a href="#">
+                <img src="../resources/images/account.png" class="account_logo">
+            </a>
             <form class="form-inline mt-2 mt-md-0">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</button>
             </form>
