@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -61,14 +64,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/timetable">Timetable</a>
                 </li>
-                <!--
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-                -->
             </ul>
             <form class="form-inline mt-2 mt-md-0">
-                <!--                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign in</button>
             </form>
         </div>
@@ -80,37 +77,37 @@
     <div class="mx-auto p-lg-5 bg-light">
         <h1 style="text-align: center">Start your trip with SBB!</h1>
         <div class="container">
-            <form action="#" class="needs-validation">
+            <form:form method="post"
+                       modelAttribute="findTrainFormDTO"
+            onsubmit="return '/'">
                 <div class="row">
                     <div class="col-md-6">
                         <label>
                             From
                         </label>
-                        <input type="text" class="form-control" placeholder="Station">
+                        <form:input path="firstStationName" type="text" class="form-control" placeholder="Station"/>
                     </div>
                     <div class="col-md-6">
                         <label>
                             To
                         </label>
-                        <input type="text" class="form-control" placeholder="Station">
+                        <form:input path="secondStationName" type="text" class="form-control" placeholder="Station"/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <label></label>
-                        <input type="datetime-local" class="form-control">
+                        <form:input path="firstDate" type="datetime-local" class="form-control"/>
                     </div>
                     <div class="col-md-6">
                         <label></label>
-                        <input type="datetime-local" class="form-control">
+                        <form:input path="secondDate" type="datetime-local" class="form-control"/>
                     </div>
                 </div>
-            </form>
-            <p><a class="btn btn-lg btn-success find-button mx-auto" href="#" role="button">Find trains</a></p>
+                <p><button class="btn btn-lg btn-success find-button mx-auto" type="submit">Find trains</button></p>
+            </form:form>
         </div>
     </div>
-
-
 
     <!-- Marketing messaging and featurettes
     ================================================== -->
@@ -143,7 +140,6 @@
         <hr class="featurette-divider">
 
     </div><!-- /.container -->
-
 
     <!-- FOOTER -->
     <footer class="container">

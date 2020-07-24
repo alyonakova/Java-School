@@ -3,9 +3,11 @@ package ru.t_systems.alyona.sbb.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.t_systems.alyona.sbb.converter.ZoneIdConverter;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.time.ZoneId;
 import java.util.List;
 
 @Entity
@@ -36,6 +38,7 @@ public class StationEntity {
     private List<SegmentEntity> segmentsToStation;
 
     @Column(name = "id_zone")
-    private Integer zoneId;
+    @Convert(converter = ZoneIdConverter.class)
+    private ZoneId zoneId;
 
 }

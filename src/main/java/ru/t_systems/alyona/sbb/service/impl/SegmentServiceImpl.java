@@ -10,6 +10,7 @@ import ru.t_systems.alyona.sbb.repository.SegmentRepository;
 import ru.t_systems.alyona.sbb.service.SegmentService;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -24,13 +25,16 @@ public class SegmentServiceImpl implements SegmentService {
     private final SegmentConverter segmentConverter;
 
     @Override
-    public List<List<SegmentDTO>> getSegmentGroupsByStationsAndDates(String from, String to,
-                                                                     Instant departure, Instant arrival) {
-        StationEntity stationFrom = stationService.getEntityByName(from);
-        StationEntity stationTo = stationService.getEntityByName(to);
-        RouteDTO route = routeService.getByStations(stationFrom, stationTo);
+    public List<List<SegmentDTO>> getSegmentGroupsByStationsAndDates(String departureStationName, String arrivalStationName,
+                                                                     LocalDateTime departureTime, LocalDateTime arrivalTime)
+    {
+        StationEntity departureStation = stationService.getEntityByName(departureStationName);
+        StationEntity arrivalStation = stationService.getEntityByName(arrivalStationName);
+        RouteDTO route = routeService.getByStations(departureStation, arrivalStation);
         return getSortedSegmentGroups(
-                getSegmentsByRouteAndDatesAndTickets(route, departure, arrival)
+                getSegmentsByRouteAndDatesAndTickets(route,
+                        departureTime.atZone(departureStation.getZoneId()).toInstant(),
+                        arrivalTime.atZone(arrivalStation.getZoneId()).toInstant())
         );
     }
 
@@ -39,7 +43,7 @@ public class SegmentServiceImpl implements SegmentService {
         return segmentConverter.segmentListToDTOList(segmentRepository.getAll());
     }
 
-    public List<SegmentDTO> getSegmentsByRouteAndDatesAndTickets(RouteDTO route, Instant departure, Instant arrival) {
+    private List<SegmentDTO> getSegmentsByRouteAndDatesAndTickets(RouteDTO route, Instant departure, Instant arrival) {
         List<SegmentDTO> result = new ArrayList<>();
         List<SegmentDTO> allSegments = route.getSegments();
         for (SegmentDTO segment : allSegments) {
@@ -52,7 +56,7 @@ public class SegmentServiceImpl implements SegmentService {
         return result;
     }
 
-    public List<List<SegmentDTO>> getSortedSegmentGroups(List<SegmentDTO> segments) {
+    private List<List<SegmentDTO>> getSortedSegmentGroups(List<SegmentDTO> segments) {
         //sort list by trains
         segments.sort(Comparator.comparing(s -> s.getTrain().getId()));
         //group segments
@@ -64,7 +68,7 @@ public class SegmentServiceImpl implements SegmentService {
         return segmentGroups;
     }
 
-    public List<List<SegmentDTO>> separateIntoGroups(List<SegmentDTO> segments) {
+    private List<List<SegmentDTO>> separateIntoGroups(List<SegmentDTO> segments) {
         List<List<SegmentDTO>> segmentGroups = new ArrayList<>();
         List<SegmentDTO> group = new ArrayList<>();
         String trainName = segments.get(0).getTrain().getId();
