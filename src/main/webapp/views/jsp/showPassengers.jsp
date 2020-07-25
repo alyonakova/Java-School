@@ -86,6 +86,8 @@
     <table class="table">
         <thead class="thead-light">
         <tr>
+            <th scope="col">Train</th>
+            <th scope="col">Passenger id</th>
             <th scope="col">Name</th>
             <th scope="col">Surname</th>
             <th scope="col">Birthday</th>
@@ -94,9 +96,11 @@
         <tbody>
         <c:forEach var="passenger" items="${allPassengers}">
             <tr>
-                <td>${passenger.name}</td>
-                <td>${passenger.surname}</td>
-                <td>${passenger.birthday}</td>
+                <td>${passenger.train.id}</td>
+                <td>${passenger.passenger.id}</td>
+                <td>${passenger.passenger.name}</td>
+                <td>${passenger.passenger.surname}</td>
+                <td>${passenger.passenger.birthday}</td>
             </tr>
         </c:forEach>
         </tbody>

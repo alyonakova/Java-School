@@ -16,7 +16,7 @@ public class PassengerController {
 
     @GetMapping(value = "/passengers")
     public String home(Model model) {
-        model.addAttribute("allPassengers", passengerService.getAllPassengers());
+        model.addAttribute("allPassengers", passengerService.getPassengersWithTrains());
         return "showPassengers";
     }
 }
