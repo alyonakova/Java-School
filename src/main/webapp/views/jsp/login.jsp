@@ -1,16 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.0.1">
-    <title>SBB: main page</title>
-
+    <title>Sign in</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/carousel/">
 
     <!-- Bootstrap core CSS -->
@@ -58,88 +54,52 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/timetable">Timetable</a>
+                    <a class="nav-link" href="/timetable">Timetable</a
+                    >
                 </li>
             </ul>
-            <form class="form-inline mt-2 mt-md-0" method="get" action="/sign_in">
+            <form class="form-inline mt-2 mt-md-0">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign in</button>
             </form>
         </div>
     </nav>
 </header>
-
 <main role="main">
 
-    <div class="mx-auto p-lg-5 bg-light">
-        <h1 style="text-align: center">Start your trip with SBB!</h1>
-        <div class="container">
-            <form:form method="post"
-                       modelAttribute="findTrainFormDTO"
-            onsubmit="return '/'">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>
-                            From
-                        </label>
-                        <form:input path="firstStationName" type="text" class="form-control" placeholder="Station"/>
-                    </div>
-                    <div class="col-md-6">
-                        <label>
-                            To
-                        </label>
-                        <form:input path="secondStationName" type="text" class="form-control" placeholder="Station"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label></label>
-                        <form:input path="firstDate" type="datetime-local" class="form-control"/>
-                    </div>
-                    <div class="col-md-6">
-                        <label></label>
-                        <form:input path="secondDate" type="datetime-local" class="form-control"/>
-                    </div>
-                </div>
-                <p><button class="btn btn-lg btn-success find-button mx-auto" type="submit">Find trains</button></p>
-            </form:form>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h4>Sign in</h4>
+                <form>
+                    <label> Login
+                        <input type="text" class="form-control" placeholder="Enter your login"/></label>
+                    <label> Password
+                        <input type="password" class="form-control"/></label>
+                    <p><button class="btn btn-lg btn-success find-button mx-auto" type="submit">Sign in</button></p>
+                </form>
+            </div>
+            <div class="col">
+                <h4>Do not have an account? Create it!</h4>
+                <form>
+                    <label> Login
+                        <input type="text" class="form-control" placeholder="Enter your login"/></label>
+                    <label> Name
+                        <input type="text" class="form-control" placeholder="Enter your name"/></label>
+                    <label> Surname
+                        <input type="text" class="form-control" placeholder="Enter your surname"/></label>
+                    <label> Birthday
+                        <input type="date" class="form-control"/></label>
+                    <label> Password
+                        <input type="password" class="form-control"/></label>
+                    <p><button class="btn btn-lg btn-success find-button mx-auto" type="submit">Sign up</button></p>
+                </form>
+            </div>
         </div>
     </div>
-
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-
-    <div class="container marketing">
-
-        <div class="row my-4">
-            <div class="col-lg-4">
-                <img src="../resources/images/red_train.jpg" class="round-pic">
-                <h2>Find train</h2>
-                <p>Enter the departure and arrival stations & departure time interval and you'll get
-                    all the available trains.</p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <img src="../resources/images/clock.jpg" class="round-pic">
-                <h2>Timetable</h2>
-                <p>You can easily get the timetable of every station you need!</p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <img src="../resources/images/ticket.jpg" class="round-pic">
-                <h2>Buy ticket</h2>
-                <p>Have you already chosen the available train? Sign in and buy a ticket and have a nice trip!</p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-            </div><!-- /.col-lg-4 -->
-        </div><!-- /.row -->
-
-        <hr class="featurette-divider">
-
-    </div><!-- /.container -->
 
     <!-- FOOTER -->
     <footer class="container">

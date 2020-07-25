@@ -27,4 +27,14 @@ public class UserController {
         model.addAttribute("passenger", passengerService.getAllPassengers().get(0));
         return "customerAccount";
     }
+
+    @GetMapping(value = "/crud")
+    public String crud(Model model) {
+        return "crud";
+    }
+
+    @GetMapping(value = "/sign_in")
+    public String loginPage(Model model) {
+        return "login";
+    }
 }
