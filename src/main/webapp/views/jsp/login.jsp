@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -84,19 +85,21 @@
             </div>
             <div class="col">
                 <h4>Do not have an account? Create it!</h4>
-                <form>
+                <form:form method="post"
+                           modelAttribute="registrationFormDTO"
+                           action="/registration_successful">
                     <label> Login
-                        <input type="text" class="form-control" placeholder="Enter your login"/></label>
+                        <form:input path="login" type="text" class="form-control" placeholder="Enter your login"/></label>
                     <label> Name
-                        <input type="text" class="form-control" placeholder="Enter your name"/></label>
+                        <form:input path="name" type="text" class="form-control" placeholder="Enter your name"/></label>
                     <label> Surname
-                        <input type="text" class="form-control" placeholder="Enter your surname"/></label>
+                        <form:input path="surname" type="text" class="form-control" placeholder="Enter your surname"/></label>
                     <label> Birthday
-                        <input type="date" class="form-control"/></label>
+                        <form:input path="birthday" type="date" class="form-control"/></label>
                     <label> Password
-                        <input type="password" class="form-control"/></label>
+                        <form:input path="password" type="password" class="form-control"/></label>
                     <p><button class="btn btn-lg btn-success find-button mx-auto" type="submit">Sign up</button></p>
-                </form>
+                </form:form>
             </div>
         </div>
     </div>

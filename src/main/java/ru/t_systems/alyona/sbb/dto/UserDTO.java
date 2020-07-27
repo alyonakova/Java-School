@@ -1,11 +1,16 @@
 package ru.t_systems.alyona.sbb.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
 @Data
-public class UserDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserDTO implements Serializable {
 
     private BigInteger id;
     private String login;

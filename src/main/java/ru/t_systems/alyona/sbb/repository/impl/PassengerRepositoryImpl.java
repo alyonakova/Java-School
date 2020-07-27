@@ -7,7 +7,9 @@ import ru.t_systems.alyona.sbb.repository.PassengerRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -28,5 +30,15 @@ public class PassengerRepositoryImpl implements PassengerRepository {
                 "SELECT p FROM PassengerEntity p", PassengerEntity.class
         ).getResultList();
         return allPassengers;
+    }
+
+    @Override
+    public PassengerEntity create(PassengerEntity passenger) {
+        if (passenger.getId() == null) {
+            em.persist(passenger);
+        } else {
+            passenger = em.merge(passenger);
+        }
+        return passenger;
     }
 }

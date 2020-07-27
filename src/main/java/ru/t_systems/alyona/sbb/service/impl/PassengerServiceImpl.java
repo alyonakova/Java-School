@@ -11,6 +11,7 @@ import ru.t_systems.alyona.sbb.repository.PassengerRepository;
 import ru.t_systems.alyona.sbb.service.PassengerService;
 import ru.t_systems.alyona.sbb.service.TicketService;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -43,5 +44,12 @@ public class PassengerServiceImpl implements PassengerService {
             }
         }
         return passengerTrainSet;
+    }
+
+    @Override
+    public PassengerDTO createPassenger(String name, String surname, LocalDate birthday) {
+        return passengerConverter.passengerToDTO(passengerRepository.create(
+                passengerConverter.passengerToEntity(new PassengerDTO(null, name, surname, birthday))
+        ));
     }
 }
