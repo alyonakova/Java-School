@@ -80,10 +80,9 @@
     <label>
         Enter the train number
     </label>
-    <input type="text" class="form-control" placeholder="Train">
-    <p><a class="btn btn-lg btn-success find-button mx-auto" href="#" role="button">Find</a></p>
+    <input type="text" class="form-control" placeholder="Train" id="search-text" onkeyup="tableSearch()">
 
-    <table class="table">
+    <table class="table" id="passengers_table">
         <thead class="thead-light">
         <tr>
             <th scope="col">Train</th>
@@ -122,5 +121,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+<script src="../../resources/js/main.js"></script>
 </body>
 </html>
