@@ -15,7 +15,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -39,11 +38,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/customer_account").access("hasRole('CUSTOMER')")
                 .antMatchers("/employee_account", "/passengers", "/crud").access("hasRole('EMPLOYEE')")
                 .antMatchers("/", "/index", "/trains", "/ticket", "/sign_in").permitAll()
-                .and().formLogin().loginPage("/sign_in")
-                .loginProcessingUrl("/sign_in").usernameParameter("username").passwordParameter("password")
-                .and().logout().invalidateHttpSession(true).logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-
+                .and().
+                formLogin().loginPage("/sign_in").loginProcessingUrl("/perform_login")
+                .defaultSuccessUrl("/", true).
+                and().logout().logoutUrl("/perform_logout").logoutSuccessUrl("/sign_in?logout").permitAll()
                 .and().exceptionHandling().accessDeniedPage("/access_denied");
+    }
+
+    @Override
+    public void configure(AuthenticationManagerBuilder builder) throws Exception {
+        builder.inMemoryAuthentication()
+                .withUser("alyona")
+                .password("123")
+                .roles("EMPLOYEE");
     }
 
     @Bean

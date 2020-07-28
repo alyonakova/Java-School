@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@page session="true"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -75,11 +76,12 @@
         <div class="row">
             <div class="col">
                 <h4>Sign in</h4>
-                <form>
+                <form action="perform_login" method="post">
                     <label> Login
-                        <input type="text" class="form-control" placeholder="Enter your login"/></label>
+                        <input name="username" type="text" class="form-control" placeholder="Enter your login"/></label>
                     <label> Password
-                        <input type="password" class="form-control"/></label>
+                        <input name="password" type="password" class="form-control"/></label>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <p><button class="btn btn-lg btn-success find-button mx-auto" type="submit">Sign in</button></p>
                 </form>
             </div>
@@ -97,7 +99,7 @@
                     <label> Birthday
                         <form:input path="birthday" type="date" class="form-control"/></label>
                     <label> Password
-                        <form:input path="password" type="password" class="form-control"/></label>
+                        <form:input path="userPassword" type="password" class="form-control"/></label>
                     <p><button class="btn btn-lg btn-success find-button mx-auto" type="submit">Sign up</button></p>
                 </form:form>
             </div>

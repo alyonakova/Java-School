@@ -13,5 +13,5 @@ public class RegistrationFormDTO {
     private String surname;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birthday;
-    private String password;
+    private String userPassword;
 }
