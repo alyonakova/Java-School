@@ -76,16 +76,17 @@
     <label>
         Enter the station name
     </label>
-    <input type="text" class="form-control" placeholder="Station">
-    <p><a class="btn btn-lg btn-success find-button mx-auto" href="#" role="button">Find</a></p>
-    <table class="table">
+    <input type="text" class="form-control" placeholder="Station" id="search-text" onkeyup="tableSearchByStation()">
+    <input type="radio" name="route" value="departure" checked onchange="tableSearchByStation()">Departure
+    <input type="radio" name="route" value="arrival" onchange="tableSearchByStation()">Arrival
+    <table class="table" id="timetable">
         <thead class="thead-light">
         <tr>
             <th scope="col">Train</th>
             <th scope="col">Departure date</th>
             <th scope="col">From</th>
             <th scope="col">Arrival date</th>
-            <th scope="col">Next</th>
+            <th scope="col">To</th>
         </tr>
         </thead>
         <tbody>
@@ -117,5 +118,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+<script src="../../resources/js/main.js"></script>
 </body>
 </html>
