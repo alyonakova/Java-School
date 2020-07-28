@@ -33,12 +33,12 @@ public class UserServiceImpl implements UserService {
                 registrationForm.getSurname(), registrationForm.getBirthday());
 
         //create user
-        createUser(registrationForm.getLogin(), true, passenger);
+        createUser(registrationForm.getLogin(), true, passenger, registrationForm.getUserPassword());
     }
 
-    private void createUser(String login, Boolean isPassenger, PassengerDTO passenger) {
+    private void createUser(String login, Boolean isPassenger, PassengerDTO passenger, String password) {
         userRepository.create(
-                userConverter.userToEntity(new UserDTO(null, login, isPassenger, passenger))
+                userConverter.userToEntity(new UserDTO(null, login, isPassenger, passenger, password))
         );
     }
 

@@ -25,6 +25,9 @@ public class UserEntity {
     @Column(name = "is_passenger")
     private Boolean isPassenger;
 
+    @Column(name = "password")
+    private String password;
+
     @OneToOne(optional = false)
     @JoinColumn(name = "id_passenger")
     private PassengerEntity passenger;

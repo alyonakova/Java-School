@@ -16,5 +16,6 @@ public class UserDTO implements Serializable {
     private String login;
     private Boolean isPassenger;
     private PassengerDTO passenger;
+    private String password;
 
 }
