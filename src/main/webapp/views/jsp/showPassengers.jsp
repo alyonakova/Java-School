@@ -80,7 +80,7 @@
     <label>
         Enter the train number
     </label>
-    <input type="text" class="form-control" placeholder="Train" id="search-text" onkeyup="tableSearch()">
+    <input type="text" class="form-control" placeholder="Train" id="search-text" onkeyup="tableSearchByTrain()">
 
     <table class="table" id="passengers_table">
         <thead class="thead-light">

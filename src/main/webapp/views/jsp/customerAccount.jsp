@@ -57,10 +57,10 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home </a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/">Home </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/timetable">Timetable<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/timetable">Timetable<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <a href="/customer_account">
@@ -122,8 +122,6 @@
 
                 </div>
                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-
-
                     <h4>Change user data</h4>
                     <label>
                         Change name
@@ -150,25 +148,16 @@
                     </label>
                     <input type="password" class="form-control" placeholder="Enter new password">
                     <p><a class="btn btn-outline-info" href="#" role="button">Change</a></p>
-
-
                 </div>
             </div>
-
-
-
-
-
-
         </div>
     </div>
+    <!-- FOOTER -->
+    <footer class="container">
+        <p class="float-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2020 SBB CFF FFS &middot; Alyona Kovalyova </p>
+    </footer>
 </main>
-
-<!-- FOOTER -->
-<footer class="container">
-    <p class="float-right"><a href="#">Back to top</a></p>
-    <p>&copy; 2020 SBB CFF FFS &middot; Alyona Kovalyova </p>
-</footer>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

@@ -59,13 +59,13 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/timetable">Timetable</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/timetable">Timetable</a>
                 </li>
             </ul>
-            <form class="form-inline mt-2 mt-md-0" method="get" action="/sign_in">
+            <form class="form-inline mt-2 mt-md-0" method="get" action="${pageContext.request.contextPath}/sign_in">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign in</button>
             </form>
         </div>
