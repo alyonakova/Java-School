@@ -35,22 +35,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
 
-                .antMatchers("/customer_account").access("hasRole('CUSTOMER')")
-                .antMatchers("/employee_account", "/passengers", "/crud").access("hasRole('EMPLOYEE')")
+                .antMatchers("/customer_account").access("hasRole('ROLE_CUSTOMER')")
+                .antMatchers("/employee_account", "/passengers", "/crud").access("hasRole('ROLE_EMPLOYEE')")
                 .antMatchers("/", "/index", "/trains", "/ticket", "/sign_in").permitAll()
                 .and().
                 formLogin().loginPage("/sign_in").loginProcessingUrl("/perform_login")
                 .defaultSuccessUrl("/", true).
                 and().logout().logoutUrl("/perform_logout").logoutSuccessUrl("/sign_in?logout").permitAll()
                 .and().exceptionHandling().accessDeniedPage("/access_denied");
-    }
-
-    @Override
-    public void configure(AuthenticationManagerBuilder builder) throws Exception {
-        builder.inMemoryAuthentication()
-                .withUser("alyona")
-                .password("123")
-                .roles("EMPLOYEE");
     }
 
     @Bean

@@ -1,6 +1,7 @@
 package ru.t_systems.alyona.sbb.service.impl;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,14 +28,19 @@ public class CustomUserDetailsService implements UserDetailsService  {
         if (user==null) {
             throw new UsernameNotFoundException("Login not found");
         }
-        return new org.springframework.security.core.userdetails.User(user.getLogin(), "123", //TODO password
+        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(),
                 true, true, true, true, getGrantedAuthorities(user));
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(UserDTO user){
         List<GrantedAuthority> authorities = new ArrayList<>();
-        String role = user.getIsPassenger() ? "CUSTOMER" : "EMPLOYEE";
+        String role = user.getIsPassenger() ? "ROLE_CUSTOMER" : "ROLE_EMPLOYEE";
         authorities.add(new SimpleGrantedAuthority(role));
         return authorities;
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 }
