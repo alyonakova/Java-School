@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -78,7 +79,8 @@
 <main role="main" class="d-flex flex-column h-100">
     <div class="flex-shrink-0">
         <div class="container bg-light">
-            <h3 class="mt-5">Welcome, ${login}!</h3>
+            <sec:authentication var="user" property="principal.username" />
+            <h3 class="mt-5">Welcome, ${user}!</h3>
             <h4>Change user data</h4>
             <label>
                 Change login

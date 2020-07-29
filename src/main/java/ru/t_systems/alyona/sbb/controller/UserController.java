@@ -21,8 +21,6 @@ public class UserController {
 
     @GetMapping(value = "/employee_account")
     public String employeeAccount(Model model) {
-        //TODO: get login
-        model.addAttribute("login", "employee123");
         return "employeeAccount";
     }
 
