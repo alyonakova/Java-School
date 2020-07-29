@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -49,6 +51,7 @@
 </head>
 <body>
 <header>
+
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <img src="../resources/images/SBB_Logo.jpg" class="logo">
         <a class="navbar-brand logo-text" href="#">SBB CFF FFS</a>
@@ -65,9 +68,31 @@
                     <a class="nav-link" href="${pageContext.request.contextPath}/timetable">Timetable</a>
                 </li>
             </ul>
-            <form class="form-inline mt-2 mt-md-0" method="get" action="${pageContext.request.contextPath}/sign_in">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign in</button>
-            </form>
+            <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
+                <a href="/employee_account">
+                    <img src="../resources/images/account.png" class="account_logo">
+                </a>
+            </sec:authorize>
+            <sec:authorize access="hasRole('ROLE_CUSTOMER')">
+                <a href="/customer_account">
+                    <img src="../resources/images/account.png" class="account_logo">
+                </a>
+            </sec:authorize>
+
+            <sec:authorize var="loggedIn" access="isAuthenticated()" />
+            <c:choose>
+                <c:when test="${loggedIn}">
+                    <form class="form-inline mt-2 mt-md-0" method="get" action="${pageContext.request.contextPath}/logout">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign out</button>
+                    </form>
+                </c:when>
+                <c:otherwise>
+                    <form class="form-inline mt-2 mt-md-0" method="get" action="${pageContext.request.contextPath}/sign_in">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign in</button>
+                    </form>
+                </c:otherwise>
+            </c:choose>
+
         </div>
     </nav>
 </header>
