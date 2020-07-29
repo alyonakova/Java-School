@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -70,29 +71,37 @@
 </header>
 <main role="main">
 
-    <h3>${segmentGroups.get(0).get(0).from.name} → ${segmentGroups.get(0).get(segmentGroups.get(0).size()-1).to.name}</h3>
+    <h3>${segmentGroups.get(0).get(0).from.name}
+        → ${segmentGroups.get(0).get(segmentGroups.get(0).size()-1).to.name}</h3>
 
     <%! int tickets = Integer.MAX_VALUE;
         int price = 0;%>
 
-    <c:forEach var="group" items="${segmentGroups}">
-        Train ${group.get(0).getTrain().getId()} <br>
-        <c:forEach var="segment" items="${group}">
-            <c:out value="${segment.from.name} "/>
-            <c:out value="(${segment.departure}) "/>
-            <c:out value="→ ${segment.to.name} "/>
-            <c:out value="(${segment.arrival})"/>
-            <c:set var="left" value="${segment.ticketsLeft}"/>
-            <% tickets = Math.min(tickets, (Integer) pageContext.getAttribute("left")); %>
-            <c:set var="price" value="${segment.price}"/>
-            <% price += (Integer) pageContext.getAttribute("price"); %>
-            <br>
+        <c:forEach var="group" items="${segmentGroups}">
+            <form:form method="post"
+                       modelAttribute="segmentsGroupDTO"
+                       action="/tickets">
+            <form:hidden path="segments" value="${group}"/>
+            Train ${group.get(0).getTrain().getId()} <br>
+            <c:forEach var="segment" items="${group}">
+                <c:out value="${segment.from.name} "/>
+                <c:out value="(${segment.departure}) "/>
+                <c:out value="→ ${segment.to.name} "/>
+                <c:out value="(${segment.arrival})"/>
+                <c:set var="left" value="${segment.ticketsLeft}"/>
+                <% tickets = Math.min(tickets, (Integer) pageContext.getAttribute("left")); %>
+                <c:set var="price" value="${segment.price}"/>
+                <% price += (Integer) pageContext.getAttribute("price"); %>
+                <br>
+            </c:forEach>
+            <h3>Tickets available: <%= tickets %>, total price: <%= price %>₣</h3>
+            <%
+                tickets = Integer.MAX_VALUE;
+                price = 0;
+            %>
+            <p><button class="btn btn-lg btn-success find-button mx-auto" type="submit">Buy ticket</button></p>
+            </form:form>
         </c:forEach>
-        <h3>Tickets available: <%= tickets %>, total price: <%= price %>₣</h3>
-        <%tickets = Integer.MAX_VALUE;
-          price = 0;%>
-        <p><a class="btn btn-lg btn-success find-button mx-auto" href="#" role="button">Buy ticket</a></p>
-    </c:forEach>
 
     <!-- FOOTER -->
     <footer class="container">

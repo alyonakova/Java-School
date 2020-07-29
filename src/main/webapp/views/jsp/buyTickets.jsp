@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -71,10 +72,23 @@
 
 <main role="main">
 
-    <h4>Red Volcano (01.10.2020 10:10) → Chemical Plant (09.10.2020 03:50)</h4>
+    <h4>${segments.get(0).from.name } (${segments.get(0).departure}) →
+        ${segments.get(segments.size()-1).to.name } (${segments.get(segments.size()-1).arrival})</h4>
     <h5>All dates are in local time!</h5>
-    <h4>Train 121a</h4>
-    <h4>15 tickets available</h4>
+    <h4>Train ${ segments.get(0).train.id}</h4>
+
+    <%! int tickets = Integer.MAX_VALUE;
+        int price = 0;%>
+
+    <c:forEach var="segment" items="${segments}">
+        <c:set var="left" value="${segment.ticketsLeft}"/>
+        <% tickets = Math.min(tickets, (Integer) pageContext.getAttribute("left")); %>
+        <c:set var="price" value="${segment.price}"/>
+        <% price += (Integer) pageContext.getAttribute("price"); %>
+        <br>
+    </c:forEach>
+
+    <h4><%= tickets %> tickets available, total price: <%= price %>₣</h4>
     <label>Number of tickets
         <input type="number" min="1" value="1" class="form-control">
     </label>
