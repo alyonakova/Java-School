@@ -36,10 +36,7 @@ public class PassengerServiceImpl implements PassengerService {
         for (TicketDTO ticket : allTickets) {
             for (SegmentDTO segment : ticket.getSegments()) {
                 PassengerWithTrainDTO passengerWithTrain = new PassengerWithTrainDTO(
-                        new PassengerDTO(
-                        ticket.getPassenger().getId(), ticket.getPassenger().getName(),
-                                ticket.getPassenger().getSurname(), ticket.getPassenger().getBirthday()
-                        ), segment.getTrain());
+                        ticket.getPassenger(), segment.getTrain());
                 passengerTrainSet.add(passengerWithTrain);
             }
         }
