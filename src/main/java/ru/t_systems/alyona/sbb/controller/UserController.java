@@ -1,6 +1,5 @@
 package ru.t_systems.alyona.sbb.controller;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +11,6 @@ import ru.t_systems.alyona.sbb.service.PassengerService;
 import ru.t_systems.alyona.sbb.service.UserService;
 
 @Controller
-@Data
 @RequiredArgsConstructor
 public class UserController {
 
@@ -46,7 +44,6 @@ public class UserController {
     @PostMapping(value = "/registration_successful")
     public String registration(@ModelAttribute RegistrationFormDTO registrationFormDTO, Model model) {
         userService.createPassengerUser(registrationFormDTO);
-        model.addAttribute("registrationFormDTO", registrationFormDTO);
         return "registration_successful";
     }
 }
