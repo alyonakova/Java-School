@@ -51,7 +51,7 @@
 </head>
 <body>
 <header>
-
+    <sec:authorize var="loggedIn" access="isAuthenticated()" />
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <img src="../resources/images/SBB_Logo.jpg" class="logo">
         <a class="navbar-brand logo-text" href="#">SBB CFF FFS</a>
@@ -67,6 +67,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/timetable">Timetable</a>
                 </li>
+                <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/passengers">Passengers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/crud">CRUD<span class="sr-only">(current)</span></a>
+                </li>
+                </sec:authorize>
             </ul>
             <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
                 <a href="/employee_account">
@@ -79,7 +87,6 @@
                 </a>
             </sec:authorize>
 
-            <sec:authorize var="loggedIn" access="isAuthenticated()" />
             <c:choose>
                 <c:when test="${loggedIn}">
                     <form class="form-inline mt-2 mt-md-0" method="get" action="${pageContext.request.contextPath}/logout">
