@@ -75,12 +75,12 @@
                 </sec:authorize>
             </ul>
             <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
-                <a href="/employee_account">
+                <a href="${pageContext.request.contextPath}/employee_account">
                     <img src="../resources/images/account.png" class="account_logo">
                 </a>
             </sec:authorize>
             <sec:authorize access="hasRole('ROLE_CUSTOMER')">
-                <a href="/customer_account">
+                <a href="${pageContext.request.contextPath}/customer_account">
                     <img src="../resources/images/account.png" class="account_logo">
                 </a>
             </sec:authorize>
