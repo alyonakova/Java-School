@@ -64,7 +64,7 @@
                     >
                 </li>
             </ul>
-            <form class="form-inline mt-2 mt-md-0">
+            <form class="form-inline mt-2 mt-md-0" method="get" action="${pageContext.request.contextPath}/sign_in">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign in</button>
             </form>
         </div>
