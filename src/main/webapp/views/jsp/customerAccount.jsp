@@ -63,11 +63,11 @@
                     <a class="nav-link" href="${pageContext.request.contextPath}/timetable">Timetable<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
-            <a href="/customer_account">
+            <a href="${pageContext.request.contextPath}/customer_account">
                 <img src="../resources/images/account.png" class="account_logo">
             </a>
-            <form class="form-inline mt-2 mt-md-0">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</button>
+            <form class="form-inline mt-2 mt-md-0" method="get" action="${pageContext.request.contextPath}/logout">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign out</button>
             </form>
         </div>
     </nav>
@@ -75,10 +75,6 @@
 <main role="main" class="d-flex flex-column h-100">
     <div class="flex-shrink-0">
         <div class="container bg-light">
-
-
-
-
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">User data</a>
