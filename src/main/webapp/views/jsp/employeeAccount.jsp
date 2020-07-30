@@ -64,14 +64,17 @@
                     <a class="nav-link" href="${pageContext.request.contextPath}/timetable">Timetable</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/passengers">Passengers<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/passengers">Passengers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/crud">CRUD<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
-            <a href="/employee_account">
+            <a href="${pageContext.request.contextPath}/employee_account">
                 <img src="../resources/images/account.png" class="account_logo">
             </a>
-            <form class="form-inline mt-2 mt-md-0">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</button>
+            <form class="form-inline mt-2 mt-md-0" method="get" action="${pageContext.request.contextPath}/logout">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign out</button>
             </form>
         </div>
     </nav>
