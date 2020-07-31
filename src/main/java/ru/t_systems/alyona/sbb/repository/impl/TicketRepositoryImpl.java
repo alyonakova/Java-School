@@ -7,7 +7,9 @@ import ru.t_systems.alyona.sbb.repository.TicketRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -28,5 +30,18 @@ public class TicketRepositoryImpl implements TicketRepository {
                 "SELECT t FROM TicketEntity t", TicketEntity.class
         ).getResultList();
         return allTickets;
+    }
+
+    @Override
+    public List<TicketEntity> getByPassengerNameAndBirthday(String name, String surname, LocalDate birthday) {
+        TypedQuery<TicketEntity> query = em.createQuery(
+                "SELECT t FROM TicketEntity t WHERE t.passenger.name = :name AND " +
+                        "t.passenger.surname = :surname AND t.passenger.birthday = :birthday",
+                TicketEntity.class);
+        query.setParameter("name", name);
+        query.setParameter("surname", surname);
+        query.setParameter("birthday", birthday);
+        List<TicketEntity> tickets = query.getResultList();
+        return tickets;
     }
 }
