@@ -28,6 +28,7 @@ public class MVCConfig implements WebMvcConfigurer {
 
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/");
+        registry.addViewController("/access_denied").setViewName("access_denied");
     }
 
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
