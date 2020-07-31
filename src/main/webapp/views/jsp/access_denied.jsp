@@ -49,7 +49,7 @@
     <sec:authorize var="loggedIn" access="isAuthenticated()" />
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <img src="../resources/images/SBB_Logo.jpg" class="logo">
-        <a class="navbar-brand logo-text" href="#">SBB CFF FFS</a>
+        <a class="navbar-brand logo-text" href="${pageContext.request.contextPath}/">SBB CFF FFS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
