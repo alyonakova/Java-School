@@ -28,6 +28,7 @@ public class UserController {
     public String customerAccount(Model model) {
         //TODO: get passenger
         model.addAttribute("passenger", passengerService.getAllPassengers().get(0));
+        model.addAttribute("changeUserDataDTO", new ChangeUserDataDTO());
         return "customerAccount";
     }
 
@@ -55,5 +56,11 @@ public class UserController {
         userService.updateUserLogin(changeUserDataDTO.getNewLogin(),
                 userService.getUserByLogin(changeUserDataDTO.getLogin()));
         return "employeeAccount";
+    }
+
+    @PostMapping(value = "/customer_account")
+    public String changeCustomerData(@ModelAttribute ChangeUserDataDTO changeUserDataDTO, Model model) {
+        passengerService.updatePassengerData(changeUserDataDTO); //TODO change session data
+        return "customerAccount";
     }
 }

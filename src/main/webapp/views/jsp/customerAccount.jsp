@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -73,6 +75,7 @@
     </nav>
 </header>
 <main role="main" class="d-flex flex-column h-100">
+    <sec:authentication var="user" property="principal.username" />
     <div class="flex-shrink-0">
         <div class="container bg-light">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -134,11 +137,18 @@
                     </label>
                     <input type="date" class="form-control" placeholder="${passenger.birthday}">
                     <p><a class="btn btn-outline-info" href="#" role="button">Change</a></p>
-                    <label>
-                        Change login
-                    </label>
-                    <input type="text" class="form-control" placeholder="Enter new login">
-                    <p><a class="btn btn-outline-info" href="#" role="button">Change</a></p>
+                    <form:form method="post"
+                               modelAttribute="changeUserDataDTO"
+                               onsubmit="return '/customer_account'">
+                        <label>
+                            Change login
+                        </label>
+                        <form:input path="newLogin" type="text" class="form-control" placeholder="Enter new login"/>
+                        <form:hidden path="login" value="${user}"/>
+                        <p>
+                            <button class="btn btn-outline-info" type="submit">Change</button>
+                        </p>
+                    </form:form>
                     <label>
                         Change password
                     </label>

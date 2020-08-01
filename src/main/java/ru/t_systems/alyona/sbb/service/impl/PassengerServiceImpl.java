@@ -3,11 +3,10 @@ package ru.t_systems.alyona.sbb.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.t_systems.alyona.sbb.converter.PassengerConverter;
-import ru.t_systems.alyona.sbb.dto.PassengerDTO;
-import ru.t_systems.alyona.sbb.dto.PassengerWithTrainDTO;
-import ru.t_systems.alyona.sbb.dto.SegmentDTO;
-import ru.t_systems.alyona.sbb.dto.TicketDTO;
+import ru.t_systems.alyona.sbb.converter.UserConverter;
+import ru.t_systems.alyona.sbb.dto.*;
 import ru.t_systems.alyona.sbb.repository.PassengerRepository;
+import ru.t_systems.alyona.sbb.repository.UserRepository;
 import ru.t_systems.alyona.sbb.service.PassengerService;
 import ru.t_systems.alyona.sbb.service.TicketService;
 
@@ -23,6 +22,8 @@ public class PassengerServiceImpl implements PassengerService {
     private final PassengerConverter passengerConverter;
     private final PassengerRepository passengerRepository;
     private final TicketService ticketService;
+    private final UserRepository userRepository;
+    private final UserConverter userConverter;
 
     @Override
     public List<PassengerDTO> getAllPassengers() {
@@ -49,4 +50,31 @@ public class PassengerServiceImpl implements PassengerService {
                 passengerConverter.passengerToEntity(new PassengerDTO(null, name, surname, birthday))
         ));
     }
+
+    @Override
+    public void updatePassengerData(ChangeUserDataDTO changeUserDataDTO) {
+        //TODO
+        if (changeUserDataDTO.getNewLogin() != null) {
+            changeLogin(
+                    changeUserDataDTO.getNewLogin(),
+                    userConverter.userToDTO(userRepository.getByLogin(changeUserDataDTO.getLogin()))
+            );
+        } else if (changeUserDataDTO.getNewPassword() != null) {
+            //change password
+        } else if (changeUserDataDTO.getNewName() != null) {
+            //change name
+        } else if (changeUserDataDTO.getNewSurname() != null) {
+            //change surname
+        } else if (changeUserDataDTO.getNewBirthday() != null) {
+            //change birthday
+        }
+    }
+
+    private void changeLogin(String login, UserDTO user) {
+        userRepository.updateLogin(login, userConverter.userToEntity(user));
+    }
+    private void changePassword() {}
+    private void changeName() {}
+    private void changeSurname() {}
+    private void changeBirthday() {}
 }
