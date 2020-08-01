@@ -50,7 +50,6 @@ public class UserRepositoryImpl implements UserRepository {
         Query query = em.createQuery("UPDATE UserEntity u SET u.login = :login WHERE u = :user");
         query.setParameter("login", login);
         query.setParameter("user", user);
-        //em.joinTransaction();
         query.executeUpdate();
         em.getTransaction().commit();
     }

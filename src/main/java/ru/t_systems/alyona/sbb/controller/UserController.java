@@ -53,8 +53,7 @@ public class UserController {
 
     @PostMapping(value = "/employee_account")
     public String changeEmployeeLogin(@ModelAttribute ChangeUserDataDTO changeUserDataDTO, Model model) {
-        userService.updateUserLogin(changeUserDataDTO.getNewLogin(),
-                userService.getUserByLogin(changeUserDataDTO.getLogin()));
+        userService.updateEmployeeData(changeUserDataDTO); //TODO change session data
         return "employeeAccount";
     }
 

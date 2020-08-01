@@ -58,8 +58,21 @@ public class UserServiceImpl implements UserService {
         return stationConverter.stationListToDTOList(stationRepository.getAll());
     }
 
-    @Override
-    public void updateUserLogin(String login, UserDTO user) {
+    public void updateEmployeeData(ChangeUserDataDTO changeUserDataDTO) {
+        //TODO
+        if (changeUserDataDTO.getNewLogin() != null) {
+            changeLogin(
+                    changeUserDataDTO.getNewLogin(),
+                    userConverter.userToDTO(userRepository.getByLogin(changeUserDataDTO.getLogin()))
+            );
+        } else if (changeUserDataDTO.getNewPassword() != null) {
+            //change password
+        }
+    }
+
+    private void changeLogin(String login, UserDTO user) {
         userRepository.updateLogin(login, userConverter.userToEntity(user));
     }
+
+    private void changePassword(){}
 }

@@ -1,10 +1,7 @@
 package ru.t_systems.alyona.sbb.service;
 
 import org.springframework.stereotype.Service;
-import ru.t_systems.alyona.sbb.dto.RegistrationFormDTO;
-import ru.t_systems.alyona.sbb.dto.StationDTO;
-import ru.t_systems.alyona.sbb.dto.TrainDTO;
-import ru.t_systems.alyona.sbb.dto.UserDTO;
+import ru.t_systems.alyona.sbb.dto.*;
 
 import java.util.List;
 
@@ -15,5 +12,5 @@ public interface UserService {
     UserDTO getUserByLogin(String login);
     List<TrainDTO> getAllTrainsForCRUD();
     List<StationDTO> getAllStationsForCRUD();
-    void updateUserLogin(String login, UserDTO user);
+    void updateEmployeeData(ChangeUserDataDTO changeUserDataDTO);
 }
