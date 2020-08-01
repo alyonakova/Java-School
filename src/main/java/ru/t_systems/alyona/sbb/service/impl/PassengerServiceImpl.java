@@ -62,7 +62,10 @@ public class PassengerServiceImpl implements PassengerService {
         } else if (changeUserDataDTO.getNewPassword() != null) {
             //change password
         } else if (changeUserDataDTO.getNewName() != null) {
-            //change name
+            changeName(
+                    changeUserDataDTO.getNewName(),
+                    userConverter.userToDTO(userRepository.getByLogin(changeUserDataDTO.getLogin()))
+            );
         } else if (changeUserDataDTO.getNewSurname() != null) {
             //change surname
         } else if (changeUserDataDTO.getNewBirthday() != null) {
@@ -74,7 +77,10 @@ public class PassengerServiceImpl implements PassengerService {
         userRepository.updateLogin(login, userConverter.userToEntity(user));
     }
     private void changePassword() {}
-    private void changeName() {}
+
+    private void changeName(String name, UserDTO user) {
+        passengerRepository.updateName(name, userConverter.userToEntity(user));
+    }
     private void changeSurname() {}
     private void changeBirthday() {}
 }

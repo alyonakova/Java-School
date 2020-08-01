@@ -122,11 +122,18 @@
                 </div>
                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                     <h4>Change user data</h4>
+                    <form:form method="post"
+                               modelAttribute="changeUserDataDTO"
+                               onsubmit="return '/customer_account'">
                     <label>
                         Change name
                     </label>
-                    <input type="text" class="form-control" placeholder="${passenger.name}">
-                    <p><a class="btn btn-outline-info" href="#" role="button">Change</a></p>
+                        <form:input path="newName" type="text" class="form-control" placeholder="${passenger.name}"/>
+                        <form:hidden path="login" value="${user}"/>
+                        <p>
+                            <button class="btn btn-outline-info" type="submit">Change</button>
+                        </p>
+                    </form:form>
                     <label>
                         Change surname
                     </label>

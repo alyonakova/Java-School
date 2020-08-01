@@ -41,4 +41,15 @@ public class PassengerRepositoryImpl implements PassengerRepository {
         }
         return passenger;
     }
+
+    @Override
+    @Transactional
+    public void updateName(String name, UserEntity user) {
+        em.getTransaction().begin();
+        Query query = em.createQuery("UPDATE UserEntity u SET u.passenger.name = :name WHERE u = :user");
+        query.setParameter("name", name);
+        query.setParameter("user", user);
+        query.executeUpdate();
+        em.getTransaction().commit();
+    }
 }
