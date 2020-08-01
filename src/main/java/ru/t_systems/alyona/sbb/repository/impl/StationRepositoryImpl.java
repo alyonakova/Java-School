@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.math.BigInteger;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -27,5 +28,13 @@ public class StationRepositoryImpl implements StationRepository {
         TypedQuery<StationEntity> query = em.createQuery("SELECT s FROM StationEntity s WHERE s.name = :name", StationEntity.class);
         query.setParameter("name", name);
         return query.getSingleResult();
+    }
+
+    @Override
+    public List<StationEntity> getAll() {
+        List<StationEntity> allStations = em.createQuery(
+                "SELECT s FROM StationEntity s", StationEntity.class
+        ).getResultList();
+        return allStations;
     }
 }

@@ -2,11 +2,10 @@ package ru.t_systems.alyona.sbb.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.t_systems.alyona.sbb.converter.StationConverter;
 import ru.t_systems.alyona.sbb.converter.UserConverter;
-import ru.t_systems.alyona.sbb.dto.PassengerDTO;
-import ru.t_systems.alyona.sbb.dto.RegistrationFormDTO;
-import ru.t_systems.alyona.sbb.dto.TrainDTO;
-import ru.t_systems.alyona.sbb.dto.UserDTO;
+import ru.t_systems.alyona.sbb.dto.*;
+import ru.t_systems.alyona.sbb.repository.StationRepository;
 import ru.t_systems.alyona.sbb.repository.UserRepository;
 import ru.t_systems.alyona.sbb.service.PassengerService;
 import ru.t_systems.alyona.sbb.service.TrainService;
@@ -23,6 +22,8 @@ public class UserServiceImpl implements UserService {
     private final UserConverter userConverter;
     private final UserRepository userRepository;
     private final TrainService trainService;
+    private final StationConverter stationConverter;
+    private final StationRepository stationRepository;
 
     @Override
     @Transactional
@@ -50,5 +51,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<TrainDTO> getAllTrainsForCRUD() {
         return trainService.getAllTrains();
+    }
+
+    @Override
+    public List<StationDTO> getAllStationsForCRUD() {
+        return stationConverter.stationListToDTOList(stationRepository.getAll());
     }
 }

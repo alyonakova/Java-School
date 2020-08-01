@@ -93,7 +93,14 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-                    ...Add train...
+                    <h4>Add train</h4>
+                    <form>
+                        <input type="text" class="form-control" placeholder="Train number">
+                        <input type="text" class="form-control" placeholder="Capacity">
+                        <p>
+                            <button class="btn btn-lg btn-success find-button mx-auto">Add</button>
+                        </p>
+                    </form>
                     <table class="table">
                         <thead class="thead-light">
                         <tr>
@@ -114,8 +121,32 @@
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
-                    ...Add station...
-
+                    <h4>Add station</h4>
+                    <form>
+                        <input type="text" class="form-control" placeholder="Station name">
+                        <input type="text" class="form-control" placeholder="Zone id">
+                        <p>
+                            <button class="btn btn-lg btn-success find-button mx-auto">Add</button>
+                        </p>
+                    </form>
+                    <table class="table">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Station name</th>
+                            <th scope="col">Zone id</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="station" items="${stations}">
+                            <tr>
+                                <td>${station.id}</td>
+                                <td>${station.name}</td>
+                                <td>${station.zoneId}</td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
