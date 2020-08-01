@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -85,11 +86,16 @@
             <sec:authentication var="user" property="principal.username" />
             <h3 class="mt-5">Welcome, ${user}!</h3>
             <h4>Change user data</h4>
-            <label>
-                Change login
-            </label>
-            <input type="text" class="form-control" placeholder="Enter new login">
-            <p><a class="btn btn-outline-info" href="#" role="button">Change</a></p>
+            <form:form method="post"
+                       modelAttribute="changeUserDataDTO"
+                       onsubmit="return '/employee_account'">
+                <label>
+                    Change login
+                </label>
+                <form:input path="newLogin" type="text" class="form-control" placeholder="Enter new login"/>
+                <form:hidden path="login" value="${user}"/>
+                <p><button class="btn btn-outline-info" type="submit">Change</button></p>
+            </form:form>
             <label>
                 Change password
             </label>

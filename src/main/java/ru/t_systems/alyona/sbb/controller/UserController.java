@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import ru.t_systems.alyona.sbb.dto.ChangeUserDataDTO;
 import ru.t_systems.alyona.sbb.dto.RegistrationFormDTO;
 import ru.t_systems.alyona.sbb.service.PassengerService;
 import ru.t_systems.alyona.sbb.service.UserService;
@@ -19,6 +20,7 @@ public class UserController {
 
     @GetMapping(value = "/employee_account")
     public String employeeAccount(Model model) {
+        model.addAttribute("changeUserDataDTO", new ChangeUserDataDTO());
         return "employeeAccount";
     }
 
@@ -46,5 +48,12 @@ public class UserController {
     public String registration(@ModelAttribute RegistrationFormDTO registrationFormDTO, Model model) {
         userService.createPassengerUser(registrationFormDTO);
         return "registration_successful";
+    }
+
+    @PostMapping(value = "/employee_account")
+    public String changeEmployeeLogin(@ModelAttribute ChangeUserDataDTO changeUserDataDTO, Model model) {
+        userService.updateUserLogin(changeUserDataDTO.getNewLogin(),
+                userService.getUserByLogin(changeUserDataDTO.getLogin()));
+        return "employeeAccount";
     }
 }

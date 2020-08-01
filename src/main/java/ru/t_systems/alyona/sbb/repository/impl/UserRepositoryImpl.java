@@ -2,12 +2,13 @@ package ru.t_systems.alyona.sbb.repository.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import ru.t_systems.alyona.sbb.entity.StationEntity;
+import org.springframework.transaction.annotation.Transactional;
 import ru.t_systems.alyona.sbb.entity.UserEntity;
 import ru.t_systems.alyona.sbb.repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.math.BigInteger;
 
@@ -40,5 +41,17 @@ public class UserRepositoryImpl implements UserRepository {
                 UserEntity.class);
         query.setParameter("login", login);
         return query.getSingleResult();
+    }
+
+    @Override
+    @Transactional
+    public void updateLogin(String login, UserEntity user) {
+        em.getTransaction().begin();
+        Query query = em.createQuery("UPDATE UserEntity u SET u.login = :login WHERE u = :user");
+        query.setParameter("login", login);
+        query.setParameter("user", user);
+        //em.joinTransaction();
+        query.executeUpdate();
+        em.getTransaction().commit();
     }
 }

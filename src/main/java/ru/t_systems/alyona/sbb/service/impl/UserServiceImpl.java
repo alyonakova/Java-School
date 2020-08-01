@@ -57,4 +57,9 @@ public class UserServiceImpl implements UserService {
     public List<StationDTO> getAllStationsForCRUD() {
         return stationConverter.stationListToDTOList(stationRepository.getAll());
     }
+
+    @Override
+    public void updateUserLogin(String login, UserDTO user) {
+        userRepository.updateLogin(login, userConverter.userToEntity(user));
+    }
 }

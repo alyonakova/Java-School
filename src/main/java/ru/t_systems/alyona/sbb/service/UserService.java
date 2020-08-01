@@ -15,4 +15,5 @@ public interface UserService {
     UserDTO getUserByLogin(String login);
     List<TrainDTO> getAllTrainsForCRUD();
     List<StationDTO> getAllStationsForCRUD();
+    void updateUserLogin(String login, UserDTO user);
 }
