@@ -1,6 +1,8 @@
 package ru.t_systems.alyona.sbb.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.t_systems.alyona.sbb.converter.PassengerConverter;
 import ru.t_systems.alyona.sbb.converter.UserConverter;
@@ -24,6 +26,8 @@ public class PassengerServiceImpl implements PassengerService {
     private final TicketService ticketService;
     private final UserRepository userRepository;
     private final UserConverter userConverter;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PassengerServiceImpl.class);
 
     @Override
     public List<PassengerDTO> getAllPassengers() {

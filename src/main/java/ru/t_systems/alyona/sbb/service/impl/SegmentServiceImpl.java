@@ -1,6 +1,8 @@
 package ru.t_systems.alyona.sbb.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.t_systems.alyona.sbb.converter.SegmentConverter;
 import ru.t_systems.alyona.sbb.dto.RouteDTO;
@@ -23,6 +25,8 @@ public class SegmentServiceImpl implements SegmentService {
     private final RouteServiceImpl routeService;
     private final SegmentRepository segmentRepository;
     private final SegmentConverter segmentConverter;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SegmentServiceImpl.class);
 
     @Override
     public List<List<SegmentDTO>> getSegmentGroupsByStationsAndDates(String departureStationName, String arrivalStationName,

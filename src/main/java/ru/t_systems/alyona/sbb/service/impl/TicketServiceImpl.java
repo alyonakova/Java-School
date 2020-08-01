@@ -1,6 +1,8 @@
 package ru.t_systems.alyona.sbb.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.t_systems.alyona.sbb.converter.TicketConverter;
 import ru.t_systems.alyona.sbb.dto.PassengerDTO;
@@ -20,7 +22,10 @@ public class TicketServiceImpl implements TicketService {
 
     private final TicketConverter ticketConverter;
     private final TicketRepository ticketRepository;
+
     private final long MIN_TIME_TO_DEPARTURE_MILLIS = 10 * 60000;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TicketServiceImpl.class);
 
     @Override
     public List<TicketDTO> getAllTickets() {
