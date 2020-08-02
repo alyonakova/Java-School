@@ -21,11 +21,23 @@ public class StationServiceImpl implements StationService {
 
     @Override
     public StationEntity getEntityByName(String name) {
-        return stationRepository.getByName(name);
+        StationEntity stationEntity = null;
+        try {
+            stationEntity = stationRepository.getByName(name);
+        } catch (Exception e) {
+            LOGGER.error("Failed to get station entity by name", e);
+        }
+        return stationEntity;
     }
 
     @Override
     public StationDTO getDTOByName(String name) {
-        return stationConverter.stationToDTO(stationRepository.getByName(name));
+        StationDTO stationDTO = null;
+        try {
+            stationDTO = stationConverter.stationToDTO(stationRepository.getByName(name));
+        } catch (Exception e) {
+            LOGGER.error("Failed to get station DTO by name", e);
+        }
+        return stationDTO;
     }
 }
