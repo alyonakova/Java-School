@@ -21,6 +21,12 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     public RouteDTO getByStations(StationEntity from, StationEntity to) {
-        return routeConverter.routeToDTO(routeRepository.getByFromAndTo(from, to));
+        RouteDTO route = null;
+        try {
+            route = routeConverter.routeToDTO(routeRepository.getByFromAndTo(from, to));
+        } catch (Exception e) {
+            LOGGER.error("Failed to get route by two stations");
+        }
+        return route;
     }
 }
