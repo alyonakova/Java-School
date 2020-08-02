@@ -42,24 +42,46 @@ public class UserServiceImpl implements UserService {
     }
 
     private void createUser(String login, Boolean isPassenger, PassengerDTO passenger, String password) {
-        userRepository.create(
-                userConverter.userToEntity(new UserDTO(null, login, isPassenger, passenger, password))
-        );
+        try {
+            userRepository.create(
+                    userConverter.userToEntity(new UserDTO(null, login, isPassenger, passenger, password))
+            );
+        } catch (Exception e) {
+            LOGGER.error("Failed to create a new user", e);
+        }
     }
 
     @Override
     public UserDTO getUserByLogin(String login) {
-        return userConverter.userToDTO(userRepository.getByLogin(login));
+        UserDTO user = null;
+        try {
+            user = userConverter.userToDTO(userRepository.getByLogin(login));
+        } catch (Exception e) {
+            LOGGER.error("Failed to get user by login", e);
+        }
+        return user;
     }
 
     @Override
     public List<TrainDTO> getAllTrainsForCRUD() {
-        return trainService.getAllTrains();
+        List<TrainDTO> result = null;
+        try {
+            result = trainService.getAllTrains();
+        } catch (Exception e) {
+            LOGGER.error("Failed to get all existing trains", e);
+        }
+        return result;
     }
 
     @Override
     public List<StationDTO> getAllStationsForCRUD() {
-        return stationConverter.stationListToDTOList(stationRepository.getAll());
+        List<StationDTO> result = null;
+        try {
+            result = stationConverter.stationListToDTOList(stationRepository.getAll());
+        } catch (Exception e) {
+            LOGGER.error("Failed to get all existing stations", e);
+        }
+        return result;
     }
 
     public void updateEmployeeData(ChangeUserDataDTO changeUserDataDTO) {
@@ -75,7 +97,11 @@ public class UserServiceImpl implements UserService {
     }
 
     private void changeLogin(String login, UserDTO user) {
-        userRepository.updateLogin(login, userConverter.userToEntity(user));
+        try {
+            userRepository.updateLogin(login, userConverter.userToEntity(user));
+        } catch (Exception e) {
+            LOGGER.error("Failed to update user login", e);
+        }
     }
 
     private void changePassword(){}
