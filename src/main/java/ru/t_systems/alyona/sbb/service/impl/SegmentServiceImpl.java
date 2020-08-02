@@ -44,18 +44,28 @@ public class SegmentServiceImpl implements SegmentService {
 
     @Override
     public List<SegmentDTO> getAllSegments() {
-        return segmentConverter.segmentListToDTOList(segmentRepository.getAll());
+        List<SegmentDTO> result = null;
+        try {
+            result = segmentConverter.segmentListToDTOList(segmentRepository.getAll());
+        } catch (Exception e) {
+            LOGGER.error("Failed to get all existing segments", e);
+        }
+        return result;
     }
 
     private List<SegmentDTO> getSegmentsByRouteAndDatesAndTickets(RouteDTO route, Instant departure, Instant arrival) {
         List<SegmentDTO> result = new ArrayList<>();
         List<SegmentDTO> allSegments = route.getSegments();
-        for (SegmentDTO segment : allSegments) {
-            if (segment.getTicketsLeft() > 0 &&
-                    (departure.compareTo(segment.getDeparture()) <= 0) &&
-                    (arrival.compareTo(segment.getArrival()) >= 0)) {
-                result.add(segment);
+        try {
+            for (SegmentDTO segment : allSegments) {
+                if (segment.getTicketsLeft() > 0 &&
+                        (departure.compareTo(segment.getDeparture()) <= 0) &&
+                        (arrival.compareTo(segment.getArrival()) >= 0)) {
+                    result.add(segment);
+                }
             }
+        } catch (Exception e) {
+            LOGGER.error("Failed to get segments by route, two dates and tickets availability", e);
         }
         return result;
     }
@@ -75,17 +85,21 @@ public class SegmentServiceImpl implements SegmentService {
     private List<List<SegmentDTO>> separateIntoGroups(List<SegmentDTO> segments) {
         List<List<SegmentDTO>> segmentGroups = new ArrayList<>();
         List<SegmentDTO> group = new ArrayList<>();
-        String trainName = segments.get(0).getTrain().getId();
-        for (SegmentDTO segment : segments) {
-            if (!segment.getTrain().getId().equals(trainName)) {
-                List<SegmentDTO> oldGroup = new ArrayList<>(group);
-                segmentGroups.add(oldGroup);
-                group.clear();
-                trainName = segment.getTrain().getId();
+        try {
+            String trainName = segments.get(0).getTrain().getId();
+            for (SegmentDTO segment : segments) {
+                if (!segment.getTrain().getId().equals(trainName)) {
+                    List<SegmentDTO> oldGroup = new ArrayList<>(group);
+                    segmentGroups.add(oldGroup);
+                    group.clear();
+                    trainName = segment.getTrain().getId();
+                }
+                group.add(segment);
             }
-            group.add(segment);
+            segmentGroups.add(group);
+        } catch (Exception e) {
+            LOGGER.error("Failed to separate segments into groups by trains", e);
         }
-        segmentGroups.add(group);
         return segmentGroups;
     }
 }
