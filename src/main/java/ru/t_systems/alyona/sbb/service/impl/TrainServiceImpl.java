@@ -22,6 +22,12 @@ public class TrainServiceImpl implements TrainService {
 
     @Override
     public List<TrainDTO> getAllTrains() {
-        return trainConverter.trainListToDTOList(trainRepository.getAll());
+        List<TrainDTO> result = null;
+        try {
+            result = trainConverter.trainListToDTOList(trainRepository.getAll());
+        } catch (Exception e) {
+            LOGGER.error("Failed to get all existing trains", e);
+        }
+        return result;
     }
 }
