@@ -35,15 +35,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-
                 .antMatchers("/customer_account").access("hasRole('ROLE_CUSTOMER')")
                 .antMatchers("/employee_account", "/passengers", "/crud").access("hasRole('ROLE_EMPLOYEE')")
-                .antMatchers("/", "/index", "/trains", "/ticket", "/sign_in").permitAll()
-                .and().
-                formLogin().loginPage("/sign_in").loginProcessingUrl("/perform_login")
-                .defaultSuccessUrl("/", true).
-                and().logout().invalidateHttpSession(true).logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .and().exceptionHandling().accessDeniedPage("/access_denied");
+                .antMatchers("/", "/index", "/trains", "/ticket", "/sign_in").permitAll();
+        http.formLogin()
+                .loginPage("/sign_in")
+                .loginProcessingUrl("/perform_login")
+                .defaultSuccessUrl("/", true);
+        http.logout()
+                .invalidateHttpSession(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+        http.exceptionHandling()
+                .accessDeniedPage("/access_denied");
     }
 
     @Bean
