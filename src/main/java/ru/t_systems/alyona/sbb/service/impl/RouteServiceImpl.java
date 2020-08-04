@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.t_systems.alyona.sbb.converter.RouteConverter;
 import ru.t_systems.alyona.sbb.dto.RouteDTO;
 import ru.t_systems.alyona.sbb.entity.StationEntity;
-import ru.t_systems.alyona.sbb.repository.impl.RouteRepositoryImpl;
+import ru.t_systems.alyona.sbb.repository.RouteRepository;
 import ru.t_systems.alyona.sbb.service.RouteService;
 
 @RequiredArgsConstructor
@@ -15,7 +15,7 @@ import ru.t_systems.alyona.sbb.service.RouteService;
 public class RouteServiceImpl implements RouteService {
 
     private final RouteConverter routeConverter;
-    private final RouteRepositoryImpl routeRepository;
+    private final RouteRepository routeRepository;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RouteServiceImpl.class);
 
