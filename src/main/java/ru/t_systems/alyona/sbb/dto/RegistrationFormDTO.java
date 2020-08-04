@@ -32,5 +32,6 @@ public class RegistrationFormDTO {
     private LocalDate birthday;
 
     @NotNull(message = "Password can't be empty")
+    @Size(min = 4, max = 20, message = "Min password length is 4, max is 20")
     private String userPassword;
 }
