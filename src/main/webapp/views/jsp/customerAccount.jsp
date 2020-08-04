@@ -75,7 +75,6 @@
     </nav>
 </header>
 <main role="main" class="d-flex flex-column h-100">
-    <sec:authentication var="user" property="principal.username" />
     <div class="flex-shrink-0">
         <div class="container bg-light">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -129,7 +128,7 @@
                         Change name
                     </label>
                         <form:input path="newName" type="text" class="form-control" placeholder="${passenger.name}"/>
-                        <form:hidden path="login" value="${user}"/>
+                        <form:hidden path="login" value="${user.login}"/>
                         <p>
                             <button class="btn btn-outline-info" type="submit">Change</button>
                         </p>
@@ -150,8 +149,8 @@
                         <label>
                             Change login
                         </label>
-                        <form:input path="newLogin" type="text" class="form-control" placeholder="Enter new login"/>
-                        <form:hidden path="login" value="${user}"/>
+                        <form:input path="newLogin" type="text" class="form-control" placeholder="${user.login}"/>
+                        <form:hidden path="login" value="${user.login}"/>
                         <p>
                             <button class="btn btn-outline-info" type="submit">Change</button>
                         </p>

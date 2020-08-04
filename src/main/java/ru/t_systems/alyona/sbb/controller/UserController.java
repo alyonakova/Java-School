@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.t_systems.alyona.sbb.dto.ChangeUserDataDTO;
 import ru.t_systems.alyona.sbb.dto.RegistrationFormDTO;
+import ru.t_systems.alyona.sbb.dto.UserDTO;
 import ru.t_systems.alyona.sbb.service.PassengerService;
 import ru.t_systems.alyona.sbb.service.UserService;
+
+import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,11 +28,16 @@ public class UserController {
     }
 
     @GetMapping(value = "/customer_account")
-    public String customerAccount(Model model) {
-        //TODO: get passenger
-        model.addAttribute("passenger", passengerService.getAllPassengers().get(0));
-        model.addAttribute("changeUserDataDTO", new ChangeUserDataDTO());
-        return "customerAccount";
+    public String customerAccount(Model model, Principal principal) {
+        if (principal != null) {
+            UserDTO user = userService.getUserByLogin(principal.getName());
+            model.addAttribute("user", user);
+            model.addAttribute("passenger", user.getPassenger());
+            model.addAttribute("changeUserDataDTO", new ChangeUserDataDTO());
+            return "customerAccount";
+        } else {
+            throw new IllegalStateException("Not authorized to view this page"); // TODO: Display error page
+        }
     }
 
     @GetMapping(value = "/crud")
