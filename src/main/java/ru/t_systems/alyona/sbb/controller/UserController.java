@@ -1,6 +1,7 @@
 package ru.t_systems.alyona.sbb.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,10 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.t_systems.alyona.sbb.dto.ChangeUserDataDTO;
 import ru.t_systems.alyona.sbb.dto.RegistrationFormDTO;
 import ru.t_systems.alyona.sbb.dto.UserDTO;
+import ru.t_systems.alyona.sbb.dto.UserDetailsDTO;
 import ru.t_systems.alyona.sbb.service.PassengerService;
 import ru.t_systems.alyona.sbb.service.UserService;
-
-import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,9 +28,10 @@ public class UserController {
     }
 
     @GetMapping(value = "/customer_account")
-    public String customerAccount(Model model, Principal principal) {
-        if (principal != null) {
-            UserDTO user = userService.getUserByLogin(principal.getName());
+    public String customerAccount(Model model, @AuthenticationPrincipal UserDetailsDTO authorizedUserDetails) {
+        if (authorizedUserDetails != null) {
+            UserDTO user = userService.getUserById(authorizedUserDetails.getId());
+            model.addAttribute("userDetails", authorizedUserDetails);
             model.addAttribute("user", user);
             model.addAttribute("passenger", user.getPassenger());
             model.addAttribute("changeUserDataDTO", new ChangeUserDataDTO());
@@ -68,6 +69,6 @@ public class UserController {
     @PostMapping(value = "/customer_account")
     public String changeCustomerData(@ModelAttribute ChangeUserDataDTO changeUserDataDTO, Model model) {
         passengerService.updatePassengerData(changeUserDataDTO); //TODO change session data
-        return "customerAccount";
+        return "redirect:/customer_account";
     }
 }

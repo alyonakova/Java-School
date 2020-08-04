@@ -15,6 +15,7 @@ import ru.t_systems.alyona.sbb.service.PassengerService;
 import ru.t_systems.alyona.sbb.service.TrainService;
 import ru.t_systems.alyona.sbb.service.UserService;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -59,6 +60,17 @@ public class UserServiceImpl implements UserService {
             user = userConverter.userToDTO(userRepository.getByLogin(login));
         } catch (Exception e) {
             LOGGER.error("Failed to get user by login", e);
+        }
+        return user;
+    }
+
+    @Override
+    public UserDTO getUserById(BigInteger id) {
+        UserDTO user = null;
+        try {
+            user = userConverter.userToDTO(userRepository.getById(id));
+        } catch (Exception e) {
+            LOGGER.error("Failed to get user by ID", e);
         }
         return user;
     }
