@@ -47,7 +47,7 @@ public class UserController {
 
     @PostMapping(value = "/registration_successful")
     public String registration(@ModelAttribute RegistrationFormDTO registrationFormDTO, Model model) {
-        userService.createPassengerUser(registrationFormDTO);
+        userService.registerUser(registrationFormDTO);
         return "registration_successful";
     }
 

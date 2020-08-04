@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public interface UserService {
 
-    void createPassengerUser(RegistrationFormDTO registrationForm);
+    void registerUser(RegistrationFormDTO registrationForm);
     UserDTO getUserByLogin(String login);
     List<TrainDTO> getAllTrainsForCRUD();
     List<StationDTO> getAllStationsForCRUD();

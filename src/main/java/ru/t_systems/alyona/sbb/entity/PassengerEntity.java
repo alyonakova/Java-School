@@ -17,7 +17,8 @@ import java.util.List;
 public class PassengerEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "passenger_id_gen")
+    @SequenceGenerator(name = "passenger_id_gen", sequenceName = "passenger_id_seq", allocationSize = 50)
     @Column(name = "id")
     private BigInteger id;
 

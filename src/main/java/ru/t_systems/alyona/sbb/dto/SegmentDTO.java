@@ -2,6 +2,7 @@ package ru.t_systems.alyona.sbb.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import java.math.BigInteger;
 import java.time.Instant;
 

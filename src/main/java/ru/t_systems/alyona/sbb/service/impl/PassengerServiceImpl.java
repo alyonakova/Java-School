@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.t_systems.alyona.sbb.converter.PassengerConverter;
 import ru.t_systems.alyona.sbb.converter.UserConverter;
 import ru.t_systems.alyona.sbb.dto.*;
+import ru.t_systems.alyona.sbb.entity.PassengerEntity;
 import ru.t_systems.alyona.sbb.repository.PassengerRepository;
 import ru.t_systems.alyona.sbb.repository.UserRepository;
 import ru.t_systems.alyona.sbb.service.PassengerService;
@@ -45,13 +47,13 @@ public class PassengerServiceImpl implements PassengerService {
         List<TicketDTO> allTickets = ticketService.getAllTickets();
         Set<PassengerWithTrainDTO> passengerTrainSet = new HashSet<>();
         try {
-        for (TicketDTO ticket : allTickets) {
-            for (SegmentDTO segment : ticket.getSegments()) {
-                PassengerWithTrainDTO passengerWithTrain = new PassengerWithTrainDTO(
-                        ticket.getPassenger(), segment.getTrain());
-                passengerTrainSet.add(passengerWithTrain);
+            for (TicketDTO ticket : allTickets) {
+                for (SegmentDTO segment : ticket.getSegments()) {
+                    PassengerWithTrainDTO passengerWithTrain = new PassengerWithTrainDTO(
+                            ticket.getPassenger(), segment.getTrain());
+                    passengerTrainSet.add(passengerWithTrain);
+                }
             }
-        }
         } catch (Exception e) {
             LOGGER.error("Failed to get passengers with their trains", e);
         }
@@ -62,8 +64,10 @@ public class PassengerServiceImpl implements PassengerService {
     public PassengerDTO createPassenger(String name, String surname, LocalDate birthday) {
         PassengerDTO passenger = null;
         try {
-            passenger = passengerConverter.passengerToDTO(passengerRepository.create(
-                    passengerConverter.passengerToEntity(new PassengerDTO(null, name, surname, birthday))));
+            final PassengerEntity newPassanger = passengerConverter.passengerToEntity(
+                    new PassengerDTO(null, name, surname, birthday));
+            final PassengerEntity createdPassenger = passengerRepository.create(newPassanger);
+            passenger = passengerConverter.passengerToDTO(createdPassenger);
         } catch (Exception e) {
             LOGGER.error("Failed to create new passenger", e);
         }
@@ -71,6 +75,7 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
+    @Transactional
     public void updatePassengerData(ChangeUserDataDTO changeUserDataDTO) {
         //TODO
         if (changeUserDataDTO.getNewLogin() != null) {
@@ -99,7 +104,9 @@ public class PassengerServiceImpl implements PassengerService {
             LOGGER.error("Failed to update user login", e);
         }
     }
-    private void changePassword() {}
+
+    private void changePassword() {
+    }
 
     private void changeName(String name, UserDTO user) {
         try {
@@ -108,6 +115,10 @@ public class PassengerServiceImpl implements PassengerService {
             LOGGER.error("Failed to update user name", e);
         }
     }
-    private void changeSurname() {}
-    private void changeBirthday() {}
+
+    private void changeSurname() {
+    }
+
+    private void changeBirthday() {
+    }
 }

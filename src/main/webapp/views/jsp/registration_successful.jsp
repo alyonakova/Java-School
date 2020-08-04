@@ -4,6 +4,8 @@
     <title>Registration successful</title>
 </head>
 <body>
-<h4>${registrationFormDTO.name}</h4>
+<header>
+    <h1>Registration successful.</h1>
+</header>
 </body>
 </html>

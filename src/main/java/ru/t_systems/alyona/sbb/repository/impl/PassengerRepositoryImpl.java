@@ -3,53 +3,44 @@ package ru.t_systems.alyona.sbb.repository.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.t_systems.alyona.sbb.entity.PassengerEntity;
+import ru.t_systems.alyona.sbb.entity.UserEntity;
 import ru.t_systems.alyona.sbb.repository.PassengerRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import javax.persistence.Query;
 import java.math.BigInteger;
-import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class PassengerRepositoryImpl implements PassengerRepository {
-
-    @PersistenceContext
-    private final EntityManager em;
+public class PassengerRepositoryImpl
+        extends AbstractRepositoryImpl
+        implements PassengerRepository {
 
     @Override
     public PassengerEntity getById(BigInteger id) {
-        return em.find(PassengerEntity.class, id);
+        return getEntityManager().find(PassengerEntity.class, id);
     }
 
     @Override
     public List<PassengerEntity> getAll() {
-        List<PassengerEntity> allPassengers = em.createQuery(
-                "SELECT p FROM PassengerEntity p", PassengerEntity.class
-        ).getResultList();
-        return allPassengers;
+        return getEntityManager()
+                .createQuery("SELECT p FROM PassengerEntity p",
+                        PassengerEntity.class)
+                .getResultList();
     }
 
     @Override
     public PassengerEntity create(PassengerEntity passenger) {
-        if (passenger.getId() == null) {
-            em.persist(passenger);
-        } else {
-            passenger = em.merge(passenger);
-        }
+        getEntityManager().persist(passenger);
         return passenger;
     }
 
     @Override
-    @Transactional
     public void updateName(String name, UserEntity user) {
-        em.getTransaction().begin();
-        Query query = em.createQuery("UPDATE UserEntity u SET u.passenger.name = :name WHERE u = :user");
+        Query query = getEntityManager().createQuery("UPDATE UserEntity u SET u.passenger.name = :name WHERE u = :user");
         query.setParameter("name", name);
         query.setParameter("user", user);
         query.executeUpdate();
-        em.getTransaction().commit();
     }
+
 }
