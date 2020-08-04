@@ -15,8 +15,13 @@ public class SegmentDTO {
     private TrainDTO train;
     private Instant departure;
     private Instant arrival;
+
+    @Min(value = 0, message = "Tickets count cannot be negative")
     private int ticketsLeft;
+
+    @Min(value = 0, message = "Price cannot be negative")
     private int price;
+
     private Boolean cancelled;
     private Boolean delayed;
 
