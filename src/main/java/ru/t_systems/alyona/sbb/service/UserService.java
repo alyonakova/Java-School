@@ -9,8 +9,12 @@ import java.util.List;
 public interface UserService {
 
     void registerUser(RegistrationFormDTO registrationForm);
+
     UserDTO getUserByLogin(String login);
+
     List<TrainDTO> getAllTrainsForCRUD();
+
     List<StationDTO> getAllStationsForCRUD();
+
     void updateEmployeeData(ChangeUserDataDTO changeUserDataDTO);
 }
