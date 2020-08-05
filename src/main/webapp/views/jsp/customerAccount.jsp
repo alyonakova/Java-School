@@ -162,16 +162,21 @@
                             Change login
                         </label>
                         <form:input path="newLogin" type="text" class="form-control" placeholder="${user.login}"/>
-                        <form:hidden path="login" value="${user.login}"/>
+                        <form:hidden path="id" value="${user.id}"/>
                         <p>
                             <button class="btn btn-outline-info" type="submit">Change</button>
                         </p>
                     </form:form>
+                    <form:form method="post"
+                               modelAttribute="changeUserDataDTO"
+                               onsubmit="return '/customer_account'">
                     <label>
                         Change password
                     </label>
-                    <input type="password" class="form-control" placeholder="Enter new password">
-                    <p><a class="btn btn-outline-info" href="#" role="button">Change</a></p>
+                    <form:input path="newPassword" type="password" class="form-control" placeholder="Enter new password"/>
+                        <form:hidden path="id" value="${user.id}"/>
+                    <p><button class="btn btn-outline-info" type="submit">Change</button></p>
+                    </form:form>
                 </div>
             </div>
         </div>

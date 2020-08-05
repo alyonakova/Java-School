@@ -43,4 +43,12 @@ public class UserRepositoryImpl
         query.setParameter("user", user);
         query.executeUpdate();
     }
+
+    @Override
+    public void updatePassword(String password, UserEntity user) {
+        Query query = getEntityManager().createQuery("UPDATE UserEntity u SET u.password = :password WHERE u = :user");
+        query.setParameter("password", password);
+        query.setParameter("user", user);
+        query.executeUpdate();
+    }
 }

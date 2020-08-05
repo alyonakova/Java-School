@@ -3,6 +3,7 @@ package ru.t_systems.alyona.sbb.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.t_systems.alyona.sbb.converter.PassengerConverter;
@@ -28,6 +29,7 @@ public class PassengerServiceImpl implements PassengerService {
     private final TicketService ticketService;
     private final UserRepository userRepository;
     private final UserConverter userConverter;
+    private final PasswordEncoder passwordEncoder;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PassengerServiceImpl.class);
 
@@ -84,7 +86,10 @@ public class PassengerServiceImpl implements PassengerService {
                     userConverter.userToDTO(userRepository.getById(changeUserDataDTO.getId()))
             );
         } else if (changeUserDataDTO.getNewPassword() != null) {
-            //change password
+            changePassword(
+                    changeUserDataDTO.getNewPassword(),
+                    userConverter.userToDTO(userRepository.getById(changeUserDataDTO.getId()))
+            );
         } else if (changeUserDataDTO.getNewName() != null) {
             changeName(
                     changeUserDataDTO.getNewName(),
@@ -111,7 +116,12 @@ public class PassengerServiceImpl implements PassengerService {
         }
     }
 
-    private void changePassword() {
+    private void changePassword(String password, UserDTO user) {
+        try {
+            userRepository.updatePassword(passwordEncoder.encode(password), userConverter.userToEntity(user));
+        } catch (Exception e) {
+            LOGGER.error("Failed to update user password", e);
+        }
     }
 
     private void changeName(String name, UserDTO user) {

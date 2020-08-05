@@ -12,4 +12,5 @@ public interface UserRepository {
     UserEntity create(UserEntity userEntity);
     UserEntity getByLogin(String login);
     void updateLogin(String login, UserEntity user);
+    void updatePassword(String password, UserEntity user);
 }

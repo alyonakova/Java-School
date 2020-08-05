@@ -98,14 +98,16 @@ public class UserServiceImpl implements UserService {
     }
 
     public void updateEmployeeData(ChangeUserDataDTO changeUserDataDTO) {
-        //TODO
         if (changeUserDataDTO.getNewLogin() != null) {
             changeLogin(
                     changeUserDataDTO.getNewLogin(),
                     getUserById(changeUserDataDTO.getId())
             );
         } else if (changeUserDataDTO.getNewPassword() != null) {
-            //change password
+            changePassword(
+                    changeUserDataDTO.getNewPassword(),
+                    getUserById(changeUserDataDTO.getId())
+            );
         }
     }
 
@@ -117,6 +119,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private void changePassword() {
+    private void changePassword(String password, UserDTO user) {
+        try {
+            userRepository.updatePassword(passwordEncoder.encode(password), userConverter.userToEntity(user));
+        } catch (Exception e) {
+            LOGGER.error("Failed to update user password", e);
+        }
     }
 }
