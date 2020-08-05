@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
         if (changeUserDataDTO.getNewLogin() != null) {
             changeLogin(
                     changeUserDataDTO.getNewLogin(),
-                    userConverter.userToDTO(userRepository.getByLogin(changeUserDataDTO.getLogin()))
+                    getUserById(changeUserDataDTO.getId())
             );
         } else if (changeUserDataDTO.getNewPassword() != null) {
             //change password
