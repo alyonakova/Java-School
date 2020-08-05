@@ -43,4 +43,12 @@ public class PassengerRepositoryImpl
         query.executeUpdate();
     }
 
+    @Override
+    public void updateSurname(String surname, UserEntity user) {
+        Query query = getEntityManager().createQuery(
+                "UPDATE PassengerEntity p SET p.surname = :surname WHERE p = :passenger");
+        query.setParameter("surname", surname);
+        query.setParameter("passenger", user.getPassenger());
+        query.executeUpdate();
+    }
 }

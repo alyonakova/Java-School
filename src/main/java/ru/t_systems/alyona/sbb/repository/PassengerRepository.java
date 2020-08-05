@@ -14,4 +14,5 @@ public interface PassengerRepository {
     List<PassengerEntity> getAll();
     PassengerEntity create(PassengerEntity passenger);
     void updateName(String name, UserEntity passenger);
+    void updateSurname(String surname, UserEntity user);
 }

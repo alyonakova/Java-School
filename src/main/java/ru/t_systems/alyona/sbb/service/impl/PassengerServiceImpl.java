@@ -91,7 +91,10 @@ public class PassengerServiceImpl implements PassengerService {
                     userConverter.userToDTO(userRepository.getById(changeUserDataDTO.getId()))
             );
         } else if (changeUserDataDTO.getNewSurname() != null) {
-            //change surname
+            changeSurname(
+                    changeUserDataDTO.getNewSurname(),
+                    userConverter.userToDTO(userRepository.getById(changeUserDataDTO.getId()))
+            );
         } else if (changeUserDataDTO.getNewBirthday() != null) {
             //change birthday
         }
@@ -116,7 +119,12 @@ public class PassengerServiceImpl implements PassengerService {
         }
     }
 
-    private void changeSurname() {
+    private void changeSurname(String surname, UserDTO user) {
+        try {
+            passengerRepository.updateSurname(surname, userConverter.userToEntity(user));
+        } catch (Exception e) {
+            LOGGER.error("Failed to update user surname");
+        }
     }
 
     private void changeBirthday() {
