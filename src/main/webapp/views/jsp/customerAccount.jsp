@@ -128,7 +128,7 @@
                         Change name
                     </label>
                         <form:input path="newName" type="text" class="form-control" placeholder="${user.passenger.name}"/>
-                        <form:hidden path="login" value="${user.login}"/>
+                        <form:hidden path="id" value="${user.id}"/>
                         <p>
                             <button class="btn btn-outline-info" type="submit">Change</button>
                         </p>
@@ -141,7 +141,7 @@
                     </label>
                         <form:input path="newSurname" type="text" class="form-control"
                                     placeholder="${user.passenger.surname}"/>
-                        <form:hidden path="login" value="${user.login}"/>
+                        <form:hidden path="id" value="${user.id}"/>
                         <p><button class="btn btn-outline-info" href="#" role="button">Change</button></p>
                     </form:form>
                     <label>

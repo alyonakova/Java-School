@@ -22,13 +22,8 @@ public class UserRepositoryImpl
     }
 
     @Override
-    @Transactional
     public UserEntity create(UserEntity user) {
-//        if (user.getId() == null) {
         getEntityManager().persist(user);
-//        } else {
-//            user = em.merge(user);
-//        }
         return user;
     }
 

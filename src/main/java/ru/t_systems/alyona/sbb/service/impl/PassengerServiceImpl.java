@@ -81,14 +81,14 @@ public class PassengerServiceImpl implements PassengerService {
         if (changeUserDataDTO.getNewLogin() != null) {
             changeLogin(
                     changeUserDataDTO.getNewLogin(),
-                    userConverter.userToDTO(userRepository.getByLogin(changeUserDataDTO.getLogin()))
+                    userConverter.userToDTO(userRepository.getById(changeUserDataDTO.getId()))
             );
         } else if (changeUserDataDTO.getNewPassword() != null) {
             //change password
         } else if (changeUserDataDTO.getNewName() != null) {
             changeName(
                     changeUserDataDTO.getNewName(),
-                    userConverter.userToDTO(userRepository.getByLogin(changeUserDataDTO.getLogin()))
+                    userConverter.userToDTO(userRepository.getById(changeUserDataDTO.getId()))
             );
         } else if (changeUserDataDTO.getNewSurname() != null) {
             //change surname
