@@ -96,7 +96,10 @@ public class PassengerServiceImpl implements PassengerService {
                     userConverter.userToDTO(userRepository.getById(changeUserDataDTO.getId()))
             );
         } else if (changeUserDataDTO.getNewBirthday() != null) {
-            //change birthday
+            changeBirthday(
+                    changeUserDataDTO.getNewBirthday(),
+                    userConverter.userToDTO(userRepository.getById(changeUserDataDTO.getId()))
+            );
         }
     }
 
@@ -127,6 +130,11 @@ public class PassengerServiceImpl implements PassengerService {
         }
     }
 
-    private void changeBirthday() {
+    private void changeBirthday(LocalDate birthday, UserDTO user) {
+        try {
+            passengerRepository.updateBirthday(birthday, userConverter.userToEntity(user));
+        } catch (Exception e) {
+            LOGGER.error("Failed to update user birthday");
+        }
     }
 }

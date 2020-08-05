@@ -5,6 +5,7 @@ import ru.t_systems.alyona.sbb.entity.PassengerEntity;
 import ru.t_systems.alyona.sbb.entity.UserEntity;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -15,4 +16,5 @@ public interface PassengerRepository {
     PassengerEntity create(PassengerEntity passenger);
     void updateName(String name, UserEntity passenger);
     void updateSurname(String surname, UserEntity user);
+    void updateBirthday(LocalDate birthday, UserEntity user);
 }

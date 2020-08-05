@@ -142,13 +142,19 @@
                         <form:input path="newSurname" type="text" class="form-control"
                                     placeholder="${user.passenger.surname}"/>
                         <form:hidden path="id" value="${user.id}"/>
-                        <p><button class="btn btn-outline-info" href="#" role="button">Change</button></p>
+                        <p><button class="btn btn-outline-info" type="submit">Change</button></p>
                     </form:form>
+                    <form:form method="post"
+                               modelAttribute="changeUserDataDTO"
+                               onsubmit="return '/customer_account'">
                     <label>
                         Change birthday
                     </label>
-                    <input type="date" class="form-control" placeholder="${user.passenger.birthday}">
-                    <p><a class="btn btn-outline-info" href="#" role="button">Change</a></p>
+                        <form:input path="newBirthday" type="date" class="form-control"
+                                    placeholder="${user.passenger.birthday}"/>
+                        <form:hidden path="id" value="${user.id}"/>
+                    <p><button class="btn btn-outline-info" type="submit">Change</button></p>
+                    </form:form>
                     <form:form method="post"
                                modelAttribute="changeUserDataDTO"
                                onsubmit="return '/customer_account'">

@@ -8,6 +8,7 @@ import ru.t_systems.alyona.sbb.repository.PassengerRepository;
 
 import javax.persistence.Query;
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -48,6 +49,15 @@ public class PassengerRepositoryImpl
         Query query = getEntityManager().createQuery(
                 "UPDATE PassengerEntity p SET p.surname = :surname WHERE p = :passenger");
         query.setParameter("surname", surname);
+        query.setParameter("passenger", user.getPassenger());
+        query.executeUpdate();
+    }
+
+    @Override
+    public void updateBirthday(LocalDate birthday, UserEntity user) {
+        Query query = getEntityManager().createQuery(
+                "UPDATE PassengerEntity p SET p.birthday = :birthday WHERE p = :passenger");
+        query.setParameter("birthday", birthday);
         query.setParameter("passenger", user.getPassenger());
         query.executeUpdate();
     }
