@@ -103,9 +103,9 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>${passenger.name}</td>
-                                <td>${passenger.surname}</td>
-                                <td>${passenger.birthday}</td>
+                                <td>${user.passenger.name}</td>
+                                <td>${user.passenger.surname}</td>
+                                <td>${user.passenger.birthday}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -127,21 +127,27 @@
                     <label>
                         Change name
                     </label>
-                        <form:input path="newName" type="text" class="form-control" placeholder="${passenger.name}"/>
+                        <form:input path="newName" type="text" class="form-control" placeholder="${user.passenger.name}"/>
                         <form:hidden path="login" value="${user.login}"/>
                         <p>
                             <button class="btn btn-outline-info" type="submit">Change</button>
                         </p>
                     </form:form>
+                    <form:form method="post"
+                               modelAttribute="changeUserDataDTO"
+                               onsubmit="return '/customer_account'">
                     <label>
                         Change surname
                     </label>
-                    <input type="text" class="form-control" placeholder="${passenger.surname}">
-                    <p><a class="btn btn-outline-info" href="#" role="button">Change</a></p>
+                        <form:input path="newSurname" type="text" class="form-control"
+                                    placeholder="${user.passenger.surname}"/>
+                        <form:hidden path="login" value="${user.login}"/>
+                        <p><button class="btn btn-outline-info" href="#" role="button">Change</button></p>
+                    </form:form>
                     <label>
                         Change birthday
                     </label>
-                    <input type="date" class="form-control" placeholder="${passenger.birthday}">
+                    <input type="date" class="form-control" placeholder="${user.passenger.birthday}">
                     <p><a class="btn btn-outline-info" href="#" role="button">Change</a></p>
                     <form:form method="post"
                                modelAttribute="changeUserDataDTO"

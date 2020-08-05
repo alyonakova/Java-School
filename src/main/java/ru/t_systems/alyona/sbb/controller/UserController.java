@@ -33,7 +33,6 @@ public class UserController {
             UserDTO user = userService.getUserById(authorizedUserDetails.getId());
             model.addAttribute("userDetails", authorizedUserDetails);
             model.addAttribute("user", user);
-            model.addAttribute("passenger", user.getPassenger());
             model.addAttribute("changeUserDataDTO", new ChangeUserDataDTO());
             return "customerAccount";
         } else {
@@ -68,7 +67,7 @@ public class UserController {
 
     @PostMapping(value = "/customer_account")
     public String changeCustomerData(@ModelAttribute ChangeUserDataDTO changeUserDataDTO, Model model) {
-        passengerService.updatePassengerData(changeUserDataDTO); //TODO change session data
+        passengerService.updatePassengerData(changeUserDataDTO);
         return "redirect:/customer_account";
     }
 }
