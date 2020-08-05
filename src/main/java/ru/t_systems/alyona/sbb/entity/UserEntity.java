@@ -29,7 +29,7 @@ public class UserEntity {
     @Column(name = "password")
     private String password;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = true)
     @JoinColumn(name = "id_passenger")
     private PassengerEntity passenger;
 }
