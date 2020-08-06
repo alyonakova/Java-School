@@ -24,7 +24,7 @@ public class TicketEntity {
     @JoinColumn(name = "id_passenger")
     private PassengerEntity passenger;
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name = "ticket_segment",
             joinColumns = @JoinColumn(name = "id_ticket"),
             inverseJoinColumns = @JoinColumn(name = "id_segment"))
