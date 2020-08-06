@@ -153,19 +153,19 @@
                 <h2>Find train</h2>
                 <p>Enter the departure and arrival stations & departure time interval and you'll get
                     all the available trains.</p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                <p><a class="btn btn-secondary" href="${pageContext.request.contextPath}/" role="button">View details &raquo;</a></p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4">
                 <img src="../resources/images/clock.jpg" class="round-pic">
                 <h2>Timetable</h2>
                 <p>You can easily get the timetable of every station you need!</p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                <p><a class="btn btn-secondary" href="${pageContext.request.contextPath}/timetable" role="button">View details &raquo;</a></p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4">
                 <img src="../resources/images/ticket.jpg" class="round-pic">
                 <h2>Buy ticket</h2>
                 <p>Have you already chosen the available train? Sign in and buy a ticket and have a nice trip!</p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                <p><a class="btn btn-secondary" href="${pageContext.request.contextPath}/" role="button">View details &raquo;</a></p>
             </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
 
