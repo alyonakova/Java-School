@@ -83,8 +83,7 @@
 <main role="main" class="d-flex flex-column h-100">
     <div class="flex-shrink-0">
         <div class="container bg-light">
-            <sec:authentication var="user" property="principal.username" />
-            <h3 class="mt-5">Welcome, ${user}!</h3>
+            <h3 class="mt-5">Welcome, ${user.login}!</h3>
             <h4>Change user data</h4>
             <form:form method="post"
                        modelAttribute="changeUserDataDTO"
@@ -92,15 +91,19 @@
                 <label>
                     Change login
                 </label>
-                <form:input path="newLogin" type="text" class="form-control" placeholder="Enter new login"/>
-                <form:hidden path="login" value="${user}"/>
+                <form:input path="newLogin" type="text" class="form-control" placeholder="${user.login}"/>
+                <form:hidden path="id" value="${user.id}"/>
                 <p><button class="btn btn-outline-info" type="submit">Change</button></p>
             </form:form>
+            <form:form method="post"
+                       modelAttribute="changeUserDataDTO"
+                       onsubmit="return '/employee_account'">
             <label>
                 Change password
             </label>
-            <input type="password" class="form-control" placeholder="Enter new password">
-            <p><a class="btn btn-outline-info" href="#" role="button">Change</a></p>
+            <form:input path="newPassword" type="password" class="form-control" placeholder="Enter new password"/>
+            <p><button class="btn btn-outline-info" type="submit">Change</button></p>
+            </form:form>
         </div>
     </div>
     <!-- FOOTER -->

@@ -22,9 +22,16 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping(value = "/employee_account")
-    public String employeeAccount(Model model) {
-        model.addAttribute("changeUserDataDTO", new ChangeUserDataDTO());
-        return "employeeAccount";
+    public String employeeAccount(Model model, @AuthenticationPrincipal UserDetailsDTO authorizedUserDetails) {
+        if (authorizedUserDetails != null) {
+            UserDTO user = userService.getUserById(authorizedUserDetails.getId());
+            model.addAttribute("userDetails", authorizedUserDetails);
+            model.addAttribute("user", user);
+            model.addAttribute("changeUserDataDTO", new ChangeUserDataDTO());
+            return "employeeAccount";
+        } else {
+            throw new IllegalStateException("Not authorized to view this page");
+        }
     }
 
     @GetMapping(value = "/customer_account")
@@ -61,8 +68,8 @@ public class UserController {
 
     @PostMapping(value = "/employee_account")
     public String changeEmployeeLogin(@ModelAttribute ChangeUserDataDTO changeUserDataDTO, Model model) {
-        userService.updateEmployeeData(changeUserDataDTO); //TODO change session data
-        return "employeeAccount";
+        userService.updateEmployeeData(changeUserDataDTO);
+        return "redirect:/employee_account";
     }
 
     @PostMapping(value = "/customer_account")

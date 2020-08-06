@@ -79,7 +79,6 @@ public class PassengerServiceImpl implements PassengerService {
     @Override
     @Transactional
     public void updatePassengerData(ChangeUserDataDTO changeUserDataDTO) {
-        //TODO
         if (changeUserDataDTO.getNewLogin() != null) {
             changeLogin(
                     changeUserDataDTO.getNewLogin(),

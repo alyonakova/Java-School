@@ -97,6 +97,7 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    @Transactional
     public void updateEmployeeData(ChangeUserDataDTO changeUserDataDTO) {
         if (changeUserDataDTO.getNewLogin() != null) {
             changeLogin(
