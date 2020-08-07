@@ -80,7 +80,7 @@
 </header>
 <main role="main" class="d-flex flex-column h-100">
     <div class="flex-shrink-0">
-        <div class="container bg-light">
+        <div class="container">
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -93,14 +93,73 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-                    <h4>Add train</h4>
-                    <form>
+                    <h2>Add train</h2>
                         <input type="text" class="form-control" placeholder="Train number">
-                        <input type="text" class="form-control" placeholder="Capacity">
+                        <input type="text" class="form-control add-train-mrgn-top" placeholder="Capacity">
+                            <div>
+                                <table class="table table-new-train add-train-mrgn-top">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th class="td-new-train">From</th>
+                                        <th class="td-new-train">To</th>
+                                        <th class="td-new-train">Travel time (min)</th>
+                                        <th class="td-new-train">Stop (min)</th>
+                                        <th class="td-new-train">Price (₣)</th>
+                                        <th class="td-new-train"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tab_body_segments_data">
+                                    <tr>
+                                        <td class="td-new-train">
+                                                <input type="text" placeholder="Station from">
+                                        </td>
+                                        <td class="td-new-train">
+                                            <input type="text" placeholder="Station to">
+                                        </td>
+                                        <td class="td-new-train">
+                                            <input type="number" min="0" placeholder="Travel time">
+                                        </td>
+                                        <td class="td-new-train">
+                                            <input type="number" min="0" placeholder="Stop time">
+                                        </td>
+                                        <td class="td-new-train">
+                                            <input type="text" placeholder="Price">
+                                        </td>
+                                        <td>
+                                            <button class="btn-danger round-btn" onclick="deleteRowForSegmentData()">-</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <button class="btn-success round-btn" onclick="addRowForSegmentData()">+</button>
+                            </div>
+                            <div>
+                                <table class="table table-new-train add-train-mrgn-top">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th>Train departures</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tab_body_departures">
+                                    <tr>
+                                        <td>
+                                            <input type="datetime-local" placeholder="Departure time">
+                                        </td>
+                                        <td>
+                                            <button class="btn-danger round-btn" onclick="deleteRowForDepartures()">-</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <button class="btn-success round-btn" onclick="addRowForDepartures()">+</button>
+                            </div>
                         <p>
-                            <button class="btn btn-lg btn-success find-button mx-auto">Add</button>
+                            <button class="btn btn-lg btn-success find-button mx-auto">Add train</button>
                         </p>
-                    </form>
+
+                    <hr>
+                    <h2>All trains</h2>
                     <table class="table">
                         <thead class="thead-light">
                         <tr>
@@ -169,5 +228,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+<script src="../../resources/js/main.js"></script>
 </body>
 </html>

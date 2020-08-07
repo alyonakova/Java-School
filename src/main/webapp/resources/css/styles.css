@@ -114,3 +114,23 @@ body {
   bottom: 0;
   padding-left: 40px;
 }
+
+.round-btn {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.table-new-train {
+  border: solid 1px #d2d2d2;
+  border-collapse: collapse;
+}
+
+.td-new-train {
+  border: solid 1px #d2d2d2;
+  padding: 0.2em 0.4em;
+}
+
+.add-train-mrgn-top {
+  margin-top: 10px;
+}
