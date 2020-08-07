@@ -73,42 +73,53 @@
 <main role="main">
 
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <h4>Sign in</h4>
-                <form action="perform_login" method="post">
-                    <label> Login
-                        <input name="username" type="text" class="form-control" placeholder="Enter your login"/></label>
-                    <label> Password
-                        <input name="password" type="password" class="form-control"/></label>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <p><button class="btn btn-lg btn-success find-button mx-auto" type="submit">Sign in</button></p>
-                </form>
+        <div class="row sign-in-up-container">
+            <div class="col bg-light sign-in-container">
+                <div class="sign-in-form">
+                    <h3 class="sign-in-label">Sign in</h3>
+                    <form action="perform_login" method="post">
+                        <label> Login
+                            <input name="username" type="text" class="form-control"
+                                   placeholder="Enter your login"/></label>
+                        <label> Password
+                            <input name="password" type="password" class="form-control"/></label>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <p>
+                            <button class="btn btn-lg btn-success find-button mx-auto" type="submit">Sign in</button>
+                        </p>
+                    </form>
+                </div>
             </div>
-            <div class="col">
-                <h4>Do not have an account? Create it!</h4>
-                <form:form method="post"
-                           modelAttribute="registrationFormDTO"
-                           action="/registration_successful">
-                    <label> Login
-                        <form:input path="login" type="text" class="form-control" placeholder="Enter your login"/></label>
-                    <label> Name
-                        <form:input path="name" type="text" class="form-control" placeholder="Enter your name"/></label>
-                    <label> Surname
-                        <form:input path="surname" type="text" class="form-control" placeholder="Enter your surname"/></label>
-                    <label> Birthday
-                        <form:input path="birthday" type="date" class="form-control"/></label>
-                    <label> Password
-                        <form:input path="userPassword" type="password" class="form-control"/></label>
-                    <p><button class="btn btn-lg btn-success find-button mx-auto" type="submit">Sign up</button></p>
-                </form:form>
+            <div class="col bg-light sign-up-container">
+                <div class="sign-up-form">
+                    <h4>Do not have an account? Create it!</h4>
+                    <form:form method="post"
+                               modelAttribute="registrationFormDTO"
+                               action="/registration_successful">
+                        <label> Name
+                            <form:input path="name" type="text" class="form-control"
+                                        placeholder="Enter your name"/></label>
+                        <label> Surname
+                            <form:input path="surname" type="text" class="form-control"
+                                        placeholder="Enter your surname"/></label>
+                        <label> Login
+                            <form:input path="login" type="text" class="form-control"
+                                        placeholder="Enter your login"/></label>
+                        <label> Birthday
+                            <form:input path="birthday" type="date" class="form-control"/></label>
+                        <label> Password
+                            <form:input path="userPassword" type="password" class="form-control"/></label>
+                        <p>
+                            <button class="btn btn-lg btn-success find-button mx-auto" type="submit">Sign up</button>
+                        </p>
+                    </form:form>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- FOOTER -->
-    <footer class="container">
-        <p class="float-right"><a href="#">Back to top</a></p>
+    <footer class="container footer">
         <p>&copy; 2020 SBB CFF FFS &middot; Alyona Kovalyova </p>
     </footer>
 </main>

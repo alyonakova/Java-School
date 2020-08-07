@@ -83,3 +83,34 @@ body {
   width: 35px;
   height: 35px;
 }
+
+.sign-in-up-container {
+  margin-top: 50px;
+}
+
+.sign-up-container {
+  margin-left: 40px;
+  border-radius: 8px;
+}
+
+.sign-in-container {
+  border-radius: 8px;
+}
+
+.sign-up-form {
+  margin: 15px 47px;
+}
+
+.sign-in-form {
+  margin: 30px 47px;
+}
+
+.sign-in-label {
+  margin-left: 170px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  padding-left: 40px;
+}
