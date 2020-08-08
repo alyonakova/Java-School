@@ -62,10 +62,10 @@ function addRowForSegmentData() {
     newRow.appendChild(tdDelete);
     tdFrom.innerHTML = "<input type=\"text\" placeholder=\"Station from\">";
     tdTo.innerHTML = "<input type=\"text\" placeholder=\"Station to\">";
-    tdTravel.innerHTML = "<input type=\"text\" placeholder=\"Travel time\">";
-    tdStop.innerHTML = "<input type=\"text\" placeholder=\"Stop time\">";
-    tdPrice.innerHTML = "<input type=\"text\" placeholder=\"Price\">";
-    tdDelete.innerHTML = "<button class=\"btn-danger round-btn\" onclick=\"deleteRowForSegmentData()\">-</button>";
+    tdTravel.innerHTML = "<input type=\"number\" placeholder=\"Travel time\">";
+    tdStop.innerHTML = "<input type=\"number\" placeholder=\"Stop time\">";
+    tdPrice.innerHTML = "<input type=\"number\" placeholder=\"Price\">";
+    tdDelete.innerHTML = "<button class=\"btn-danger round-btn\" onclick=\"deleteRowInNewTrainInfo(this)\">-</button>";
 }
 
 function addRowForDepartures() {
@@ -78,13 +78,11 @@ function addRowForDepartures() {
     newRow.append(tdDelete);
     newTd.innerHTML = "\n" +
         "<input type=\"datetime-local\" placeholder=\"Departure time\">";
-    tdDelete.innerHTML = "<button class=\"btn-danger round-btn\" onclick=\"deleteRowForDepartures()\">-</button>";
+    tdDelete.innerHTML = "<button class=\"btn-danger round-btn\" onclick=\"deleteRowInNewTrainInfo(this)\">-</button>";
 }
 
-function deleteRowForSegmentData() {
-
-}
-
-function deleteRowForDepartures() {
-
+function deleteRowInNewTrainInfo(button) {
+    let table = button.parentElement.parentElement.parentElement;
+    let rowToDelete = button.parentElement.parentElement;
+    table.removeChild(rowToDelete);
 }

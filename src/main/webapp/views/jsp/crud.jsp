@@ -126,7 +126,6 @@
                                             <input type="text" placeholder="Price">
                                         </td>
                                         <td>
-                                            <button class="btn-danger round-btn" onclick="deleteRowForSegmentData()">-</button>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -147,7 +146,6 @@
                                             <input type="datetime-local" placeholder="Departure time">
                                         </td>
                                         <td>
-                                            <button class="btn-danger round-btn" onclick="deleteRowForDepartures()">-</button>
                                         </td>
                                     </tr>
                                     </tbody>
