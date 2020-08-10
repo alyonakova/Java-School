@@ -24,4 +24,10 @@ public class TrainRepositoryImpl
                 .createQuery("SELECT t FROM TrainEntity t", TrainEntity.class)
                 .getResultList();
     }
+
+    @Override
+    public TrainEntity create(TrainEntity train) {
+        getEntityManager().persist(train);
+        return train;
+    }
 }

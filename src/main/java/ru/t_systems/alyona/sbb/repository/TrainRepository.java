@@ -10,4 +10,5 @@ public interface TrainRepository {
 
     TrainEntity getById(String id);
     List<TrainEntity> getAll();
+    TrainEntity create(TrainEntity train);
 }

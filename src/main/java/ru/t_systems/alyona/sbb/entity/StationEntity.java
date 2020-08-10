@@ -41,4 +41,10 @@ public class StationEntity {
     @Convert(converter = ZoneIdConverter.class)
     private ZoneId zoneId;
 
+    @OneToMany(mappedBy = "stationFrom")
+    private List<SegmentTemplateEntity> segmentsTemplateFromStation;
+
+    @OneToMany(mappedBy = "stationTo")
+    private List<SegmentTemplateEntity> segmentsTemplateToStation;
+
 }

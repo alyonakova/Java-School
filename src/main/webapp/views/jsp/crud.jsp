@@ -44,6 +44,9 @@
     </style>
     <!-- Custom styles for this template -->
     <link href="../resources/css/styles.css" rel="stylesheet">
+
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
 </head>
 <body>
 <header>
@@ -84,77 +87,86 @@
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Add train</a>
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                       aria-controls="home" aria-selected="true">Add train</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Add station</a>
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                       aria-controls="profile" aria-selected="false">Add station</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
                     <h2>Add train</h2>
-                        <input type="text" class="form-control" placeholder="Train number">
-                        <input type="text" class="form-control add-train-mrgn-top" placeholder="Capacity">
-                            <div>
-                                <table class="table table-new-train add-train-mrgn-top">
-                                    <thead class="thead-light">
-                                    <tr>
-                                        <th class="td-new-train">From</th>
-                                        <th class="td-new-train">To</th>
-                                        <th class="td-new-train">Travel time (min)</th>
-                                        <th class="td-new-train">Stop (min)</th>
-                                        <th class="td-new-train">Price (₣)</th>
-                                        <th class="td-new-train"></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="tab_body_segments_data">
-                                    <tr>
-                                        <td class="td-new-train">
-                                                <input type="text" placeholder="Station from">
-                                        </td>
-                                        <td class="td-new-train">
-                                            <input type="text" placeholder="Station to">
-                                        </td>
-                                        <td class="td-new-train">
-                                            <input type="number" min="0" placeholder="Travel time">
-                                        </td>
-                                        <td class="td-new-train">
-                                            <input type="number" min="0" placeholder="Stop time">
-                                        </td>
-                                        <td class="td-new-train">
-                                            <input type="text" placeholder="Price">
-                                        </td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <button class="btn-success round-btn" onclick="addRowForSegmentData()">+</button>
-                            </div>
-                            <div>
-                                <table class="table table-new-train add-train-mrgn-top">
-                                    <thead class="thead-light">
-                                    <tr>
-                                        <th>Train departures</th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="tab_body_departures">
-                                    <tr>
-                                        <td>
-                                            <input type="datetime-local" placeholder="Departure time">
-                                        </td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <button class="btn-success round-btn" onclick="addRowForDepartures()">+</button>
-                            </div>
-                        <p>
-                            <button class="btn btn-lg btn-success find-button mx-auto">Add train</button>
-                        </p>
+                    <div class="row">
+                        <label for="train-number" class="col-md-auto">Train number:</label>
+                        <input type="text" class="col form-control" placeholder="Train number" id="train-number">
+                        <div class="w-100"></div>
+                        <label for="train-capacity" class="col-md-auto">Number of seats:</label>
+                        <input type="number" class="col form-control add-train-mrgn-top" placeholder="Capacity"
+                               id="train-capacity">
+                    </div>
+                    <div>
+                        <table class="table table-new-train add-train-mrgn-top">
+                            <thead class="thead-light">
+                            <tr>
+                                <th class="td-new-train">From</th>
+                                <th class="td-new-train">To</th>
+                                <th class="td-new-train">Travel duration (minutes)</th>
+                                <th class="td-new-train">Stop (minutes)</th>
+                                <th class="td-new-train">Price (₣)</th>
+                                <th class="td-new-train"></th>
+                            </tr>
+                            </thead>
+                            <tbody id="tab_body_segments_data">
+                            <tr>
+                                <td class="td-new-train">
+                                    <input name="sourceStation" type="text" placeholder="Station from">
+                                </td>
+                                <td class="td-new-train">
+                                    <input name="destinationStation" type="text" placeholder="Station to">
+                                </td>
+                                <td class="td-new-train">
+                                    <input name="travelDuration" type="number" min="0" placeholder="Travel duration">
+                                </td>
+                                <td class="td-new-train">
+                                    <input name="stopDuration" type="number" min="0" placeholder="Stop duration">
+                                </td>
+                                <td class="td-new-train">
+                                    <input name="price" type="number" min="0" placeholder="Price">
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn-success round-btn" onclick="addRowForSegmentData()">+</button>
+                    </div>
+                    <div>
+                        <table class="table table-new-train add-train-mrgn-top">
+                            <thead class="thead-light">
+                            <tr>
+                                <th>Train departures (UTC)</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody id="tab_body_departures">
+                            <tr>
+                                <td>
+                                    <input name="departureTime" type="datetime-local" placeholder="Departure time">
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn-success round-btn" onclick="addRowForDepartures()">+</button>
+                    </div>
+                    <p>
+                        <button class="btn btn-lg btn-success find-button mx-auto" onclick="addTrain()">Add train
+                        </button>
+                    </p>
 
                     <hr>
                     <h2>All trains</h2>
