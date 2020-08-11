@@ -10,6 +10,10 @@ import java.util.List;
 public interface StationRepository {
 
     StationEntity getById(BigInteger id);
+
     StationEntity getByName(String name);
+
     List<StationEntity> getAll();
+
+    StationEntity create(StationEntity station);
 }

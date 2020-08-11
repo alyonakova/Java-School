@@ -9,5 +9,5 @@ public interface StationService {
 
     StationEntity getEntityByName(String name);
 
-    StationDTO getDTOByName(String name);
+    void createStation(StationDTO station);
 }

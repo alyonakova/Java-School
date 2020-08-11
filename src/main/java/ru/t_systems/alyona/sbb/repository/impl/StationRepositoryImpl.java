@@ -34,4 +34,10 @@ public class StationRepositoryImpl
         ).getResultList();
         return allStations;
     }
+
+    @Override
+    public StationEntity create(StationEntity station) {
+        getEntityManager().persist(station);
+        return station;
+    }
 }

@@ -197,9 +197,10 @@
                         <div class="w-100"></div>
                         <label for="zone-id" class="col-md-auto">Zone:</label>
                             <input type="text" class="col form-control mrgn-top" placeholder="Zone id" id="zone-id">
+                        <p><a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="col-md-auto">All time zones</a></p>
                     </div>
                         <p>
-                            <button class="btn btn-lg btn-success find-button mx-auto">Add station</button>
+                            <button class="btn btn-lg btn-success find-button mx-auto" onclick="addStation()">Add station</button>
                         </p>
                     <hr>
                     <h2>All stations</h2>

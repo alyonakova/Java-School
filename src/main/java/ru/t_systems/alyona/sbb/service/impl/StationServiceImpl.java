@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.t_systems.alyona.sbb.converter.StationConverter;
 import ru.t_systems.alyona.sbb.dto.StationDTO;
 import ru.t_systems.alyona.sbb.entity.StationEntity;
@@ -31,13 +32,12 @@ public class StationServiceImpl implements StationService {
     }
 
     @Override
-    public StationDTO getDTOByName(String name) {
-        StationDTO stationDTO = null;
+    @Transactional
+    public void createStation(StationDTO station) {
         try {
-            stationDTO = stationConverter.stationToDTO(stationRepository.getByName(name));
+            stationRepository.create(stationConverter.stationToEntity(station));
         } catch (Exception e) {
-            LOGGER.error("Failed to get station DTO by name", e);
+            LOGGER.error("Failed to create a new station", e);
         }
-        return stationDTO;
     }
 }
