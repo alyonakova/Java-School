@@ -99,37 +99,53 @@
 </header>
 <main role="main">
 
-    <h3>${segmentGroups.get(0).get(0).from.name}
-        → ${segmentGroups.get(0).get(segmentGroups.get(0).size()-1).to.name}</h3>
+    <h2 class="text-center mrgn-top">
+        ${segmentGroups.get(0).get(0).from.name}
+        &LongRightArrow;
+        ${segmentGroups.get(0).get(segmentGroups.get(0).size()-1).to.name}
+    </h2>
 
     <%! int tickets = Integer.MAX_VALUE;
         int price = 0;%>
 
-        <c:forEach var="group" items="${segmentGroups}">
+    <c:forEach var="group" items="${segmentGroups}">
+        <div class="container bg-light mt-3 p-4 rounded-lg">
             <form:form method="post"
                        modelAttribute="segmentsGroupDTO"
                        action="/tickets">
-            <form:hidden path="segments" value="${group}"/>
-            Train ${group.get(0).getTrain().getId()} <br>
-            <c:forEach var="segment" items="${group}">
-                <c:out value="${segment.from.name} "/>
-                <c:out value="(${segment.departure}) "/>
-                <c:out value="→ ${segment.to.name} "/>
-                <c:out value="(${segment.arrival})"/>
-                <c:set var="left" value="${segment.ticketsLeft}"/>
-                <% tickets = Math.min(tickets, (Integer) pageContext.getAttribute("left")); %>
-                <c:set var="price" value="${segment.price}"/>
-                <% price += (Integer) pageContext.getAttribute("price"); %>
-                <br>
-            </c:forEach>
-            <h3>Tickets available: <%= tickets %>, total price: <%= price %>₣</h3>
-            <%
-                tickets = Integer.MAX_VALUE;
-                price = 0;
-            %>
-            <p><button class="btn btn-lg btn-success find-button mx-auto" type="submit">Buy ticket</button></p>
+                <form:hidden path="segments" value="${group}"/>
+                <h5>Train ${group.get(0).getTrain().getId()}</h5>
+                <c:forEach var="segment" items="${group}">
+                    <span class="badge badge-secondary">
+                        <c:out value="${segment.from.name} "/>
+                    </span>
+                    <c:out value="(${segment.departure})"/>
+                    &longrightarrow;
+                    <span class="badge badge-secondary">
+                        <c:out value="${segment.to.name}"/>
+                    </span>
+                    <c:out value="(${segment.arrival})"/>
+                    <c:set var="left" value="${segment.ticketsLeft}"/>
+                    <% tickets = Math.min(tickets, (Integer) pageContext.getAttribute("left")); %>
+                    <c:set var="price" value="${segment.price}"/>
+                    <% price += (Integer) pageContext.getAttribute("price"); %>
+                    <br>
+                </c:forEach>
+                <div>
+                    <button class="btn btn-lg btn-success mt-2 mx-auto align-baseline" type="submit">
+                        Buy ticket (<%= price %>₣)
+                    </button>
+                    <span class="ml-1">
+                    Tickets available: <%= tickets %>
+                    </span>
+                </div>
+                <%
+                    tickets = Integer.MAX_VALUE;
+                    price = 0;
+                %>
             </form:form>
-        </c:forEach>
+        </div>
+    </c:forEach>
 
     <!-- FOOTER -->
     <footer class="fixed-bottom page-footer bg-secondary">
