@@ -134,3 +134,7 @@ body {
 .crud-mrgn-top {
   margin-top: 10px;
 }
+
+.station-form-mrgn {
+  margin: 30px 50px 10px 40px;
+}
