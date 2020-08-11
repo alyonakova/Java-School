@@ -25,7 +25,7 @@ public class RouteServiceImpl implements RouteService {
         try {
             route = routeConverter.routeToDTO(routeRepository.getByFromAndTo(from, to));
         } catch (Exception e) {
-            LOGGER.error("Failed to get route by two stations");
+            LOGGER.error("Failed to get route by two stations", e);
         }
         return route;
     }

@@ -4,12 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.t_systems.alyona.sbb.converter.SegmentConverter;
 import ru.t_systems.alyona.sbb.dto.RouteDTO;
 import ru.t_systems.alyona.sbb.dto.SegmentDTO;
 import ru.t_systems.alyona.sbb.entity.StationEntity;
 import ru.t_systems.alyona.sbb.repository.SegmentRepository;
+import ru.t_systems.alyona.sbb.service.RouteService;
 import ru.t_systems.alyona.sbb.service.SegmentService;
+import ru.t_systems.alyona.sbb.service.StationService;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -21,17 +24,19 @@ import java.util.List;
 @Service
 public class SegmentServiceImpl implements SegmentService {
 
-    private final StationServiceImpl stationService;
-    private final RouteServiceImpl routeService;
+    private final StationService stationService;
+    private final RouteService routeService;
     private final SegmentRepository segmentRepository;
     private final SegmentConverter segmentConverter;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SegmentServiceImpl.class);
 
+    @Transactional
     @Override
-    public List<List<SegmentDTO>> getSegmentGroupsByStationsAndDates(String departureStationName, String arrivalStationName,
-                                                                     LocalDateTime departureTime, LocalDateTime arrivalTime)
-    {
+    public List<List<SegmentDTO>> getSegmentGroupsByStationsAndDates(
+            String departureStationName, String arrivalStationName,
+            LocalDateTime departureTime, LocalDateTime arrivalTime) {
+
         StationEntity departureStation = stationService.getEntityByName(departureStationName);
         StationEntity arrivalStation = stationService.getEntityByName(arrivalStationName);
         RouteDTO route = routeService.getByStations(departureStation, arrivalStation);

@@ -21,11 +21,11 @@ public class SegmentEntity {
     @Column(name = "id")
     private BigInteger id;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_station_from")
     private StationEntity from;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_station_to")
     private StationEntity to;
 
