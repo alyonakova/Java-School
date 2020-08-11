@@ -100,48 +100,53 @@
     </nav>
 </header>
 
-<main role="main">
-    <div class="search-form-mrgn">
-        <h2>Timetable</h2>
-        <div class="row mrgn-top">
-            <label for="search-text" class="col-md-auto">Station name:</label>
-            <input type="text" class="col form-control" placeholder="Station" id="search-text" onkeyup="tableSearchByStation()">
-        </div>
-        <div class="mrgn-top">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="route" value="departure" checked onchange="tableSearchByStation()" id="radio-departure">
-                <label class="form-check-label" for="radio-departure">Departure</label>
+<main role="main" class="md-3 p-3 p-lg-3">
+    <header class="my-3 container-fluid">
+        <h1>Timetable</h1>
+        <div class="row align-items-baseline">
+            <div class="col-md-auto">Show trains that</div>
+            <div class="col-md-auto btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-primary active">
+                    <input type="radio" name="route" value="departure" checked
+                           autocomplete="off" id="radio-departure"
+                           onchange="tableSearchByStation()">
+                    depart from
+                </label>
+                <label class="btn btn-primary">
+                    <input type="radio" name="route" value="arrival"
+                           autocomplete="off" id="radio-arrival"
+                           onchange="tableSearchByStation()">
+                    arrive to
+                </label>
             </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="route" value="arrival" onchange="tableSearchByStation()" id="radio-arrival">
-                <label class="form-check-label" for="radio-arrival">Arrival</label>
-            </div>
+            <input id="search-text" type="text" class="col form-control"
+                   placeholder="any station" onkeyup="tableSearchByStation()">
         </div>
+    </header>
+    <div class="container-fluid">
+        <table class="table" id="timetable">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Train</th>
+                <th scope="col">Departure date</th>
+                <th scope="col">From</th>
+                <th scope="col">Arrival date</th>
+                <th scope="col">To</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="segment" items="${allSegments}">
+                <tr>
+                    <td>${segment.train.id}</td>
+                    <td>${segment.departure}</td>
+                    <td>${segment.from.name}</td>
+                    <td>${segment.arrival}</td>
+                    <td>${segment.to.name}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
     </div>
-
-    <table class="table" id="timetable">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col">Train</th>
-            <th scope="col">Departure date</th>
-            <th scope="col">From</th>
-            <th scope="col">Arrival date</th>
-            <th scope="col">To</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="segment" items="${allSegments}">
-        <tr>
-            <td>${segment.train.id}</td>
-            <td>${segment.departure}</td>
-            <td>${segment.from.name}</td>
-            <td>${segment.arrival}</td>
-            <td>${segment.to.name}</td>
-        </tr>
-        </c:forEach>
-        </tbody>
-    </table>
-
     <!-- FOOTER -->
     <footer class="fixed-bottom page-footer bg-secondary">
         <a href="#" class="float-right footer-text">Back to top</a>
