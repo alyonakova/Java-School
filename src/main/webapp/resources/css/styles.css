@@ -110,10 +110,8 @@ body {
   margin-left: 170px;
 }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  padding-left: 40px;
+.footer-text {
+  color: #d7d7db;
 }
 
 .round-btn {

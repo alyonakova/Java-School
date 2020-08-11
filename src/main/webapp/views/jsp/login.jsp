@@ -119,8 +119,9 @@
     </div>
 
     <!-- FOOTER -->
-    <footer class="container footer">
-        <p>&copy; 2020 SBB CFF FFS &middot; Alyona Kovalyova </p>
+    <footer class="fixed-bottom page-footer bg-secondary">
+        <a href="#" class="float-right footer-text">Back to top</a>
+        <p class="text-center footer-text">&copy; 2020 SBB CFF FFS &middot; Alyona Kovalyova </p>
     </footer>
 </main>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
