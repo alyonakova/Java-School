@@ -76,7 +76,7 @@
 </header>
 <main role="main" class="d-flex flex-column h-100">
     <div class="flex-shrink-0">
-        <div class="container bg-light">
+        <div class="container bg-light container-pdng">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">User data</a>
@@ -116,7 +116,7 @@
 
 
                     <h4>Tickets</h4>
-
+                    <p>No tickets yet...</p>
 
                 </div>
                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
@@ -130,7 +130,7 @@
                         <form:input path="newName" type="text" class="form-control" placeholder="${user.passenger.name}"/>
                         <form:hidden path="id" value="${user.id}"/>
                         <p>
-                            <button class="btn btn-outline-info" type="submit">Change</button>
+                            <button class="btn btn-outline-info mrgn-top" type="submit">Change</button>
                         </p>
                     </form:form>
                     <form:form method="post"
@@ -142,7 +142,7 @@
                         <form:input path="newSurname" type="text" class="form-control"
                                     placeholder="${user.passenger.surname}"/>
                         <form:hidden path="id" value="${user.id}"/>
-                        <p><button class="btn btn-outline-info" type="submit">Change</button></p>
+                        <p><button class="btn btn-outline-info mrgn-top" type="submit">Change</button></p>
                     </form:form>
                     <form:form method="post"
                                modelAttribute="changeUserDataDTO"
@@ -153,7 +153,7 @@
                         <form:input path="newBirthday" type="date" class="form-control"
                                     placeholder="${user.passenger.birthday}"/>
                         <form:hidden path="id" value="${user.id}"/>
-                    <p><button class="btn btn-outline-info" type="submit">Change</button></p>
+                    <p><button class="btn btn-outline-info mrgn-top" type="submit">Change</button></p>
                     </form:form>
                     <form:form method="post"
                                modelAttribute="changeUserDataDTO"
@@ -164,7 +164,7 @@
                         <form:input path="newLogin" type="text" class="form-control" placeholder="${user.login}"/>
                         <form:hidden path="id" value="${user.id}"/>
                         <p>
-                            <button class="btn btn-outline-info" type="submit">Change</button>
+                            <button class="btn btn-outline-info mrgn-top" type="submit">Change</button>
                         </p>
                     </form:form>
                     <form:form method="post"
@@ -175,8 +175,9 @@
                     </label>
                     <form:input path="newPassword" type="password" class="form-control" placeholder="Enter new password"/>
                         <form:hidden path="id" value="${user.id}"/>
-                    <p><button class="btn btn-outline-info" type="submit">Change</button></p>
+                    <p><button class="btn btn-outline-info mrgn-top" type="submit">Change</button></p>
                     </form:form>
+                    <br>
                 </div>
             </div>
         </div>
