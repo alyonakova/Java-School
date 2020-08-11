@@ -104,11 +104,11 @@
                         <input type="text" class="col form-control" placeholder="Train number" id="train-number">
                         <div class="w-100"></div>
                         <label for="train-capacity" class="col-md-auto">Number of seats:</label>
-                        <input type="number" class="col form-control add-train-mrgn-top" placeholder="Capacity"
+                        <input type="number" class="col form-control crud-mrgn-top" placeholder="Capacity"
                                id="train-capacity">
                     </div>
                     <div>
-                        <table class="table table-new-train add-train-mrgn-top">
+                        <table class="table table-new-train crud-mrgn-top">
                             <thead class="thead-light">
                             <tr>
                                 <th class="td-new-train">From</th>
@@ -144,7 +144,7 @@
                         <button class="btn-success round-btn" onclick="addRowForSegmentData()">+</button>
                     </div>
                     <div>
-                        <table class="table table-new-train add-train-mrgn-top">
+                        <table class="table table-new-train crud-mrgn-top">
                             <thead class="thead-light">
                             <tr>
                                 <th>Train departures (UTC)</th>
@@ -190,14 +190,19 @@
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
-                    <h4>Add station</h4>
-                    <form>
-                        <input type="text" class="form-control" placeholder="Station name">
-                        <input type="text" class="form-control" placeholder="Zone id">
+                    <h2>Add station</h2>
+                    <div class="row">
+                        <label for="station-name" class="col-md-auto">Station name:</label>
+                            <input type="text" class="col form-control" placeholder="Station name" id="station-name">
+                        <div class="w-100"></div>
+                        <label for="zone-id" class="col-md-auto">Zone:</label>
+                            <input type="text" class="col form-control crud-mrgn-top" placeholder="Zone id" id="zone-id">
+                    </div>
                         <p>
-                            <button class="btn btn-lg btn-success find-button mx-auto">Add</button>
+                            <button class="btn btn-lg btn-success find-button mx-auto">Add station</button>
                         </p>
-                    </form>
+                    <hr>
+                    <h2>All stations</h2>
                     <table class="table">
                         <thead class="thead-light">
                         <tr>
