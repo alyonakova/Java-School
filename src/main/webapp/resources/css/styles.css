@@ -1,7 +1,7 @@
 
 body {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding-top: 56px; /* height of navbar header */
+  padding-bottom: 56px; /* same as padding-top */
   color: #5a5a5a;
 }
 

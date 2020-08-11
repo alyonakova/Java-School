@@ -106,9 +106,9 @@
 
 <main role="main">
 
-    <div class="mx-auto p-lg-5 bg-light">
-        <h1 style="text-align: center">Start your trip with SBB!</h1>
-        <div class="container">
+    <div class="mx-auto p-md-4 bg-light">
+        <h1 class="my-3" style="text-align: center">Start your trip with SBB!</h1>
+        <div class="container my-3">
             <form:form method="post"
                        modelAttribute="findTrainFormDTO"
             onsubmit="return '/'">
@@ -136,7 +136,9 @@
                         <form:input path="secondDate" type="datetime-local" class="form-control"/>
                     </div>
                 </div>
-                <p><button class="btn btn-lg btn-success find-button mx-auto" type="submit">Find trains</button></p>
+                <div class="my-3">
+                    <button class="btn btn-lg btn-success find-button mx-auto" type="submit">Find trains</button>
+                </div>
             </form:form>
         </div>
     </div>
