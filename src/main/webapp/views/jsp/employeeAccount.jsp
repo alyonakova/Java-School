@@ -82,8 +82,8 @@
 </header>
 <main role="main" class="d-flex flex-column h-100">
     <div class="flex-shrink-0">
-        <div class="container bg-light">
-            <h3 class="mt-5">Welcome, ${user.login}!</h3>
+        <div class="container bg-light container-pdng">
+            <h2 class="mt-5">Welcome, ${user.login}!</h2>
             <h4>Change user data</h4>
             <form:form method="post"
                        modelAttribute="changeUserDataDTO"
@@ -93,7 +93,7 @@
                 </label>
                 <form:input path="newLogin" type="text" class="form-control" placeholder="${user.login}"/>
                 <form:hidden path="id" value="${user.id}"/>
-                <p><button class="btn btn-outline-info" type="submit">Change</button></p>
+                <p><button class="btn btn-outline-info mrgn-top" type="submit">Change</button></p>
             </form:form>
             <form:form method="post"
                        modelAttribute="changeUserDataDTO"
@@ -102,13 +102,13 @@
                 Change password
             </label>
             <form:input path="newPassword" type="password" class="form-control" placeholder="Enter new password"/>
-            <p><button class="btn btn-outline-info" type="submit">Change</button></p>
+            <p><button class="btn btn-outline-info mrgn-top" type="submit">Change</button></p>
             </form:form>
+            <br>
         </div>
     </div>
     <!-- FOOTER -->
-    <footer class="container">
-        <p class="float-right"><a href="#">Back to top</a></p>
+    <footer class="container footer">
         <p>&copy; 2020 SBB CFF FFS &middot; Alyona Kovalyova </p>
     </footer>
 </main>

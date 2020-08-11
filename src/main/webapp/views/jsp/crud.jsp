@@ -104,11 +104,11 @@
                         <input type="text" class="col form-control" placeholder="Train number" id="train-number">
                         <div class="w-100"></div>
                         <label for="train-capacity" class="col-md-auto">Number of seats:</label>
-                        <input type="number" class="col form-control crud-mrgn-top" placeholder="Capacity"
+                        <input type="number" class="col form-control mrgn-top" placeholder="Capacity"
                                id="train-capacity">
                     </div>
                     <div>
-                        <table class="table table-new-train crud-mrgn-top">
+                        <table class="table table-new-train mrgn-top">
                             <thead class="thead-light">
                             <tr>
                                 <th class="td-new-train">From</th>
@@ -144,7 +144,7 @@
                         <button class="btn-success round-btn" onclick="addRowForSegmentData()">+</button>
                     </div>
                     <div>
-                        <table class="table table-new-train crud-mrgn-top">
+                        <table class="table table-new-train mrgn-top">
                             <thead class="thead-light">
                             <tr>
                                 <th>Train departures (UTC)</th>
@@ -196,7 +196,7 @@
                             <input type="text" class="col form-control" placeholder="Station name" id="station-name">
                         <div class="w-100"></div>
                         <label for="zone-id" class="col-md-auto">Zone:</label>
-                            <input type="text" class="col form-control crud-mrgn-top" placeholder="Zone id" id="zone-id">
+                            <input type="text" class="col form-control mrgn-top" placeholder="Zone id" id="zone-id">
                     </div>
                         <p>
                             <button class="btn btn-lg btn-success find-button mx-auto">Add station</button>

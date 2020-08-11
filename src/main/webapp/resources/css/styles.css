@@ -132,10 +132,14 @@ body {
   padding: 0.2em 0.4em;
 }
 
-.crud-mrgn-top {
+.mrgn-top {
   margin-top: 10px;
 }
 
 .station-form-mrgn {
   margin: 30px 50px 10px 40px;
+}
+
+.container-pdng {
+  padding-left: 30px;
 }
