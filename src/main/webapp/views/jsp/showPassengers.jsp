@@ -79,12 +79,14 @@
     </nav>
 </header>
 <main role="main">
-    <h3>Registered passengers</h3>
-    <label>
-        Enter the train number
-    </label>
-    <input type="text" class="form-control" placeholder="Train" id="search-text" onkeyup="tableSearchByTrain()">
-
+    <div class="search-form-mrgn">
+        <h3>Registered passengers</h3>
+        <label>
+            Enter the train number:
+        </label>
+        <input type="text" class="form-control" placeholder="Train" id="search-text" onkeyup="tableSearchByTrain()">
+    </div>
+    <div class="w-100"></div>
     <table class="table" id="passengers_table">
         <thead class="thead-light">
         <tr>

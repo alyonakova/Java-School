@@ -101,13 +101,12 @@
 </header>
 
 <main role="main">
-    <div class="station-form-mrgn">
+    <div class="search-form-mrgn">
         <h2>Timetable</h2>
         <div class="row mrgn-top">
             <label for="search-text" class="col-md-auto">Station name:</label>
             <input type="text" class="col form-control" placeholder="Station" id="search-text" onkeyup="tableSearchByStation()">
         </div>
-        <div class="w-100"></div>
         <div class="mrgn-top">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="route" value="departure" checked onchange="tableSearchByStation()" id="radio-departure">
