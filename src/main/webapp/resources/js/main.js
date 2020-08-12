@@ -143,3 +143,41 @@ function addStation() {
         response => console.debug(response)
     );
 }
+
+function generatePassengerForms() {
+
+    let table = document.getElementById("passengers-for-tickets");
+    let numberOfPassengers = document.getElementById("tickets-count").value;
+    let actualNumberOfPassengers = table.rows.length - 1;
+
+    if (numberOfPassengers > actualNumberOfPassengers) {
+
+        let toAdd = numberOfPassengers - actualNumberOfPassengers;
+
+        for (let i = 0; i < toAdd; i ++) {
+
+            let newPassenger = document.createElement('tr');
+            table.appendChild(newPassenger);
+
+            let newPassengerName = document.createElement('td');
+            let newPassengerSurname = document.createElement('td');
+            let newPassengerBirthday = document.createElement('td');
+
+            newPassenger.appendChild(newPassengerName);
+            newPassenger.appendChild(newPassengerSurname);
+            newPassenger.appendChild(newPassengerBirthday);
+
+            newPassengerName.innerHTML = "<input type=\"text\" class=\"form-control\" placeholder=\"Name\" name=\"passenger-name\"/>";
+            newPassengerSurname.innerHTML = "<input type=\"text\" class=\"form-control\" placeholder=\"Surname\" name=\"passenger-surname\"/>";
+            newPassengerBirthday.innerHTML = "<input type=\"date\" class=\"form-control\" name=\"passenger-birthday\"/>";
+        }
+    } else if (numberOfPassengers < actualNumberOfPassengers) {
+
+        let toDelete = actualNumberOfPassengers - numberOfPassengers;
+
+        while (toDelete--) {
+            let lastRow = table.rows[table.rows.length - 1];
+            lastRow.parentNode.removeChild(lastRow);
+        }
+    }
+}
