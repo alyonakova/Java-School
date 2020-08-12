@@ -122,3 +122,24 @@ function segmentFromRow(row) {
 function departureTimeFromRow(row) {
     return String(row.querySelector('input[name="departureTime"]').value);
 }
+
+function addStation() {
+    let csrfToken = document.querySelector("meta[name='_csrf']").getAttribute('content');
+    let csrfHeader = document.querySelector("meta[name='_csrf_header']").getAttribute('content');
+    let request = {
+        name: String(document.getElementById('station-name').value),
+        zoneId: String(document.getElementById('zone-id'). value)
+    };
+    fetch(
+        new Request(`/api/stations`), {
+            method: 'POST',
+            body: JSON.stringify(request),
+            headers: {
+                'Content-Type': 'application/json',
+                [csrfHeader]: csrfToken,
+            },
+        }
+    ).then(
+        response => console.debug(response)
+    );
+}
