@@ -2,7 +2,6 @@ package ru.t_systems.alyona.sbb.repository.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.t_systems.alyona.sbb.entity.UserEntity;
 import ru.t_systems.alyona.sbb.repository.UserRepository;
 
@@ -33,7 +32,7 @@ public class UserRepositoryImpl
                 "SELECT u FROM UserEntity u WHERE u.login = :login",
                 UserEntity.class);
         query.setParameter("login", login);
-        return query.getSingleResult();
+        return query.getResultList().stream().findFirst().orElse(null);
     }
 
     @Override

@@ -7,10 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.t_systems.alyona.sbb.dto.ChangeUserDataDTO;
-import ru.t_systems.alyona.sbb.dto.RegistrationFormDTO;
-import ru.t_systems.alyona.sbb.dto.UserDTO;
-import ru.t_systems.alyona.sbb.dto.UserDetailsDTO;
+import ru.t_systems.alyona.sbb.dto.*;
 import ru.t_systems.alyona.sbb.service.PassengerService;
 import ru.t_systems.alyona.sbb.service.UserService;
 
@@ -62,8 +59,16 @@ public class UserController {
 
     @PostMapping(value = "/registration_successful")
     public String registration(@ModelAttribute RegistrationFormDTO registrationFormDTO, Model model) {
-        userService.registerUser(registrationFormDTO);
-        return "registration_successful";
+        UserRegistrationResultDTO result = userService.registerUser(registrationFormDTO);
+        if (result.isSuccessful()) {
+            model.addAttribute("registrationFormDTO", new RegistrationFormDTO());
+            model.addAttribute("messages", result.getMessages());
+            return "login";
+        }else {
+            model.addAttribute("registrationFormDTO", registrationFormDTO);
+            model.addAttribute("messages", result.getMessages());
+            return "login";
+        }
     }
 
     @PostMapping(value = "/employee_account")

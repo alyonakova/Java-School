@@ -34,23 +34,47 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void registerUser(RegistrationFormDTO registrationForm) {
+    public UserRegistrationResultDTO registerUser(RegistrationFormDTO registrationForm) {
+
+        if (userRepository.getByLogin(registrationForm.getLogin()) != null) {
+            return UserRegistrationResultDTO.builder()
+                    .successful(false)
+                    .messages(List.of(
+                            MessageDTO.builder()
+                                    .text("A user with the specified login already exists.")
+                                    .severity(MessageDTO.Severity.ERROR)
+                                    .build()))
+                    .build();
+        }
 
         //create passenger
         PassengerDTO passenger = passengerService.createPassenger(registrationForm.getName(),
                 registrationForm.getSurname(), registrationForm.getBirthday());
 
         //create user
-        createUser(registrationForm.getLogin(), true, passenger, registrationForm.getUserPassword());
-    }
-
-    private void createUser(String login, Boolean isPassenger, PassengerDTO passenger, String password) {
         try {
-            final UserDTO userDTO = new UserDTO(null, login, isPassenger, passenger, passwordEncoder.encode(password));
+            final UserDTO userDTO = new UserDTO(null, registrationForm.getLogin(), true, passenger, passwordEncoder.encode(registrationForm.getUserPassword()));
             userRepository.create(userConverter.userToEntity(userDTO));
         } catch (Exception e) {
             LOGGER.error("Failed to create a new user", e);
+            UserRegistrationResultDTO.builder()
+                    .successful(false)
+                    .messages(List.of(
+                            MessageDTO.builder()
+                                    .text("A technical error occurred, please try again later.")
+                                    .severity(MessageDTO.Severity.TECHNICAL_ERROR)
+                                    .build()))
+                    .build();
         }
+
+        return UserRegistrationResultDTO.builder()
+                .successful(true)
+                .messages(List.of(
+                        MessageDTO.builder()
+                                .text("Registration successful. Now you can log in.")
+                                .severity(MessageDTO.Severity.INFORMATIONAL)
+                                .build()))
+                .build();
     }
 
     @Override

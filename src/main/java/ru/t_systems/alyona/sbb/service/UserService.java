@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public interface UserService {
 
-    void registerUser(RegistrationFormDTO registrationForm);
+    UserRegistrationResultDTO registerUser(RegistrationFormDTO registrationForm);
 
     UserDTO getUserByLogin(String login);
 
