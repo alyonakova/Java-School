@@ -146,9 +146,19 @@ function addStation() {
 
 function generatePassengerForms() {
 
+    document.getElementById("passengers-form-alert").style.display = "none";
+
     let table = document.getElementById("passengers-for-tickets");
+    let totalPriceElement = document.getElementById("tickets-price");
+    let totalPriceValue = Number(totalPriceElement.innerText);
+    let oneTicketPrice = Number(document.getElementById("one-ticket-price").value);
     let numberOfPassengers = document.getElementById("tickets-count").value;
     let actualNumberOfPassengers = table.rows.length - 1;
+
+    if (numberOfPassengers < 1 || numberOfPassengers > 15) {
+        document.getElementById("passengers-form-alert").style.display = "block";
+        return;
+    }
 
     if (numberOfPassengers > actualNumberOfPassengers) {
 
@@ -171,13 +181,21 @@ function generatePassengerForms() {
             newPassengerSurname.innerHTML = "<input type=\"text\" class=\"form-control\" placeholder=\"Surname\" name=\"passenger-surname\"/>";
             newPassengerBirthday.innerHTML = "<input type=\"date\" class=\"form-control\" name=\"passenger-birthday\"/>";
         }
+
+        totalPriceValue += oneTicketPrice * toAdd;
+        totalPriceElement.innerText = String(totalPriceValue);
+
     } else if (numberOfPassengers < actualNumberOfPassengers) {
 
         let toDelete = actualNumberOfPassengers - numberOfPassengers;
+        let minusTicketsNumber = toDelete;
 
         while (toDelete--) {
             let lastRow = table.rows[table.rows.length - 1];
             lastRow.parentNode.removeChild(lastRow);
         }
+
+        totalPriceValue = totalPriceValue - (oneTicketPrice * minusTicketsNumber);
+        totalPriceElement.innerText = String(totalPriceValue);
     }
 }

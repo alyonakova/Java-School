@@ -123,7 +123,8 @@
             Tickets available: <span class="badge badge-info">15</span>
         </li>
         <li class="list-group-item lead">
-            Total price: <span class="badge badge-info">15₣</span>
+            Total price: <span class="badge badge-info" id="tickets-price">15</span>₣
+            <input type="hidden" value="15" id="one-ticket-price"/>
         </li>
     </ul>
 
@@ -139,6 +140,9 @@
 
 <%--    <h4><%= tickets %> tickets available, total price: <%= price %>₣</h4>--%>
     <h3 class="text-center mrgn-top">Passengers</h3>
+    <div class="alert alert-danger" role="alert" style="display: none" id="passengers-form-alert">
+        Passengers number can not be less than 1 and more than 15
+    </div>
     <div class="row">
         <label class="col-md-2">Number of tickets
             <input type="number" min="1" max="15" value="1" class="form-control" id="tickets-count" onchange="generatePassengerForms()">
