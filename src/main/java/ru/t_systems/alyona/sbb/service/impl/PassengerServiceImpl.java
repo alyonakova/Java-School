@@ -37,7 +37,7 @@ public class PassengerServiceImpl implements PassengerService {
     public List<PassengerDTO> getAllPassengers() {
         List<PassengerDTO> result = null;
         try {
-            result = passengerConverter.passengerListToDTOList(passengerRepository.getAll());
+            result = passengerConverter.toDTOList(passengerRepository.getAll());
         } catch (Exception e) {
             LOGGER.error("Failed to get all passengers", e);
         }
@@ -66,10 +66,10 @@ public class PassengerServiceImpl implements PassengerService {
     public PassengerDTO createPassenger(String name, String surname, LocalDate birthday) {
         PassengerDTO passenger = null;
         try {
-            final PassengerEntity newPassanger = passengerConverter.passengerToEntity(
+            final PassengerEntity newPassanger = passengerConverter.toEntity(
                     new PassengerDTO(null, name, surname, birthday));
             final PassengerEntity createdPassenger = passengerRepository.create(newPassanger);
-            passenger = passengerConverter.passengerToDTO(createdPassenger);
+            passenger = passengerConverter.toDTO(createdPassenger);
         } catch (Exception e) {
             LOGGER.error("Failed to create new passenger", e);
         }
@@ -82,34 +82,34 @@ public class PassengerServiceImpl implements PassengerService {
         if (changeUserDataDTO.getNewLogin() != null) {
             changeLogin(
                     changeUserDataDTO.getNewLogin(),
-                    userConverter.userToDTO(userRepository.getById(changeUserDataDTO.getId()))
+                    userConverter.toDTO(userRepository.getById(changeUserDataDTO.getId()))
             );
         } else if (changeUserDataDTO.getNewPassword() != null) {
             changePassword(
                     changeUserDataDTO.getNewPassword(),
-                    userConverter.userToDTO(userRepository.getById(changeUserDataDTO.getId()))
+                    userConverter.toDTO(userRepository.getById(changeUserDataDTO.getId()))
             );
         } else if (changeUserDataDTO.getNewName() != null) {
             changeName(
                     changeUserDataDTO.getNewName(),
-                    userConverter.userToDTO(userRepository.getById(changeUserDataDTO.getId()))
+                    userConverter.toDTO(userRepository.getById(changeUserDataDTO.getId()))
             );
         } else if (changeUserDataDTO.getNewSurname() != null) {
             changeSurname(
                     changeUserDataDTO.getNewSurname(),
-                    userConverter.userToDTO(userRepository.getById(changeUserDataDTO.getId()))
+                    userConverter.toDTO(userRepository.getById(changeUserDataDTO.getId()))
             );
         } else if (changeUserDataDTO.getNewBirthday() != null) {
             changeBirthday(
                     changeUserDataDTO.getNewBirthday(),
-                    userConverter.userToDTO(userRepository.getById(changeUserDataDTO.getId()))
+                    userConverter.toDTO(userRepository.getById(changeUserDataDTO.getId()))
             );
         }
     }
 
     private void changeLogin(String login, UserDTO user) {
         try {
-            userRepository.updateLogin(login, userConverter.userToEntity(user));
+            userRepository.updateLogin(login, userConverter.toEntity(user));
         } catch (Exception e) {
             LOGGER.error("Failed to update user login", e);
         }
@@ -117,7 +117,7 @@ public class PassengerServiceImpl implements PassengerService {
 
     private void changePassword(String password, UserDTO user) {
         try {
-            userRepository.updatePassword(passwordEncoder.encode(password), userConverter.userToEntity(user));
+            userRepository.updatePassword(passwordEncoder.encode(password), userConverter.toEntity(user));
         } catch (Exception e) {
             LOGGER.error("Failed to update user password", e);
         }
@@ -125,7 +125,7 @@ public class PassengerServiceImpl implements PassengerService {
 
     private void changeName(String name, UserDTO user) {
         try {
-            passengerRepository.updateName(name, userConverter.userToEntity(user));
+            passengerRepository.updateName(name, userConverter.toEntity(user));
         } catch (Exception e) {
             LOGGER.error("Failed to update user name", e);
         }
@@ -133,7 +133,7 @@ public class PassengerServiceImpl implements PassengerService {
 
     private void changeSurname(String surname, UserDTO user) {
         try {
-            passengerRepository.updateSurname(surname, userConverter.userToEntity(user));
+            passengerRepository.updateSurname(surname, userConverter.toEntity(user));
         } catch (Exception e) {
             LOGGER.error("Failed to update user surname");
         }
@@ -141,7 +141,7 @@ public class PassengerServiceImpl implements PassengerService {
 
     private void changeBirthday(LocalDate birthday, UserDTO user) {
         try {
-            passengerRepository.updateBirthday(birthday, userConverter.userToEntity(user));
+            passengerRepository.updateBirthday(birthday, userConverter.toEntity(user));
         } catch (Exception e) {
             LOGGER.error("Failed to update user birthday");
         }

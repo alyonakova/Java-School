@@ -51,7 +51,7 @@ public class SegmentServiceImpl implements SegmentService {
     public List<SegmentDTO> getAllSegments() {
         List<SegmentDTO> result = null;
         try {
-            result = segmentConverter.segmentListToDTOList(segmentRepository.getAll());
+            result = segmentConverter.toDTOList(segmentRepository.getAll());
         } catch (Exception e) {
             LOGGER.error("Failed to get all existing segments", e);
         }

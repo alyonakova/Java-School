@@ -42,7 +42,7 @@ public class TrainServiceImpl implements TrainService {
     public List<TrainDTO> getAllTrains() {
         List<TrainDTO> result = null;
         try {
-            result = trainConverter.trainListToDTOList(trainRepository.getAll());
+            result = trainConverter.toDTOList(trainRepository.getAll());
         } catch (Exception e) {
             LOGGER.error("Failed to get all existing trains", e);
         }
@@ -54,7 +54,7 @@ public class TrainServiceImpl implements TrainService {
     public void createTrain(CreateTrainRequestDTO request) {
         try {
             TrainDTO newTrain = new TrainDTO(request.getId(), request.getCapacity());
-            TrainEntity trainEntity = trainRepository.create(trainConverter.trainToEntity(newTrain));
+            TrainEntity trainEntity = trainRepository.create(trainConverter.toEntity(newTrain));
 
             List<SegmentTemplateEntity> segmentTemplateEntities =
                     buildSegmentTemplateEntities(request, trainEntity);

@@ -31,7 +31,7 @@ public class TicketServiceImpl implements TicketService {
     public List<TicketDTO> getAllTickets() {
         List<TicketDTO> result = null;
         try {
-            result = ticketConverter.ticketListToDTOList(ticketRepository.getAll());
+            result = ticketConverter.toDTOList(ticketRepository.getAll());
         } catch (Exception e) {
             LOGGER.error("Failed to get all existing tickets", e);
         }
@@ -93,7 +93,7 @@ public class TicketServiceImpl implements TicketService {
     private List<TicketDTO> getByPassengerNameAndBirthday(String name, String surname, LocalDate birthday) {
         List<TicketDTO> result = null;
         try {
-            result = ticketConverter.ticketListToDTOList(ticketRepository.getByPassengerNameAndBirthday(
+            result = ticketConverter.toDTOList(ticketRepository.getByPassengerNameAndBirthday(
                     name, surname, birthday
             ));
         } catch (Exception e) {

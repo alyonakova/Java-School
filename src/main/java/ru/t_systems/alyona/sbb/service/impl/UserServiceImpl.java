@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
         //create user
         try {
             final UserDTO userDTO = new UserDTO(null, registrationForm.getLogin(), true, passenger, passwordEncoder.encode(registrationForm.getUserPassword()));
-            userRepository.create(userConverter.userToEntity(userDTO));
+            userRepository.create(userConverter.toEntity(userDTO));
         } catch (Exception e) {
             LOGGER.error("Failed to create a new user", e);
             UserRegistrationResultDTO.builder()
@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUserByLogin(String login) {
         UserDTO user = null;
         try {
-            user = userConverter.userToDTO(userRepository.getByLogin(login));
+            user = userConverter.toDTO(userRepository.getByLogin(login));
         } catch (Exception e) {
             LOGGER.error("Failed to get user by login", e);
         }
@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUserById(BigInteger id) {
         UserDTO user = null;
         try {
-            user = userConverter.userToDTO(userRepository.getById(id));
+            user = userConverter.toDTO(userRepository.getById(id));
         } catch (Exception e) {
             LOGGER.error("Failed to get user by ID", e);
         }
@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService {
     public List<StationDTO> getAllStationsForCRUD() {
         List<StationDTO> result = null;
         try {
-            result = stationConverter.stationListToDTOList(stationRepository.getAll());
+            result = stationConverter.toDTOList(stationRepository.getAll());
         } catch (Exception e) {
             LOGGER.error("Failed to get all existing stations", e);
         }
@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService {
 
     private void changeLogin(String login, UserDTO user) {
         try {
-            userRepository.updateLogin(login, userConverter.userToEntity(user));
+            userRepository.updateLogin(login, userConverter.toEntity(user));
         } catch (Exception e) {
             LOGGER.error("Failed to update user login", e);
         }
@@ -146,7 +146,7 @@ public class UserServiceImpl implements UserService {
 
     private void changePassword(String password, UserDTO user) {
         try {
-            userRepository.updatePassword(passwordEncoder.encode(password), userConverter.userToEntity(user));
+            userRepository.updatePassword(passwordEncoder.encode(password), userConverter.toEntity(user));
         } catch (Exception e) {
             LOGGER.error("Failed to update user password", e);
         }

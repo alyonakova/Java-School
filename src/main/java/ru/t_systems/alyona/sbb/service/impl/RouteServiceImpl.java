@@ -23,7 +23,7 @@ public class RouteServiceImpl implements RouteService {
     public RouteDTO getByStations(StationEntity from, StationEntity to) {
         RouteDTO route = null;
         try {
-            route = routeConverter.routeToDTO(routeRepository.getByFromAndTo(from, to));
+            route = routeConverter.toDTO(routeRepository.getByFromAndTo(from, to));
         } catch (Exception e) {
             LOGGER.error("Failed to get route by two stations", e);
         }

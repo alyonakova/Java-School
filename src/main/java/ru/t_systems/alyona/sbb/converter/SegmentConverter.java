@@ -11,9 +11,9 @@ import java.util.List;
 @Component
 public interface SegmentConverter {
 
-    SegmentEntity segmentToEntity(SegmentDTO segmentDTO);
-    SegmentDTO segmentToDTO(SegmentEntity segmentEntity);
-    List<SegmentDTO> segmentListToDTOList(List<SegmentEntity> segmentListEntities);
-    List<SegmentEntity> segmentListToEntityList(List<SegmentDTO> segmentListDTO);
+    SegmentEntity toEntity(SegmentDTO segmentDTO);
+    SegmentDTO toDTO(SegmentEntity segmentEntity);
+    List<SegmentDTO> toDTOList(List<SegmentEntity> segmentListEntities);
+    List<SegmentEntity> toEntityList(List<SegmentDTO> segmentListDTO);
 
 }

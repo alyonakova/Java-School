@@ -11,9 +11,9 @@ import java.util.List;
 @Component
 public interface TrainConverter {
 
-    TrainEntity trainToEntity(TrainDTO trainDTO);
-    TrainDTO trainToDTO(TrainEntity trainEntity);
-    List<TrainDTO> trainListToDTOList(List<TrainEntity> trainListEntities);
-    List<TrainEntity> trainListToEntityList(List<TrainDTO> trainListDTO);
+    TrainEntity toEntity(TrainDTO trainDTO);
+    TrainDTO toDTO(TrainEntity trainEntity);
+    List<TrainDTO> toDTOList(List<TrainEntity> trainListEntities);
+    List<TrainEntity> toEntityList(List<TrainDTO> trainListDTO);
 
 }

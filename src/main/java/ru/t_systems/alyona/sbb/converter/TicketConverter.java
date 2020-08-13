@@ -11,9 +11,9 @@ import java.util.List;
 @Component
 public interface TicketConverter {
 
-    TicketEntity ticketToEntity(TicketDTO ticketDTO);
-    TicketDTO ticketToDTO(TicketEntity ticketEntity);
-    List<TicketDTO> ticketListToDTOList(List<TicketEntity> ticketListEntities);
-    List<TicketEntity> ticketListToEntityList(List<TicketDTO> ticketListDTO);
+    TicketEntity toEntity(TicketDTO ticketDTO);
+    TicketDTO toDTO(TicketEntity ticketEntity);
+    List<TicketDTO> toDTOList(List<TicketEntity> ticketListEntities);
+    List<TicketEntity> toEntityList(List<TicketDTO> ticketListDTO);
 
 }

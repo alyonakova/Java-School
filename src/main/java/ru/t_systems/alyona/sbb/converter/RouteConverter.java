@@ -11,9 +11,9 @@ import java.util.List;
 @Component
 public interface RouteConverter {
 
-    RouteEntity routeToEntity(RouteDTO routeDTO);
-    RouteDTO routeToDTO(RouteEntity routeEntity);
-    List<RouteDTO> routeListToDTOList(List<RouteEntity> routeListEntities);
-    List<RouteEntity> routeListToEntityList(List<RouteDTO> routeListDTO);
+    RouteEntity toEntity(RouteDTO routeDTO);
+    RouteDTO toDTO(RouteEntity routeEntity);
+    List<RouteDTO> toDTOList(List<RouteEntity> routeListEntities);
+    List<RouteEntity> toEntityList(List<RouteDTO> routeListDTO);
 
 }

@@ -35,7 +35,7 @@ public class StationServiceImpl implements StationService {
     @Transactional
     public void createStation(StationDTO station) {
         try {
-            stationRepository.create(stationConverter.stationToEntity(station));
+            stationRepository.create(stationConverter.toEntity(station));
         } catch (Exception e) {
             LOGGER.error("Failed to create a new station", e);
         }

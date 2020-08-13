@@ -11,9 +11,9 @@ import java.util.List;
 @Component
 public interface PassengerConverter {
 
-    PassengerEntity passengerToEntity(PassengerDTO passengerDTO);
-    PassengerDTO passengerToDTO(PassengerEntity passengerEntity);
-    List<PassengerDTO> passengerListToDTOList(List<PassengerEntity> passengerListEntities);
-    List<PassengerEntity> passengerListToEntityList(List<PassengerDTO> passengerListDTO);
+    PassengerEntity toEntity(PassengerDTO passengerDTO);
+    PassengerDTO toDTO(PassengerEntity passengerEntity);
+    List<PassengerDTO> toDTOList(List<PassengerEntity> passengerListEntities);
+    List<PassengerEntity> toEntityList(List<PassengerDTO> passengerListDTO);
 
 }

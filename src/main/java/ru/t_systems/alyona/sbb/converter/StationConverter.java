@@ -11,9 +11,9 @@ import java.util.List;
 @Component
 public interface StationConverter {
 
-    StationEntity stationToEntity(StationDTO stationDTO);
-    StationDTO stationToDTO(StationEntity stationEntity);
-    List<StationDTO> stationListToDTOList(List<StationEntity> stationListEntities);
-    List<StationEntity> stationListToEntityList(List<StationDTO> stationListDTO);
+    StationEntity toEntity(StationDTO stationDTO);
+    StationDTO toDTO(StationEntity stationEntity);
+    List<StationDTO> toDTOList(List<StationEntity> stationListEntities);
+    List<StationEntity> toEntityList(List<StationDTO> stationListDTO);
 
 }

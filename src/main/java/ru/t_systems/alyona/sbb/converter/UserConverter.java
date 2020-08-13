@@ -11,9 +11,9 @@ import java.util.List;
 @Component
 public interface UserConverter {
 
-    UserEntity userToEntity(UserDTO userDTO);
-    UserDTO userToDTO(UserEntity userEntity);
-    List<UserDTO> userListToDTOList(List<UserEntity> userListEntities);
-    List<UserEntity> userListToEntityList(List<UserDTO> userListDTO);
+    UserEntity toEntity(UserDTO userDTO);
+    UserDTO toDTO(UserEntity userEntity);
+    List<UserDTO> toDTOList(List<UserEntity> userListEntities);
+    List<UserEntity> toEntityList(List<UserDTO> userListDTO);
 
 }
