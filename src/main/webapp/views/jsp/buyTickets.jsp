@@ -99,39 +99,76 @@
     </nav>
 </header>
 
-<main role="main">
+<main role="main" class="md-3 p-3 p-lg-3">
 
-    <h4>${segments.get(0).from.name } (${segments.get(0).departure}) →
-        ${segments.get(segments.size()-1).to.name } (${segments.get(segments.size()-1).arrival})</h4>
-    <h5>All dates are in local time!</h5>
-    <h4>Train ${ segments.get(0).train.id}</h4>
+<%--    <h4>${segments.get(0).from.name } (${segments.get(0).departure}) →--%>
+<%--        ${segments.get(segments.size()-1).to.name } (${segments.get(segments.size()-1).arrival})</h4>--%>
+    <h3 class="text-center">Route info</h3>
+    <ul class="container list-group">
+        <li class="list-group-item">
+            <div class="lead">
+                <span class="badge badge-info">Red Volcano</span> (01.10.2020 13:30) → <span class="badge badge-info">Chemical Plant</span> (02.10.2020 14:50)
+            </div>
+            <div class="alert alert-warning mrgn-top" role="alert">
+                ❗ All dates are in local time ❗
+            </div>
+        </li>
+        <li class="list-group-item lead">
+            Train <span class="badge badge-info">121a</span>
 
-    <%! int tickets = Integer.MAX_VALUE;
-        int price = 0;%>
+            <%! int tickets = Integer.MAX_VALUE;
+                int price = 0;%>
+        </li>
+        <li class="list-group-item lead">
+            Tickets available: <span class="badge badge-info">15</span>
+        </li>
+        <li class="list-group-item lead">
+            Total price: <span class="badge badge-info">15₣</span>
+        </li>
+    </ul>
 
-    <c:forEach var="segment" items="${segments}">
-        <c:set var="left" value="${segment.ticketsLeft}"/>
-        <% tickets = Math.min(tickets, (Integer) pageContext.getAttribute("left")); %>
-        <c:set var="price" value="${segment.price}"/>
-        <% price += (Integer) pageContext.getAttribute("price"); %>
-        <br>
-    </c:forEach>
+<%--    <h4>Train ${ segments.get(0).train.id}</h4>--%>
 
-    <h4><%= tickets %> tickets available, total price: <%= price %>₣</h4>
-    <label>Number of tickets
-        <input type="number" min="1" value="1" class="form-control">
-    </label>
+<%--    <c:forEach var="segment" items="${segments}">--%>
+<%--        <c:set var="left" value="${segment.ticketsLeft}"/>--%>
+<%--        <% tickets = Math.min(tickets, (Integer) pageContext.getAttribute("left")); %>--%>
+<%--        <c:set var="price" value="${segment.price}"/>--%>
+<%--        <% price += (Integer) pageContext.getAttribute("price"); %>--%>
+<%--        <br>--%>
+<%--    </c:forEach>--%>
+
+<%--    <h4><%= tickets %> tickets available, total price: <%= price %>₣</h4>--%>
+    <h3 class="text-center mrgn-top">Passengers</h3>
+    <div class="row">
+        <label class="col-md-2">Number of tickets
+            <input type="number" min="1" max="15" value="1" class="form-control" id="tickets-count" onchange="generatePassengerForms()">
+        </label>
+    </div>
     <form action="post">
 
-        <label>Name
-            <input type="text" class="form-control" placeholder="Name"/>
-        </label>
-        <label>Surname
-            <input type="text" class="form-control" placeholder="Surname"/>
-        </label>
-        <label> Birthday
-            <input type="date" class="form-control"/>
-        </label>
+        <table class="table" id="passengers-for-tickets">
+            <thead class="thead-light">
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Birthday</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <input type="text" class="form-control" placeholder="Name" name="passenger-name"/>
+                </td>
+                <td>
+                    <input type="text" class="form-control" placeholder="Surname" name="passenger-surname"/>
+                </td>
+                <td>
+                    <input type="date" class="form-control" name="passenger-birthday"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
         <p><button class="btn btn-lg btn-success find-button mx-auto" type="submit">Buy</button></p>
     </form>
 
@@ -151,5 +188,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+<script src="../../resources/js/main.js"></script>
 </body>
 </html>
