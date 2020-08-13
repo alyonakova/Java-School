@@ -76,7 +76,7 @@
         <div class="row sign-in-up-container">
             <div class="col bg-light sign-in-container">
                 <div class="sign-in-form">
-                    <h3 class="sign-in-label">Sign in</h3>
+                    <h3 class="text-center">Sign in</h3>
                     <form action="perform_login" method="post">
                         <label> Login
                             <input name="username" type="text" class="form-control"
