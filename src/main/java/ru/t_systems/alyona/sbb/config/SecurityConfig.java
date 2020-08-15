@@ -41,7 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .loginPage("/sign_in")
                 .loginProcessingUrl("/perform_login")
-                .defaultSuccessUrl("/", true);
+                .defaultSuccessUrl("/", true)
+        .failureUrl("/fail-sign-in");
         http.logout()
                 .invalidateHttpSession(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"));

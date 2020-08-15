@@ -77,6 +77,13 @@
             <div class="col bg-light sign-in-container">
                 <div class="sign-in-form">
                     <h3 class="text-center">Sign in</h3>
+                    <c:choose>
+                        <c:when test="${messageWrongCredentials.severity == 'ERROR'}">
+                            <div class="alert alert-danger" role="alert">
+                                    ${messageWrongCredentials.text}
+                            </div>
+                        </c:when>
+                    </c:choose>
                     <form action="perform_login" method="post">
                         <label> Login
                             <input name="username" type="text" class="form-control"
@@ -126,7 +133,7 @@
 
                     <form:form method="post"
                                modelAttribute="registrationFormDTO"
-                               action="/registration_successful">
+                               action="/registration_status">
                         <label> Name
                             <form:input path="name" type="text" class="form-control"
                                         placeholder="Enter your name"/></label>
