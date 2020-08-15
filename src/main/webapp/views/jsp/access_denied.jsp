@@ -97,7 +97,13 @@
     </nav>
 </header>
 <main role="main">
-    <h3>Access denied!</h3>
+
+    <div class="container mt-4">
+        <div class="alert alert-danger" role="alert">
+            Access denied!
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <footer class="fixed-bottom page-footer bg-secondary">
         <a href="#" class="float-right footer-text">Back to top</a>
