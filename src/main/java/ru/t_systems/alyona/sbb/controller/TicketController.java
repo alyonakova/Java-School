@@ -7,11 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.t_systems.alyona.sbb.dto.BuyTicketFormDTO;
 import ru.t_systems.alyona.sbb.dto.ConnectionDTO;
 import ru.t_systems.alyona.sbb.dto.OperationResultDTO;
-import ru.t_systems.alyona.sbb.dto.SegmentDTO;
 import ru.t_systems.alyona.sbb.service.TicketService;
 
 import javax.inject.Provider;
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -20,12 +18,6 @@ public class TicketController {
 
     private final Provider<ConnectionCache> connectionCacheProvider;
     private final TicketService ticketService;
-
-    @PostMapping(value = "/tickets")
-    public String showTicketPurchasePage(@ModelAttribute List<SegmentDTO> segmentsGroupDTO, Model model) {
-        model.addAttribute("segments", segmentsGroupDTO);
-        return "buyTickets";
-    }
 
     @GetMapping(path = "/connections/{id}")
     public String showPassengersForm(@PathVariable("id") UUID connectionId,
