@@ -1,6 +1,7 @@
 package ru.t_systems.alyona.sbb.service;
 
 import org.springframework.stereotype.Service;
+import ru.t_systems.alyona.sbb.dto.OperationResultDTO;
 import ru.t_systems.alyona.sbb.dto.StationDTO;
 import ru.t_systems.alyona.sbb.entity.StationEntity;
 
@@ -9,5 +10,5 @@ public interface StationService {
 
     StationEntity getEntityByName(String name);
 
-    void createStation(StationDTO station);
+    OperationResultDTO createStation(StationDTO station);
 }
