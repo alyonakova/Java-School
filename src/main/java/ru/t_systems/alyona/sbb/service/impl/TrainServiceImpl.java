@@ -6,9 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.t_systems.alyona.sbb.converter.TrainConverter;
-import ru.t_systems.alyona.sbb.dto.CreateTrainRequestDTO;
-import ru.t_systems.alyona.sbb.dto.SegmentTemplateDTO;
-import ru.t_systems.alyona.sbb.dto.TrainDTO;
+import ru.t_systems.alyona.sbb.dto.*;
 import ru.t_systems.alyona.sbb.entity.SegmentTemplateEntity;
 import ru.t_systems.alyona.sbb.entity.StationEntity;
 import ru.t_systems.alyona.sbb.entity.TrainDepartureEntity;
@@ -51,8 +49,13 @@ public class TrainServiceImpl implements TrainService {
 
     @Transactional
     @Override
-    public void createTrain(CreateTrainRequestDTO request) {
+    public OperationResultDTO createTrain(CreateTrainRequestDTO request) {
         try {
+            TrainDTO existingTrain = trainConverter.toDTO(trainRepository.getById(request.getId()));
+            if (existingTrain != null) {
+                return OperationResultDTO.error("Train with id " + request.getId() + " already exists.");
+            }
+
             TrainDTO newTrain = new TrainDTO(request.getId(), request.getCapacity());
             TrainEntity trainEntity = trainRepository.create(trainConverter.toEntity(newTrain));
 
@@ -72,6 +75,8 @@ public class TrainServiceImpl implements TrainService {
         } catch (Exception e) {
             LOGGER.error("Failed to create a new train", e);
         }
+
+        return OperationResultDTO.successful("Train successfully created.");
     }
 
     private List<SegmentTemplateEntity> buildSegmentTemplateEntities(CreateTrainRequestDTO request, TrainEntity trainEntity) {

@@ -36,6 +36,19 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserRegistrationResultDTO registerUser(RegistrationFormDTO registrationForm) {
 
+        if (registrationForm.getLogin().isEmpty() || registrationForm.getName().isEmpty() ||
+        registrationForm.getSurname().isEmpty() || registrationForm.getBirthday() == null ||
+        registrationForm.getUserPassword().isEmpty()) {
+            return UserRegistrationResultDTO.builder()
+                    .successful(false)
+                    .messages(List.of(
+                            MessageDTO.builder()
+                                    .text("Empty fields are not allowed!")
+                                    .severity(MessageDTO.Severity.ERROR)
+                                    .build()))
+                    .build();
+        }
+
         if (userRepository.getByLogin(registrationForm.getLogin()) != null) {
             return UserRegistrationResultDTO.builder()
                     .successful(false)
@@ -150,5 +163,13 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             LOGGER.error("Failed to update user password", e);
         }
+    }
+
+    @Override
+    public MessageDTO displayUnsuccessfulSignIn() {
+        return MessageDTO.builder()
+                .text("Wrong login or password!")
+                .severity(MessageDTO.Severity.ERROR)
+                .build();
     }
 }

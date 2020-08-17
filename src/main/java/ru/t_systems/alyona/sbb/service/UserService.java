@@ -20,4 +20,6 @@ public interface UserService {
     void updateEmployeeData(ChangeUserDataDTO changeUserDataDTO);
 
     UserDTO getUserById(BigInteger id);
+
+    MessageDTO displayUnsuccessfulSignIn();
 }

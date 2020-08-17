@@ -99,13 +99,32 @@
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
                     <h2>Add train</h2>
+                    <c:forEach var="message" items="${trainCreationMessages}">
+                        <c:choose>
+                            <c:when test="${message.severity == 'INFORMATIONAL'}">
+                                <div class="alert alert-info" role="alert">
+                                        ${message.text}
+                                </div>
+                            </c:when>
+                            <c:when test="${message.severity == 'ERROR'}">
+                                <div class="alert alert-danger" role="alert">
+                                        ${message.text}
+                                </div>
+                            </c:when>
+                            <c:when test="${message.severity == 'TECHNICAL_ERROR'}">
+                                <div class="alert alert-danger" role="alert">
+                                        ${message.text}
+                                </div>
+                            </c:when>
+                        </c:choose>
+                    </c:forEach>
                     <div class="row">
                         <label for="train-number" class="col-md-auto">Train number:</label>
                         <input type="text" class="col form-control" placeholder="Train number" id="train-number">
                         <div class="w-100"></div>
                         <label for="train-capacity" class="col-md-auto">Number of seats:</label>
                         <input type="number" class="col form-control mrgn-top" placeholder="Capacity"
-                               id="train-capacity">
+                               id="train-capacity" min="10" max="110" value="10">
                     </div>
                     <div>
                         <table class="table table-new-train mrgn-top">
@@ -235,9 +254,8 @@
     </footer>
 </main>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.serializejson.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>

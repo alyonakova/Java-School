@@ -43,8 +43,10 @@ public class TrainController {
     }
 
     @PostMapping(value = "/api/trains", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void addTrain(@RequestBody CreateTrainRequestDTO request) {
-        trainService.createTrain(request);
+    public String addTrain(@RequestBody CreateTrainRequestDTO request, Model model) {
+        OperationResultDTO result = trainService.createTrain(request);
+        model.addAttribute("trainCreationMessages", result.getMessages());
+        return "crud";
     }
 
 }

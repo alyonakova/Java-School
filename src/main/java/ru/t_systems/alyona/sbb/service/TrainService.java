@@ -1,6 +1,7 @@
 package ru.t_systems.alyona.sbb.service;
 
 import org.springframework.stereotype.Service;
+import ru.t_systems.alyona.sbb.dto.OperationResultDTO;
 import ru.t_systems.alyona.sbb.dto.CreateTrainRequestDTO;
 import ru.t_systems.alyona.sbb.dto.TrainDTO;
 
@@ -10,5 +11,5 @@ import java.util.List;
 public interface TrainService {
 
     List<TrainDTO> getAllTrains();
-    void createTrain(CreateTrainRequestDTO request);
+    OperationResultDTO createTrain(CreateTrainRequestDTO request);
 }
