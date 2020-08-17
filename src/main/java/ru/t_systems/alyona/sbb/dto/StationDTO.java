@@ -1,6 +1,9 @@
 package ru.t_systems.alyona.sbb.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -9,6 +12,9 @@ import java.math.BigInteger;
 import java.time.ZoneId;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class StationDTO {
 
     private BigInteger id;

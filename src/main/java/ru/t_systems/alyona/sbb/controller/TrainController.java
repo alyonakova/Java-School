@@ -7,28 +7,39 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import ru.t_systems.alyona.sbb.dto.CreateTrainRequestDTO;
-import ru.t_systems.alyona.sbb.dto.FindTrainFormDTO;
-import ru.t_systems.alyona.sbb.dto.SegmentsGroupDTO;
-import ru.t_systems.alyona.sbb.service.SegmentService;
+import ru.t_systems.alyona.sbb.dto.*;
+import ru.t_systems.alyona.sbb.service.ConnectionSearchService;
 import ru.t_systems.alyona.sbb.service.TrainService;
+
+import javax.inject.Provider;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
 public class TrainController {
 
     private final TrainService trainService;
-    private final SegmentService segmentService;
+    private final ConnectionSearchService connectionSearchService;
+    private final Provider<ConnectionCache> connectionCacheProvider;
 
-    @PostMapping(value = "/")
-    public String showTrains(@ModelAttribute FindTrainFormDTO findTrainFormDTO, Model model) {
+    @PostMapping(path = "/connections")
+    public String findConnections(@ModelAttribute ConnectionSearchQueryDTO connectionSearchQueryDTO,
+                                  HttpSession session,
+                                  Model model) {
 
-        model.addAttribute("segmentGroups", segmentService.getSegmentGroupsByStationsAndDates(
-                findTrainFormDTO.getFirstStationName(), findTrainFormDTO.getSecondStationName(),
-                findTrainFormDTO.getFirstDate(), findTrainFormDTO.getSecondDate()
-        ));
-        model.addAttribute("segmentsGroupDTO", new SegmentsGroupDTO());
-        return "trains";
+        ConnectionSearchResultDTO result = connectionSearchService.findConnections(connectionSearchQueryDTO);
+        if (result.isSuccessful()) {
+            model.addAttribute("query", connectionSearchQueryDTO);
+            model.addAttribute("discoveredConnections", result.getDiscoveredConnections());
+            model.addAttribute("selectedConnection", new ConnectionDTO());
+
+            connectionCacheProvider.get().putAll(result.getDiscoveredConnections());
+            return "connectionSearchResults";
+        } else {
+            model.addAttribute("messageConnectionSearchData", result.getMessages());
+            model.addAttribute("outboundQuery", new ConnectionSearchQueryDTO());
+            return "index";
+        }
     }
 
     @PostMapping(value = "/api/trains", consumes = MediaType.APPLICATION_JSON_VALUE)
