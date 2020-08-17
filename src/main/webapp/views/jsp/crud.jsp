@@ -87,16 +87,25 @@
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-                       aria-controls="home" aria-selected="true">Add train</a>
+                    <a class="nav-link active" id="addTrain-tab" data-toggle="tab" href="#addTrain" role="tab"
+                       aria-controls="addTrain" aria-selected="true">Add train</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                       aria-controls="profile" aria-selected="false">Add station</a>
+                    <a class="nav-link" id="addStation-tab" data-toggle="tab" href="#addStation" role="tab"
+                       aria-controls="addStation" aria-selected="false">Add station</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="allTrains-tab" data-toggle="tab" href="#allTrains" role="tab"
+                       aria-controls="allTrains" aria-selected="false">All trains</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="allStations-tab" data-toggle="tab" href="#allStations" role="tab"
+                       aria-controls="allStations" aria-selected="false">All stations</a>
                 </li>
             </ul>
+
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="tab-pane fade show active" id="addTrain" role="tabpanel" aria-labelledby="addTrain-tab">
 
                     <h2>Add train</h2>
                     <c:forEach var="message" items="${trainCreationMessages}">
@@ -186,8 +195,25 @@
                         <button class="btn btn-lg btn-success find-button mx-auto" onclick="addTrain()">Add train
                         </button>
                     </p>
+                </div>
 
-                    <hr>
+                <div class="tab-pane fade" id="addStation" role="tabpanel" aria-labelledby="addStation-tab">
+
+                    <h2>Add station</h2>
+                    <div class="row">
+                        <label for="station-name" class="col-md-auto">Station name:</label>
+                            <input type="text" class="col form-control" placeholder="Station name" id="station-name">
+                        <div class="w-100"></div>
+                        <label for="zone-id" class="col-md-auto">Zone:</label>
+                            <input type="text" class="col form-control mrgn-top" placeholder="Zone id" id="zone-id">
+                        <p><a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="col-md-auto">All time zones</a></p>
+                    </div>
+                        <p>
+                            <button class="btn btn-lg btn-success find-button mx-auto" onclick="addStation()">Add station</button>
+                        </p>
+                </div>
+
+                <div class="tab-pane fade" id="allTrains" role="tabpanel" aria-labelledby="allTrains-tab">
                     <h2>All trains</h2>
                     <table class="table">
                         <thead class="thead-light">
@@ -205,22 +231,9 @@
                         </c:forEach>
                         </tbody>
                     </table>
-
                 </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
-                    <h2>Add station</h2>
-                    <div class="row">
-                        <label for="station-name" class="col-md-auto">Station name:</label>
-                            <input type="text" class="col form-control" placeholder="Station name" id="station-name">
-                        <div class="w-100"></div>
-                        <label for="zone-id" class="col-md-auto">Zone:</label>
-                            <input type="text" class="col form-control mrgn-top" placeholder="Zone id" id="zone-id">
-                        <p><a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="col-md-auto">All time zones</a></p>
-                    </div>
-                        <p>
-                            <button class="btn btn-lg btn-success find-button mx-auto" onclick="addStation()">Add station</button>
-                        </p>
+                <div class="tab-pane fade" id="allStations" role="tabpanel" aria-labelledby="allStations-tab">
                     <hr>
                     <h2>All stations</h2>
                     <table class="table">
