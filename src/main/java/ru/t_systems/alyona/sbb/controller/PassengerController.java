@@ -13,7 +13,7 @@ public class PassengerController {
     private final PassengerService passengerService;
 
     @GetMapping(value = "/passengers")
-    public String home(Model model) {
+    public String showPassengers(Model model) {
         model.addAttribute("allPassengers", passengerService.getPassengersWithTrains());
         return "showPassengers";
     }
