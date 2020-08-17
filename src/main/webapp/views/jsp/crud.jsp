@@ -120,11 +120,6 @@
                                         ${message.text}
                                 </div>
                             </c:when>
-                            <c:when test="${message.severity == 'TECHNICAL_ERROR'}">
-                                <div class="alert alert-danger" role="alert">
-                                        ${message.text}
-                                </div>
-                            </c:when>
                         </c:choose>
                     </c:forEach>
                     <div class="row">
@@ -200,6 +195,22 @@
                 <div class="tab-pane fade" id="addStation" role="tabpanel" aria-labelledby="addStation-tab">
 
                     <h2>Add station</h2>
+
+                    <c:forEach var="message" items="${stationCreationMessages}">
+                        <c:choose>
+                            <c:when test="${message.severity == 'INFORMATIONAL'}">
+                                <div class="alert alert-info" role="alert">
+                                        ${message.text}
+                                </div>
+                            </c:when>
+                            <c:when test="${message.severity == 'ERROR'}">
+                                <div class="alert alert-danger" role="alert">
+                                        ${message.text}
+                                </div>
+                            </c:when>
+                        </c:choose>
+                    </c:forEach>
+
                     <div class="row">
                         <label for="station-name" class="col-md-auto">Station name:</label>
                             <input type="text" class="col form-control" placeholder="Station name" id="station-name">

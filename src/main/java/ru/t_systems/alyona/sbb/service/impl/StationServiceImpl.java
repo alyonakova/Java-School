@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.t_systems.alyona.sbb.converter.StationConverter;
+import ru.t_systems.alyona.sbb.dto.OperationResultDTO;
 import ru.t_systems.alyona.sbb.dto.StationDTO;
 import ru.t_systems.alyona.sbb.entity.StationEntity;
 import ru.t_systems.alyona.sbb.repository.StationRepository;
@@ -33,11 +34,16 @@ public class StationServiceImpl implements StationService {
 
     @Override
     @Transactional
-    public void createStation(StationDTO station) {
+    public OperationResultDTO createStation(StationDTO station) {
         try {
+            StationDTO existingStation = stationConverter.toDTO(stationRepository.getByName(station.getName()));
+            if (existingStation != null) {
+                return OperationResultDTO.error("Station with name " + station.getName() + " is already exists");
+            }
             stationRepository.create(stationConverter.toEntity(station));
         } catch (Exception e) {
             LOGGER.error("Failed to create a new station", e);
         }
+        return OperationResultDTO.successful("Station successfully created.");
     }
 }
