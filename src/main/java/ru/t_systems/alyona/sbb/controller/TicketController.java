@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.t_systems.alyona.sbb.dto.BuyTicketFormDTO;
 import ru.t_systems.alyona.sbb.dto.ConnectionDTO;
+import ru.t_systems.alyona.sbb.dto.MessageDTO;
 import ru.t_systems.alyona.sbb.dto.OperationResultDTO;
 import ru.t_systems.alyona.sbb.service.TicketService;
 
@@ -24,8 +25,11 @@ public class TicketController {
                                      Model model) {
         ConnectionDTO connection = connectionCacheProvider.get().findById(connectionId);
         if (connection == null) {
-            // TODO: Redirect to some page and show an error message
-            throw new IllegalArgumentException("No such connection found, please repeat your search.");
+            model.addAttribute("messages", MessageDTO.builder()
+                    .severity(MessageDTO.Severity.ERROR)
+                    .text("No such route found, please repeat your search.")
+                    .build());
+            return "index";
         }
         model.addAttribute("connection", connection);
         return "buyTickets";

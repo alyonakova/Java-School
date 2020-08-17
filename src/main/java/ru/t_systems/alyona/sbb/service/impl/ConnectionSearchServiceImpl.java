@@ -44,14 +44,7 @@ public class ConnectionSearchServiceImpl implements ConnectionSearchService {
         } catch (EmptyResultDataAccessException e) {
             String wrongStationName = (departureNode == null) ?
                     request.getDepartureStationName() : request.getArrivalStationName();
-            return ConnectionSearchResultDTO.builder()
-                    .successful(false)
-                    .messages(List.of(
-                            MessageDTO.builder()
-                                    .text("No \"" + wrongStationName + "\" station found")
-                                    .severity(MessageDTO.Severity.ERROR)
-                                    .build()))
-                    .build();
+            return ConnectionSearchResultDTO.error("No \"" + wrongStationName + "\" station found");
         }
 
         ZonedDateTime requestedDepartureTime = request.getDepartureTime().atZone(departureNode.getTimeZone());
@@ -62,6 +55,10 @@ public class ConnectionSearchServiceImpl implements ConnectionSearchService {
                     var minimumDepartureTime = (currentPath.isEmpty() ? requestedDepartureTime : currentPath.getLastEdge().getArrivalTime());
                     return isSegmentInTimeRange(nextSegment, minimumDepartureTime, requestedArrivalTime);
                 });
+
+        if (paths.size() == 0) {
+            return ConnectionSearchResultDTO.error("No routes found.");
+        }
 
         return ConnectionSearchResultDTO.builder()
                 .successful(true)
