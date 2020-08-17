@@ -7,10 +7,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.t_systems.alyona.sbb.converter.PassengerConverter;
+import ru.t_systems.alyona.sbb.converter.TrainConverter;
 import ru.t_systems.alyona.sbb.converter.UserConverter;
-import ru.t_systems.alyona.sbb.dto.*;
+import ru.t_systems.alyona.sbb.dto.ChangeUserDataDTO;
+import ru.t_systems.alyona.sbb.dto.PassengerDTO;
+import ru.t_systems.alyona.sbb.dto.PassengerWithTrainDTO;
+import ru.t_systems.alyona.sbb.dto.UserDTO;
 import ru.t_systems.alyona.sbb.entity.PassengerEntity;
+import ru.t_systems.alyona.sbb.entity.TicketEntity;
+import ru.t_systems.alyona.sbb.entity.TicketSegmentEntity;
 import ru.t_systems.alyona.sbb.repository.PassengerRepository;
+import ru.t_systems.alyona.sbb.repository.TicketRepository;
 import ru.t_systems.alyona.sbb.repository.UserRepository;
 import ru.t_systems.alyona.sbb.service.PassengerService;
 import ru.t_systems.alyona.sbb.service.TicketService;
@@ -26,7 +33,9 @@ public class PassengerServiceImpl implements PassengerService {
 
     private final PassengerConverter passengerConverter;
     private final PassengerRepository passengerRepository;
+    private final TrainConverter trainConverter;
     private final TicketService ticketService;
+    private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
     private final UserConverter userConverter;
     private final PasswordEncoder passwordEncoder;
@@ -45,14 +54,16 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
+    @Transactional
     public Set<PassengerWithTrainDTO> getPassengersWithTrains() {
-        List<TicketDTO> allTickets = ticketService.getAllTickets();
+        List<TicketEntity> allTickets = ticketRepository.getAll();
         Set<PassengerWithTrainDTO> passengerTrainSet = new HashSet<>();
         try {
-            for (TicketDTO ticket : allTickets) {
-                for (SegmentDTO segment : ticket.getSegments()) {
+            for (TicketEntity ticket : allTickets) {
+                for (TicketSegmentEntity segment : ticket.getSegments()) {
                     PassengerWithTrainDTO passengerWithTrain = new PassengerWithTrainDTO(
-                            ticket.getPassenger(), segment.getTrain());
+                            passengerConverter.toDTO(ticket.getPassenger()),
+                            trainConverter.toDTO(segment.getSegmentTemplate().getTrain()));
                     passengerTrainSet.add(passengerWithTrain);
                 }
             }

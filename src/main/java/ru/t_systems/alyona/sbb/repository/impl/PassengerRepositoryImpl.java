@@ -7,9 +7,11 @@ import ru.t_systems.alyona.sbb.entity.UserEntity;
 import ru.t_systems.alyona.sbb.repository.PassengerRepository;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -60,5 +62,17 @@ public class PassengerRepositoryImpl
         query.setParameter("birthday", birthday);
         query.setParameter("passenger", user.getPassenger());
         query.executeUpdate();
+    }
+
+    @Override
+    public Optional<PassengerEntity> getByNameAndSurnameAndBirthday(String name, String surname, LocalDate birthday) {
+        TypedQuery<PassengerEntity> query = getEntityManager().createQuery(
+                "SELECT p FROM PassengerEntity p WHERE p.name = :name AND p.surname = :surname AND p.birthday = :birthday",
+                PassengerEntity.class
+        );
+        query.setParameter("name", name);
+        query.setParameter("surname", surname);
+        query.setParameter("birthday", birthday);
+        return query.getResultList().stream().findFirst();
     }
 }

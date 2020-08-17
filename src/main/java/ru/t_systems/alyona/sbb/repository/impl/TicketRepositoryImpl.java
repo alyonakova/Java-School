@@ -41,4 +41,10 @@ public class TicketRepositoryImpl
                 .setParameter("birthday", birthday)
                 .getResultList();
     }
+
+    @Override
+    public TicketEntity create(TicketEntity ticket) {
+        getEntityManager().persist(ticket);
+        return ticket;
+    }
 }

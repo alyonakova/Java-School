@@ -13,4 +13,5 @@ public interface TicketRepository {
     TicketEntity getById(BigInteger id);
     List<TicketEntity> getAll();
     List<TicketEntity> getByPassengerNameAndBirthday(String name, String surname, LocalDate birthday);
+    TicketEntity create(TicketEntity ticket);
 }

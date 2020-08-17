@@ -146,7 +146,8 @@ function addStation() {
 
 function generatePassengerForms() {
 
-    document.getElementById("passengers-form-alert").style.display = "none";
+    document.getElementById("alert-out-of-bounds").style.display = "none";
+    document.getElementById("alert-lack").style.display = "none";
 
     let table = document.getElementById("passengers-for-tickets");
     let totalPriceElement = document.getElementById("tickets-price");
@@ -156,7 +157,12 @@ function generatePassengerForms() {
     let actualNumberOfPassengers = table.rows.length - 1;
 
     if (numberOfPassengers < 1 || numberOfPassengers > 15) {
-        document.getElementById("passengers-form-alert").style.display = "block";
+        document.getElementById("alert-out-of-bounds").style.display = "block";
+        return;
+    }
+
+    if (numberOfPassengers > document.getElementById("tickets-available").value) {
+        document.getElementById("alert-lack").style.display = "block";
         return;
     }
 
@@ -164,22 +170,21 @@ function generatePassengerForms() {
 
         let toAdd = numberOfPassengers - actualNumberOfPassengers;
 
-        for (let i = 0; i < toAdd; i ++) {
+        for (let i = 0; i < toAdd; i++) {
 
-            let newPassenger = document.createElement('tr');
-            table.appendChild(newPassenger);
-
-            let newPassengerName = document.createElement('td');
-            let newPassengerSurname = document.createElement('td');
-            let newPassengerBirthday = document.createElement('td');
-
-            newPassenger.appendChild(newPassengerName);
-            newPassenger.appendChild(newPassengerSurname);
-            newPassenger.appendChild(newPassengerBirthday);
-
-            newPassengerName.innerHTML = "<input type=\"text\" class=\"form-control\" placeholder=\"Name\" name=\"passenger-name\"/>";
-            newPassengerSurname.innerHTML = "<input type=\"text\" class=\"form-control\" placeholder=\"Surname\" name=\"passenger-surname\"/>";
-            newPassengerBirthday.innerHTML = "<input type=\"date\" class=\"form-control\" name=\"passenger-birthday\"/>";
+            let newPassengerRow = document.createElement('tr');
+            newPassengerRow.innerHTML = `
+                <td>
+                    <input type="text" class="form-control" placeholder="Name" name="passengers[][name]"/>
+                </td>
+                <td>
+                    <input type="text" class="form-control" placeholder="Surname" name="passengers[][surname]"/>
+                </td>
+                <td>
+                    <input type="date" class="form-control" name="passengers[][birthday]"/>
+                </td>
+            `;
+            table.appendChild(newPassengerRow);
         }
 
         totalPriceValue += oneTicketPrice * toAdd;

@@ -6,15 +6,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigInteger;
-import java.util.List;
+import java.time.Instant;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TicketDTO {
+public class TicketSegmentDTO {
 
-    private BigInteger id;
-    private PassengerDTO passenger;
-    private List<TicketSegmentDTO> segments;
+    BigInteger ticketId;
+    Integer indexInTicket;
+    BigInteger segmentTemplateId;
+    Instant trainDepartureTime;
+    Integer trainCapacity;
 }

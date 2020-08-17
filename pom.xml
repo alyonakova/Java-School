@@ -112,6 +112,24 @@
             <version>${lombok.version}</version>
             <optional>true</optional>
         </dependency>
+        <!-- Extensions for Java Stream API, e.g. partial reduction -->
+        <dependency>
+            <groupId>one.util</groupId>
+            <artifactId>streamex</artifactId>
+            <version>0.7.3</version>
+        </dependency>
+        <!-- Allows formatting java.time classes in JSP (with tag <javatime:format>) -->
+        <dependency>
+            <groupId>net.sargue</groupId>
+            <artifactId>java-time-jsptags</artifactId>
+            <version>1.1.4</version>
+        </dependency>
+        <!-- Java EE Dependency Injection API, including javax.inject.Provider<T> -->
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
 
         <!-- TEST DEPENDENCIES -->
         <!-- The JUnit Jupiter test framework -->

@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -45,10 +47,13 @@
     </style>
     <!-- Custom styles for this template -->
     <link href="../resources/css/styles.css" rel="stylesheet">
+
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
 </head>
 <body>
 <header>
-    <sec:authorize var="loggedIn" access="isAuthenticated()" />
+    <sec:authorize var="loggedIn" access="isAuthenticated()"/>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <img src="../resources/images/SBB_Logo.jpg" class="logo">
         <a class="navbar-brand logo-text" href="${pageContext.request.contextPath}/">SBB CFF FFS</a>
@@ -101,55 +106,106 @@
 
 <main role="main" class="md-3 p-3 p-lg-3">
 
-<%--    <h4>${segments.get(0).from.name } (${segments.get(0).departure}) →--%>
-<%--        ${segments.get(segments.size()-1).to.name } (${segments.get(segments.size()-1).arrival})</h4>--%>
-    <h3 class="text-center">Route info</h3>
-    <ul class="container list-group">
-        <li class="list-group-item">
-            <div class="lead">
-                <span class="badge badge-info">Red Volcano</span> (01.10.2020 13:30) → <span class="badge badge-info">Chemical Plant</span> (02.10.2020 14:50)
-            </div>
-            <div class="alert alert-warning mrgn-top" role="alert">
-                ❗ All dates are in local time ❗
-            </div>
-        </li>
-        <li class="list-group-item lead">
-            Train <span class="badge badge-info">121a</span>
+    <c:forEach var="message" items="${messages}">
+        <c:choose>
+            <c:when test="${message.severity == 'INFORMATIONAL'}">
+                <div class="alert alert-info" role="alert">
+                        ${message.text}
+                </div>
+            </c:when>
+            <c:when test="${message.severity == 'ERROR'}">
+                <div class="alert alert-danger" role="alert">
+                        ${message.text}
+                </div>
+            </c:when>
+        </c:choose>
+    </c:forEach>
 
-            <%! int tickets = Integer.MAX_VALUE;
-                int price = 0;%>
-        </li>
-        <li class="list-group-item lead">
-            Tickets available: <span class="badge badge-info">15</span>
-        </li>
-        <li class="list-group-item lead">
-            Total price: <span class="badge badge-info" id="tickets-price">15</span>₣
-            <input type="hidden" value="15" id="one-ticket-price"/>
-        </li>
-    </ul>
+    <h2 class="text-center">Route info</h2>
+    <div class="container bg-light mt-4 mb-4 p-4 rounded-lg">
+        <h1>
+            ${connection.totalDuration.toHours()}h
+            ${connection.totalDuration.toMinutesPart()}min
+        </h1>
+        <ul class="list-group mb-1">
+            <c:forEach var="chain" items="${connection.chains}">
+                <li class="list-group-item container">
+                    <div class="row">
+                        <div class="col text-right">
+                                ${chain.departureStation.name}
+                        </div>
+                        <div class="col-2 text-center small align-self-end">
+                            Train ${chain.trainNumber}
+                        </div>
+                        <div class="col text-left">
+                                ${chain.arrivalStation.name}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-right font-weight-bold">
+                            <javatime:format value="${chain.departureTime}"
+                                             pattern="HH:mm"
+                                             locale="C"/>
+                        </div>
+                        <div class="col-2 text-center">
+                            &LongRightArrow;
+                        </div>
+                        <div class="col text-left font-weight-bold">
+                            <javatime:format value="${chain.arrivalTime}"
+                                             pattern="HH:mm"
+                                             locale="C"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-right small">
+                            <javatime:format value="${chain.departureTime}" pattern="d MMM uuuu (z)"
+                                             locale="C"/>
+                        </div>
+                        <div class="col-2 text-center small">
+                                ${chain.duration.toHours()}h
+                                ${chain.duration.toMinutesPart()}min
+                        </div>
+                        <div class="col text-left small">
+                            <javatime:format value="${chain.arrivalTime}" pattern="d MMM uuuu (z)"
+                                             locale="C"/>
 
-<%--    <h4>Train ${ segments.get(0).train.id}</h4>--%>
+                        </div>
+                    </div>
+                    <c:if test="${not empty chain.viaStationsText}">
+                        <div class="text-center small">
+                            via ${chain.viaStationsText}
+                        </div>
+                    </c:if>
+                </li>
+            </c:forEach>
+        </ul>
+        <ul class="container list-group">
+            <li class="list-group-item lead">
+                Tickets available: <span class="badge badge-info"
+                                         id="tickets-available">${connection.availableTicketsCount}</span>
+            </li>
+            <li class="list-group-item lead">
+                Total price: <span class="badge badge-info" id="tickets-price">${connection.priceFranks}</span>₣
+                <input type="hidden" value="${connection.priceFranks}" id="one-ticket-price"/>
+            </li>
+        </ul>
+    </div>
 
-<%--    <c:forEach var="segment" items="${segments}">--%>
-<%--        <c:set var="left" value="${segment.ticketsLeft}"/>--%>
-<%--        <% tickets = Math.min(tickets, (Integer) pageContext.getAttribute("left")); %>--%>
-<%--        <c:set var="price" value="${segment.price}"/>--%>
-<%--        <% price += (Integer) pageContext.getAttribute("price"); %>--%>
-<%--        <br>--%>
-<%--    </c:forEach>--%>
-
-<%--    <h4><%= tickets %> tickets available, total price: <%= price %>₣</h4>--%>
-    <h3 class="text-center mrgn-top">Passengers</h3>
-    <div class="alert alert-danger" role="alert" style="display: none" id="passengers-form-alert">
+    <h2 class="text-center mrgn-top">Passengers</h2>
+    <div class="alert alert-danger" role="alert" style="display: none" id="alert-out-of-bounds">
         Passengers number can not be less than 1 and more than 15
+    </div>
+    <div class="alert alert-danger" role="alert" style="display: none" id="alert-lack">
+        Not enough tickets left
     </div>
     <div class="row">
         <label class="col-md-2">Number of tickets
-            <input type="number" min="1" max="15" value="1" class="form-control" id="tickets-count" onchange="generatePassengerForms()">
+            <input type="number" min="1" max="15" value="1" class="form-control" id="tickets-count"
+                   onchange="generatePassengerForms()">
         </label>
     </div>
-    <form action="post">
 
+    <form method="post" action="${pageContext.request.contextPath}/buyTickets" onsubmit="return buyTickets(this);">
         <table class="table" id="passengers-for-tickets">
             <thead class="thead-light">
             <tr>
@@ -161,19 +217,21 @@
             <tbody>
             <tr>
                 <td>
-                    <input type="text" class="form-control" placeholder="Name" name="passenger-name"/>
+                    <input type="text" class="form-control" placeholder="Name" name="passengers[][name]"/>
                 </td>
                 <td>
-                    <input type="text" class="form-control" placeholder="Surname" name="passenger-surname"/>
+                    <input type="text" class="form-control" placeholder="Surname" name="passengers[][surname]"/>
                 </td>
                 <td>
-                    <input type="date" class="form-control" name="passenger-birthday"/>
+                    <input type="date" class="form-control" name="passengers[][birthday]"/>
                 </td>
             </tr>
             </tbody>
         </table>
-
-        <p><button class="btn btn-lg btn-success find-button mx-auto" type="submit">Buy</button></p>
+        <input type="hidden" name="connectionId" value="${connection.id}">
+        <p>
+            <button class="btn btn-lg btn-success find-button mx-auto" type="submit">Buy</button>
+        </p>
     </form>
 
     <!-- FOOTER -->
@@ -183,15 +241,15 @@
     </footer>
 
 </main>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.serializejson.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-<script src="../../resources/js/main.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/buyTickets.js"></script>
 </body>
 </html>

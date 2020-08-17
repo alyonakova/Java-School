@@ -1,6 +1,7 @@
 package ru.t_systems.alyona.sbb.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "ticket")
@@ -24,10 +26,6 @@ public class TicketEntity {
     @JoinColumn(name = "id_passenger")
     private PassengerEntity passenger;
 
-    @ManyToMany(fetch=FetchType.EAGER)
-    @JoinTable(name = "ticket_segment",
-            joinColumns = @JoinColumn(name = "id_ticket"),
-            inverseJoinColumns = @JoinColumn(name = "id_segment"))
-    private List<SegmentEntity> segments;
-
+    @OneToMany(mappedBy = "ticket")
+    private List<TicketSegmentEntity> segments;
 }

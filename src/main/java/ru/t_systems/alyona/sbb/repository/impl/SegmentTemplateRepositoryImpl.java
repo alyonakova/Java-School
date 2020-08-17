@@ -6,13 +6,18 @@ import ru.t_systems.alyona.sbb.entity.SegmentTemplateEntity;
 import ru.t_systems.alyona.sbb.repository.SegmentTemplateRepository;
 
 import javax.persistence.EntityManager;
+import java.math.BigInteger;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
 public class SegmentTemplateRepositoryImpl extends AbstractRepositoryImpl
         implements SegmentTemplateRepository {
+
+    @Override
+    public SegmentTemplateEntity findById(BigInteger id) {
+        return getEntityManager().find(SegmentTemplateEntity.class, id);
+    }
 
     @Override
     public SegmentTemplateEntity create(SegmentTemplateEntity segmentTemplate) {

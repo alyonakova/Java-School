@@ -6,16 +6,26 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.t_systems.alyona.sbb.converter.SegmentConverter;
+import ru.t_systems.alyona.sbb.converter.StationConverter;
+import ru.t_systems.alyona.sbb.converter.TrainConverter;
 import ru.t_systems.alyona.sbb.dto.RouteDTO;
 import ru.t_systems.alyona.sbb.dto.SegmentDTO;
+import ru.t_systems.alyona.sbb.dto.TrainDTO;
+import ru.t_systems.alyona.sbb.entity.SegmentTemplateEntity;
 import ru.t_systems.alyona.sbb.entity.StationEntity;
+import ru.t_systems.alyona.sbb.entity.TrainDepartureEntity;
+import ru.t_systems.alyona.sbb.entity.TrainEntity;
 import ru.t_systems.alyona.sbb.repository.SegmentRepository;
+import ru.t_systems.alyona.sbb.repository.SegmentTemplateRepository;
+import ru.t_systems.alyona.sbb.repository.TrainDepartureRepository;
+import ru.t_systems.alyona.sbb.repository.TrainRepository;
 import ru.t_systems.alyona.sbb.service.RouteService;
 import ru.t_systems.alyona.sbb.service.SegmentService;
 import ru.t_systems.alyona.sbb.service.StationService;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -26,8 +36,9 @@ public class SegmentServiceImpl implements SegmentService {
 
     private final StationService stationService;
     private final RouteService routeService;
-    private final SegmentRepository segmentRepository;
-    private final SegmentConverter segmentConverter;
+    private final TrainRepository trainRepository;
+    private final TrainConverter trainConverter;
+    private final StationConverter stationConverter;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SegmentServiceImpl.class);
 
@@ -48,10 +59,29 @@ public class SegmentServiceImpl implements SegmentService {
     }
 
     @Override
+    @Transactional
     public List<SegmentDTO> getAllSegments() {
-        List<SegmentDTO> result = null;
+        List<SegmentDTO> result = new ArrayList<>();
         try {
-            result = segmentConverter.toDTOList(segmentRepository.getAll());
+            for (TrainEntity train : trainRepository.getAll()) {
+                TrainDTO trainDTO = trainConverter.toDTO(train);
+                for (TrainDepartureEntity departure : train.getDepartures()) {
+                    for (SegmentTemplateEntity segmentTemplate : train.getSegmentTemplates()) {
+                        Instant departureTime = departure.getDepartureTime()
+                                .plus(segmentTemplate.getOffsetFromTrainDeparture(), ChronoUnit.MINUTES);
+                        Instant arrivalTime = departure.getDepartureTime()
+                                .plus(segmentTemplate.getOffsetFromTrainDeparture(), ChronoUnit.MINUTES)
+                                .plus(segmentTemplate.getTravelDuration(), ChronoUnit.MINUTES);
+                        result.add(SegmentDTO.builder()
+                                .train(trainDTO)
+                                .from(stationConverter.toDTO(segmentTemplate.getStationFrom()))
+                                .departureTime(departureTime)
+                                .to(stationConverter.toDTO(segmentTemplate.getStationTo()))
+                                .arrivalTime(arrivalTime)
+                                .build());
+                    }
+                }
+            }
         } catch (Exception e) {
             LOGGER.error("Failed to get all existing segments", e);
         }
@@ -64,8 +94,8 @@ public class SegmentServiceImpl implements SegmentService {
         try {
             for (SegmentDTO segment : allSegments) {
                 if (segment.getTicketsLeft() > 0 &&
-                        (departure.compareTo(segment.getDeparture()) <= 0) &&
-                        (arrival.compareTo(segment.getArrival()) >= 0)) {
+                        (departure.compareTo(segment.getDepartureTime()) <= 0) &&
+                        (arrival.compareTo(segment.getArrivalTime()) >= 0)) {
                     result.add(segment);
                 }
             }
@@ -82,7 +112,7 @@ public class SegmentServiceImpl implements SegmentService {
         List<List<SegmentDTO>> segmentGroups = separateIntoGroups(segments);
         //sort every segment by arrival date
         for (List<SegmentDTO> list : segmentGroups) {
-            list.sort(Comparator.comparing(SegmentDTO::getArrival));
+            list.sort(Comparator.comparing(SegmentDTO::getArrivalTime));
         }
         return segmentGroups;
     }
