@@ -13,7 +13,7 @@ public class SegmentController {
     private final SegmentService segmentService;
 
     @GetMapping(value = "/timetable")
-    public String timetable(Model model) {
+    public String showTimetable(Model model) {
         model.addAttribute("allSegments", segmentService.getAllSegments());
         return "timetable";
     }
