@@ -27,7 +27,7 @@ public class UserController {
             model.addAttribute("changeUserDataDTO", new ChangeUserDataDTO());
             return "employeeAccount";
         } else {
-            throw new IllegalStateException("Not authorized to view this page");
+            return "access_denied";
         }
     }
 
@@ -40,7 +40,7 @@ public class UserController {
             model.addAttribute("changeUserDataDTO", new ChangeUserDataDTO());
             return "customerAccount";
         } else {
-            throw new IllegalStateException("Not authorized to view this page"); // TODO: Display error page
+            return "access_denied";
         }
     }
 
@@ -62,13 +62,11 @@ public class UserController {
         UserRegistrationResultDTO result = userService.registerUser(registrationFormDTO);
         if (result.isSuccessful()) {
             model.addAttribute("registrationFormDTO", new RegistrationFormDTO());
-            model.addAttribute("messages", result.getMessages());
-            return "login";
-        }else {
+        } else {
             model.addAttribute("registrationFormDTO", registrationFormDTO);
-            model.addAttribute("messages", result.getMessages());
-            return "login";
         }
+        model.addAttribute("messages", result.getMessages());
+        return "login";
     }
 
     @PostMapping(value = "/employee_account")
