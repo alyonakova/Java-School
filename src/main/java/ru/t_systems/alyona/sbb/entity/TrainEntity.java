@@ -22,9 +22,6 @@ public class TrainEntity {
     private int seatsCount;
 
     @OneToMany(mappedBy = "train")
-    private List<SegmentEntity> segments;
-
-    @OneToMany(mappedBy = "train")
     private List<SegmentTemplateEntity> segmentTemplates;
 
     @OneToMany(mappedBy = "train")

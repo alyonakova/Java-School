@@ -25,18 +25,6 @@ public class StationEntity {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "from")
-    private List<RouteEntity> routesFrom;
-
-    @OneToMany(mappedBy = "to")
-    private List<RouteEntity> routesTo;
-
-    @OneToMany(mappedBy = "from")
-    private List<SegmentEntity> segmentsFromStation;
-
-    @OneToMany(mappedBy = "to")
-    private List<SegmentEntity> segmentsToStation;
-
     @Column(name = "id_zone")
     @Convert(converter = ZoneIdConverter.class)
     private ZoneId zoneId;
