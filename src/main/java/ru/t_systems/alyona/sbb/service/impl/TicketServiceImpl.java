@@ -24,6 +24,7 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -53,30 +54,26 @@ public class TicketServiceImpl implements TicketService {
     }
 
     private boolean isEnoughTickets(List<TicketSegmentDTO> segments, int ticketsToBuy) {
-        try {
             int ticketsAvailable = segments.stream()
                     .mapToInt(segment -> {
                         int boughtTicketsCount = ticketSegmentRepository.findBySegmentTemplateIdAndTrainDepartureTime(segment.getSegmentTemplateId(), segment.getTrainDepartureTime()).size();
-                        int remainingTickets = segment.getTrainCapacity() - boughtTicketsCount;
-                        return remainingTickets;
+                        return segment.getTrainCapacity() - boughtTicketsCount;
                     })
                     .min()
                     .orElse(0);
             return ticketsAvailable >= ticketsToBuy;
-        } catch (Exception e) {
-            return true; // FIXME: We don't need try-catch here at all
-        }
     }
 
-    private boolean hasSamePassenger(List<TicketSegmentDTO> segments, PassengerDTO passenger) {
+    private boolean hasSamePassenger(List<TicketSegmentDTO> newTicketSegments, PassengerDTO passenger) {
         try {
-            List<TicketDTO> ticketsWithSamePassenger = getByPassengerNameAndBirthday(passenger.getName(),
-                    passenger.getSurname(), passenger.getBirthday());
+            List<TicketDTO> ticketsWithSamePassenger = getByPassengerNameAndBirthday(
+                    passenger.getName(), passenger.getSurname(), passenger.getBirthday());
+
             for (TicketDTO ticket : ticketsWithSamePassenger) {
-                for (TicketSegmentDTO segmentInExistingTicket : ticket.getSegments()) {
-                    for (TicketSegmentDTO segmentInNewTicket : segments) {
-                        if (segmentInExistingTicket.equals(segmentInNewTicket)) {
-                            return false;
+                for (TicketSegmentDTO existingSegment : ticket.getSegments()) {
+                    for (TicketSegmentDTO newSegment : newTicketSegments) {
+                        if (areSameSegments(existingSegment, newSegment)) {
+                            return true;
                         }
                     }
                 }
@@ -84,7 +81,12 @@ public class TicketServiceImpl implements TicketService {
         } catch (Exception e) {
             LOGGER.error("Failed to check if there is the same passenger in new ticket segments", e);
         }
-        return true;
+        return false;
+    }
+
+    private boolean areSameSegments(TicketSegmentDTO segment1, TicketSegmentDTO segment2) {
+        return Objects.equals(segment1.getSegmentTemplateId(), segment2.getSegmentTemplateId()) &&
+                Objects.equals(segment1.getTrainDepartureTime(), segment2.getTrainDepartureTime());
     }
 
     private List<TicketDTO> getByPassengerNameAndBirthday(String name, String surname, LocalDate birthday) {
@@ -112,15 +114,21 @@ public class TicketServiceImpl implements TicketService {
 
         List<TicketSegmentDTO> segments = connectionToSegments(connection);
 
+        //check if enough tickets left
         int numberOfTicketsToBuy = request.getPassengers().size();
         if (!isEnoughTickets(segments, numberOfTicketsToBuy)) {
             return OperationResultDTO.error("Not enough tickets left!");
         }
 
-        // TODO: Check that passengers are not already registered to these trains
-
         for (PassengerDTO passenger : request.getPassengers()) {
 
+            //check if passenger is already registered for route
+            if (hasSamePassenger(segments, passenger)) {
+                return OperationResultDTO.error("Passenger " + passenger.getName() + " " + passenger.getSurname() +
+                        " is already registered for this route.");
+            }
+
+            //Create passenger in DB if he is not there
             PassengerEntity existingPassenger = passengerRepository.getByNameAndSurnameAndBirthday(
                     passenger.getName(), passenger.getSurname(), passenger.getBirthday()
             ).orElse(null);

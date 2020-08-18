@@ -7,7 +7,8 @@ import ru.t_systems.alyona.sbb.entity.TicketEntity;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",
+        uses = TicketSegmentConverter.class)
 @Component
 public interface TicketConverter {
 

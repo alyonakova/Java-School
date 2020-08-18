@@ -14,8 +14,10 @@ function buyTickets(form) {
                 [csrfHeader]: csrfToken,
             },
         }
-    ).then(
-        response => console.debug(response)
-    );
+    ).then(response => response.json())
+        .then(result => {
+            let alertList = document.querySelector('.buying-messages-list');
+            createAlert(result, alertList);
+        });
     return false; // disable default form action
 }

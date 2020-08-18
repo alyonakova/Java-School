@@ -150,7 +150,7 @@ function addStation() {
 }
 
 function createAlert(operationResult, alertList) {
-    alertList.innerHTML = '';
+    $(alertList).empty();
     for (let message of operationResult.messages) {
         let alert = document.createElement('div');
         let alertColorClass = {
@@ -159,10 +159,11 @@ function createAlert(operationResult, alertList) {
             ERROR: 'alert-danger',
             TECHNICAL_ERROR: 'alert-danger',
         }[message.severity];
-        alert.classList.add('alert', alertColorClass);
+        alert.classList.add('alert', alertColorClass, 'fade');
         alert.setAttribute('role', 'alert');
         alert.textContent = message.text;
         alertList.appendChild(alert);
+        alert.classList.add('show');
     }
 }
 

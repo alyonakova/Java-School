@@ -36,9 +36,8 @@ public class TicketController {
     }
 
     @PostMapping(path = "/buyTickets")
-    public String buyTickets(@RequestBody BuyTicketFormDTO request, Model model) {
-        OperationResultDTO result = ticketService.buy(request);
-        model.addAttribute("messages", result.getMessages());
-        return "buyTickets";
+    @ResponseBody
+    public OperationResultDTO buyTickets(@RequestBody BuyTicketFormDTO request) {
+        return ticketService.buy(request);
     }
 }

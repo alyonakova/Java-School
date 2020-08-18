@@ -106,21 +106,6 @@
 
 <main role="main" class="md-3 p-3 p-lg-3">
 
-    <c:forEach var="message" items="${messages}">
-        <c:choose>
-            <c:when test="${message.severity == 'INFORMATIONAL'}">
-                <div class="alert alert-info" role="alert">
-                        ${message.text}
-                </div>
-            </c:when>
-            <c:when test="${message.severity == 'ERROR'}">
-                <div class="alert alert-danger" role="alert">
-                        ${message.text}
-                </div>
-            </c:when>
-        </c:choose>
-    </c:forEach>
-
     <h2 class="text-center">Route info</h2>
     <div class="container bg-light mt-4 mb-4 p-4 rounded-lg">
         <h1>
@@ -229,6 +214,7 @@
             </tbody>
         </table>
         <input type="hidden" name="connectionId" value="${connection.id}">
+        <div class="buying-messages-list"></div>
         <p>
             <button class="btn btn-lg btn-success find-button mx-auto" type="submit">Buy</button>
         </p>
