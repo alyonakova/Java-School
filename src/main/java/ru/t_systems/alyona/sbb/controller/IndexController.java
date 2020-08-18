@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class IndexController {
 
     @GetMapping(value = "/")
-    public String home(Model model) {
+    public String goToHomepage(Model model) {
         ConnectionSearchQueryDTO newQuery = new ConnectionSearchQueryDTO();
         newQuery.setDepartureTime(LocalDateTime.now());
         newQuery.setArrivalTime(LocalDateTime.now().plusDays(2L));
