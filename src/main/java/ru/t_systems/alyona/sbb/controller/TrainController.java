@@ -12,7 +12,6 @@ import ru.t_systems.alyona.sbb.service.ConnectionSearchService;
 import ru.t_systems.alyona.sbb.service.TrainService;
 
 import javax.inject.Provider;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,21 +22,18 @@ public class TrainController {
     private final Provider<ConnectionCache> connectionCacheProvider;
 
     @PostMapping(path = "/connections")
-    public String findConnections(@ModelAttribute ConnectionSearchQueryDTO connectionSearchQueryDTO,
-                                  HttpSession session,
-                                  Model model) {
+    public String findConnections(@ModelAttribute ConnectionSearchQueryDTO query, Model model) {
 
-        ConnectionSearchResultDTO result = connectionSearchService.findConnections(connectionSearchQueryDTO);
+        ConnectionSearchResultDTO result = connectionSearchService.findConnections(query);
         if (result.isSuccessful()) {
-            model.addAttribute("query", connectionSearchQueryDTO);
+            model.addAttribute("query", query);
             model.addAttribute("discoveredConnections", result.getDiscoveredConnections());
             model.addAttribute("selectedConnection", new ConnectionDTO());
-
             connectionCacheProvider.get().putAll(result.getDiscoveredConnections());
             return "connectionSearchResults";
         } else {
             model.addAttribute("messageConnectionSearchData", result.getMessages());
-            model.addAttribute("outboundQuery", new ConnectionSearchQueryDTO());
+            model.addAttribute("outboundQuery", query);
             return "index";
         }
     }
