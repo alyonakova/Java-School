@@ -87,9 +87,9 @@
                     <form action="perform_login" method="post">
                         <label> Login
                             <input name="username" type="text" class="form-control"
-                                   placeholder="Enter your login"/></label>
+                                   placeholder="Enter your login" required/></label>
                         <label> Password
-                            <input name="password" type="password" class="form-control"/></label>
+                            <input name="password" type="password" class="form-control" placeholder="password" required/></label>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <p>
                             <button class="btn btn-lg btn-success find-button mx-auto" type="submit">Sign in</button>
@@ -136,17 +136,17 @@
                                action="/registration_status">
                         <label> Name
                             <form:input path="name" type="text" class="form-control"
-                                        placeholder="Enter your name"/></label>
+                                        placeholder="Enter your name" required="true"/></label>
                         <label> Surname
                             <form:input path="surname" type="text" class="form-control"
-                                        placeholder="Enter your surname"/></label>
+                                        placeholder="Enter your surname" required="true"/></label>
                         <label> Login
                             <form:input path="login" type="text" class="form-control"
-                                        placeholder="Enter your login"/></label>
+                                        placeholder="Enter your login" required="true"/></label>
                         <label> Birthday
-                            <form:input path="birthday" type="date" class="form-control"/></label>
+                            <form:input path="birthday" type="date" class="form-control" required="true"/></label>
                         <label> Password
-                            <form:input path="userPassword" type="password" class="form-control"/></label>
+                            <form:input path="userPassword" type="password" class="form-control" placeholder="password" required="true"/></label>
                         <p>
                             <button class="btn btn-lg btn-success find-button mx-auto" type="submit">Sign up</button>
                         </p>

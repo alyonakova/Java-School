@@ -126,13 +126,15 @@
                         <label>
                             From
                         </label>
-                        <form:input path="departureStationName" type="text" class="form-control" placeholder="Station"/>
+                        <form:input path="departureStationName" type="text" class="form-control" placeholder="Station"
+                                    required="required"/>
                     </div>
                     <div class="col-md-6">
                         <label>
                             To
                         </label>
-                        <form:input path="arrivalStationName" type="text" class="form-control" placeholder="Station"/>
+                        <form:input path="arrivalStationName" type="text" class="form-control" placeholder="Station"
+                                    required="required"/>
                     </div>
                 </div>
                 <div class="row">
