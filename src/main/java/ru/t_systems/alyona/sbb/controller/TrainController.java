@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import ru.t_systems.alyona.sbb.dto.*;
 import ru.t_systems.alyona.sbb.service.ConnectionSearchService;
 import ru.t_systems.alyona.sbb.service.TrainService;
@@ -39,10 +40,9 @@ public class TrainController {
     }
 
     @PostMapping(value = "/api/trains", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String addTrain(@RequestBody CreateTrainRequestDTO request, Model model) {
-        OperationResultDTO result = trainService.createTrain(request);
-        model.addAttribute("trainCreationMessages", result.getMessages());
-        return "crud";
+    @ResponseBody
+    public OperationResultDTO addTrain(@RequestBody CreateTrainRequestDTO request) {
+        return trainService.createTrain(request);
     }
 
 }

@@ -104,9 +104,12 @@ function addTrain() {
             'Content-Type': 'application/json',
             [csrfHeader]: csrfToken,
         },
-    }).then(response =>
-        console.debug(response)
-    );
+    })
+        .then(response => response.json())
+        .then(result => {
+            let alertList = document.querySelector('.messages-list');
+            createAlert(result, alertList);
+        });
 }
 
 function segmentFromRow(row) {
@@ -139,9 +142,28 @@ function addStation() {
                 [csrfHeader]: csrfToken,
             },
         }
-    ).then(
-        response => console.debug(response)
-    );
+    ).then(response => response.json())
+        .then(result => {
+            let alertList = document.querySelector('.station-messages-list');
+            createAlert(result, alertList);
+        });
+}
+
+function createAlert(operationResult, alertList) {
+    alertList.innerHTML = '';
+    for (let message of operationResult.messages) {
+        let alert = document.createElement('div');
+        let alertColorClass = {
+            INFORMATIONAL: 'alert-info',
+            WARNING: 'alert-warning',
+            ERROR: 'alert-danger',
+            TECHNICAL_ERROR: 'alert-danger',
+        }[message.severity];
+        alert.classList.add('alert', alertColorClass);
+        alert.setAttribute('role', 'alert');
+        alert.textContent = message.text;
+        alertList.appendChild(alert);
+    }
 }
 
 function generatePassengerForms() {

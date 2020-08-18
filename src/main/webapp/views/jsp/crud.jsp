@@ -108,20 +108,10 @@
                 <div class="tab-pane fade show active" id="addTrain" role="tabpanel" aria-labelledby="addTrain-tab">
 
                     <h2>Add train</h2>
-                    <c:forEach var="message" items="${trainCreationMessages}">
-                        <c:choose>
-                            <c:when test="${message.severity == 'INFORMATIONAL'}">
-                                <div class="alert alert-info" role="alert">
-                                        ${message.text}
-                                </div>
-                            </c:when>
-                            <c:when test="${message.severity == 'ERROR'}">
-                                <div class="alert alert-danger" role="alert">
-                                        ${message.text}
-                                </div>
-                            </c:when>
-                        </c:choose>
-                    </c:forEach>
+
+                    <div class="messages-list">
+                    </div>
+
                     <div class="row">
                         <label for="train-number" class="col-md-auto">Train number:</label>
                         <input type="text" class="col form-control" placeholder="Train number" id="train-number">
@@ -195,6 +185,8 @@
                 <div class="tab-pane fade" id="addStation" role="tabpanel" aria-labelledby="addStation-tab">
 
                     <h2>Add station</h2>
+
+                    <div class="station-messages-list"></div>
 
                     <c:forEach var="message" items="${stationCreationMessages}">
                         <c:choose>

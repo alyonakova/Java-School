@@ -51,7 +51,7 @@ public class TrainServiceImpl implements TrainService {
     @Override
     public OperationResultDTO createTrain(CreateTrainRequestDTO request) {
         try {
-            TrainDTO existingTrain = trainConverter.toDTO(trainRepository.getById(request.getId()));
+            TrainEntity existingTrain = trainRepository.getById(request.getId());
             if (existingTrain != null) {
                 return OperationResultDTO.error("Train with id " + request.getId() + " already exists.");
             }

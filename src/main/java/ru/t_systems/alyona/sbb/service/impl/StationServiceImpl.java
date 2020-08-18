@@ -22,21 +22,10 @@ public class StationServiceImpl implements StationService {
     private static final Logger LOGGER = LoggerFactory.getLogger(StationServiceImpl.class);
 
     @Override
-    public StationEntity getEntityByName(String name) {
-        StationEntity stationEntity = null;
-        try {
-            stationEntity = stationRepository.getByName(name);
-        } catch (Exception e) {
-            LOGGER.error("Failed to get station entity by name", e);
-        }
-        return stationEntity;
-    }
-
-    @Override
     @Transactional
     public OperationResultDTO createStation(StationDTO station) {
         try {
-            StationDTO existingStation = stationConverter.toDTO(stationRepository.getByName(station.getName()));
+            StationEntity existingStation = stationRepository.getByName(station.getName());
             if (existingStation != null) {
                 return OperationResultDTO.error("Station with name " + station.getName() + " is already exists");
             }
