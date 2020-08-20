@@ -24,7 +24,7 @@ public class StationRepositoryImpl
     public StationEntity getByName(String name) {
         TypedQuery<StationEntity> query = getEntityManager().createQuery("SELECT s FROM StationEntity s WHERE s.name = :name", StationEntity.class);
         query.setParameter("name", name);
-        return query.getSingleResult();
+        return query.getResultList().stream().findFirst().orElse(null);
     }
 
     @Override
