@@ -90,6 +90,36 @@
                         ${error.defaultMessage}
                 </div>
             </c:forEach>
+            <c:forEach var="message" items="${messages}">
+                <c:choose>
+                    <c:when test="${message.severity == 'INFORMATIONAL'}">
+                        <div class="alert alert-info" role="alert">
+                                ${message.text}
+                        </div>
+                    </c:when>
+                    <c:when test="${message.severity == 'WARNING'}">
+                        <div class="alert alert-warning" role="alert">
+                                ${message.text}
+                        </div>
+                    </c:when>
+                    <c:when test="${message.severity == 'ERROR'}">
+                        <div class="alert alert-danger" role="alert">
+                                ${message.text}
+                        </div>
+                    </c:when>
+                    <c:when test="${message.severity == 'TECHNICAL_ERROR'}">
+                        <div class="alert alert-danger" role="alert">
+                                ${message.text}
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="alert alert-secondary" role="alert">
+                                ${message.text}
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+
             <form:form method="post"
                        modelAttribute="changeUserDataDTO"
                        onsubmit="return '/employee_account'">

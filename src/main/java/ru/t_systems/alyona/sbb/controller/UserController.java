@@ -81,7 +81,6 @@ public class UserController {
     public String changeEmployeeData(@Valid @ModelAttribute ChangeUserDataDTO changeUserDataDTO,
                                      BindingResult validationResult, Model model,
                                      @AuthenticationPrincipal UserDetailsDTO authorizedUserDetails) {
-        //TODO check if the login is in DB
         model.addAttribute("validationErrors", validationResult.getAllErrors());
         model.addAttribute("userDetails", authorizedUserDetails);
         model.addAttribute("user", userService.getUserById(authorizedUserDetails.getId()));
@@ -89,7 +88,8 @@ public class UserController {
         if (validationResult.hasErrors()) {
             return "employeeAccount";
         }
-        userService.updateEmployeeData(changeUserDataDTO);
+        OperationResultDTO result = userService.updateEmployeeData(changeUserDataDTO);
+        model.addAttribute("messages", result.getMessages());
         return "employeeAccount";
     }
 
@@ -97,7 +97,6 @@ public class UserController {
     public String changeCustomerData(@Valid @ModelAttribute ChangeUserDataDTO changeUserDataDTO,
                                      BindingResult validationResult, Model model,
                                      @AuthenticationPrincipal UserDetailsDTO authorizedUserDetails) {
-        //TODO check if the login is in DB
         model.addAttribute("validationErrors", validationResult.getAllErrors());
         model.addAttribute("userDetails", authorizedUserDetails);
         model.addAttribute("user", userService.getUserById(authorizedUserDetails.getId()));
@@ -105,7 +104,8 @@ public class UserController {
         if (validationResult.hasErrors()) {
             return "customerAccount";
         }
-        passengerService.updatePassengerData(changeUserDataDTO);
+        OperationResultDTO result = passengerService.updatePassengerData(changeUserDataDTO);
+        model.addAttribute("messages", result.getMessages());
         return "customerAccount";
     }
 

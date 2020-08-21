@@ -17,7 +17,7 @@ public interface UserService {
 
     List<StationDTO> getAllStationsForCRUD();
 
-    void updateEmployeeData(ChangeUserDataDTO changeUserDataDTO);
+    OperationResultDTO updateEmployeeData(ChangeUserDataDTO changeUserDataDTO);
 
     UserDTO getUserById(BigInteger id);
 

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.t_systems.alyona.sbb.converter.StationConverter;
 import ru.t_systems.alyona.sbb.converter.UserConverter;
 import ru.t_systems.alyona.sbb.dto.*;
+import ru.t_systems.alyona.sbb.entity.UserEntity;
 import ru.t_systems.alyona.sbb.repository.StationRepository;
 import ru.t_systems.alyona.sbb.repository.UserRepository;
 import ru.t_systems.alyona.sbb.service.PassengerService;
@@ -122,18 +123,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
-    public void updateEmployeeData(ChangeUserDataDTO changeUserDataDTO) {
+    public OperationResultDTO updateEmployeeData(ChangeUserDataDTO changeUserDataDTO) {
+
         if (changeUserDataDTO.getNewLogin() != null) {
+
+            UserEntity existingUser = userRepository.getByLogin(changeUserDataDTO.getNewLogin());
+            if (existingUser != null) {
+                return OperationResultDTO.error("The specified login is already exists");
+            }
+
             changeLogin(
                     changeUserDataDTO.getNewLogin(),
                     getUserById(changeUserDataDTO.getId())
             );
+            return OperationResultDTO.successful("Login is successfully updated");
+
         } else if (changeUserDataDTO.getNewPassword() != null) {
+
             changePassword(
                     changeUserDataDTO.getNewPassword(),
                     getUserById(changeUserDataDTO.getId())
             );
+
+            return OperationResultDTO.successful("Password is successfully updated");
         }
+        return OperationResultDTO.technicalError("Nothing to update");
     }
 
     private void changeLogin(String login, UserDTO user) {

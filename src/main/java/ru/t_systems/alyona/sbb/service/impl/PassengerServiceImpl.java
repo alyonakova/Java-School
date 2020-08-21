@@ -9,13 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.t_systems.alyona.sbb.converter.PassengerConverter;
 import ru.t_systems.alyona.sbb.converter.TrainConverter;
 import ru.t_systems.alyona.sbb.converter.UserConverter;
-import ru.t_systems.alyona.sbb.dto.ChangeUserDataDTO;
-import ru.t_systems.alyona.sbb.dto.PassengerDTO;
-import ru.t_systems.alyona.sbb.dto.PassengerWithTrainDTO;
-import ru.t_systems.alyona.sbb.dto.UserDTO;
+import ru.t_systems.alyona.sbb.dto.*;
 import ru.t_systems.alyona.sbb.entity.PassengerEntity;
 import ru.t_systems.alyona.sbb.entity.TicketEntity;
 import ru.t_systems.alyona.sbb.entity.TicketSegmentEntity;
+import ru.t_systems.alyona.sbb.entity.UserEntity;
 import ru.t_systems.alyona.sbb.repository.PassengerRepository;
 import ru.t_systems.alyona.sbb.repository.TicketRepository;
 import ru.t_systems.alyona.sbb.repository.UserRepository;
@@ -89,33 +87,49 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     @Transactional
-    public void updatePassengerData(ChangeUserDataDTO changeUserDataDTO) {
+    public OperationResultDTO updatePassengerData(ChangeUserDataDTO changeUserDataDTO) {
         if (changeUserDataDTO.getNewLogin() != null) {
+
+            UserEntity existingUser = userRepository.getByLogin(changeUserDataDTO.getNewLogin());
+            if (existingUser != null) {
+                return OperationResultDTO.error("The specified login is already exists");
+            }
+
             changeLogin(
                     changeUserDataDTO.getNewLogin(),
                     userConverter.toDTO(userRepository.getById(changeUserDataDTO.getId()))
             );
+            return OperationResultDTO.successful("Login is successfully updated");
+
         } else if (changeUserDataDTO.getNewPassword() != null) {
             changePassword(
                     changeUserDataDTO.getNewPassword(),
                     userConverter.toDTO(userRepository.getById(changeUserDataDTO.getId()))
             );
+            return OperationResultDTO.successful("Password is successfully updated");
+
         } else if (changeUserDataDTO.getNewName() != null) {
             changeName(
                     changeUserDataDTO.getNewName(),
                     userConverter.toDTO(userRepository.getById(changeUserDataDTO.getId()))
             );
+            return OperationResultDTO.successful("Name is successfully updated");
+
         } else if (changeUserDataDTO.getNewSurname() != null) {
             changeSurname(
                     changeUserDataDTO.getNewSurname(),
                     userConverter.toDTO(userRepository.getById(changeUserDataDTO.getId()))
             );
+            return OperationResultDTO.successful("Surname is successfully updated");
+
         } else if (changeUserDataDTO.getNewBirthday() != null) {
             changeBirthday(
                     changeUserDataDTO.getNewBirthday(),
                     userConverter.toDTO(userRepository.getById(changeUserDataDTO.getId()))
             );
+            return OperationResultDTO.successful("Birthday is successfully updated");
         }
+        return OperationResultDTO.technicalError("Nothing to update");
     }
 
     private void changeLogin(String login, UserDTO user) {

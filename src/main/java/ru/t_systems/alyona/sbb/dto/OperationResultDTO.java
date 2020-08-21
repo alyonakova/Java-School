@@ -34,4 +34,15 @@ public class OperationResultDTO {
                                 .build()))
                 .build();
     }
+
+    public static OperationResultDTO technicalError(String errorMessageText) {
+        return builder()
+                .successful(false)
+                .messages(List.of(
+                        MessageDTO.builder()
+                                .text(errorMessageText)
+                                .severity(MessageDTO.Severity.TECHNICAL_ERROR)
+                                .build()))
+                .build();
+    }
 }
