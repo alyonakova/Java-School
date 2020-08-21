@@ -90,9 +90,20 @@ public class UserController {
     }
 
     @PostMapping(value = "/customer_account")
-    public String changeCustomerData(@ModelAttribute ChangeUserDataDTO changeUserDataDTO, Model model) {
+    public String changeCustomerData(@Valid @ModelAttribute ChangeUserDataDTO changeUserDataDTO,
+                                     BindingResult validationResult, Model model,
+                                     @AuthenticationPrincipal UserDetailsDTO authorizedUserDetails) {
+        //TODO check if the login is in DB
+        model.addAttribute("validationErrors", validationResult.getAllErrors());
+        UserDTO user = userService.getUserById(authorizedUserDetails.getId());
+        model.addAttribute("userDetails", authorizedUserDetails);
+        model.addAttribute("user", user);
+        model.addAttribute("changeUserDataDTO", new ChangeUserDataDTO());
+        if (validationResult.hasErrors()) {
+            return "customerAccount";
+        }
         passengerService.updatePassengerData(changeUserDataDTO);
-        return "redirect:/customer_account";
+        return "customerAccount";
     }
 
     @GetMapping("/fail-sign-in")

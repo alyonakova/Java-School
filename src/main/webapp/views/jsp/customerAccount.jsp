@@ -79,17 +79,85 @@
         <div class="container bg-light container-pdng">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">User data</a>
+                    <a class="nav-link active" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="true">Change data</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Passenger data</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tickets</a>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Change data</a>
-                </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <h4>Change user data</h4>
+
+                    <c:forEach var="error" items="${validationErrors}">
+                        <div class="alert alert-danger" role="alert">
+                                ${error.defaultMessage}
+                        </div>
+                    </c:forEach>
+
+                    <form:form method="post"
+                               modelAttribute="changeUserDataDTO"
+                               onsubmit="return '/customer_account'">
+                        <label>
+                            Change name
+                        </label>
+                        <form:input path="newName" type="text" class="form-control" placeholder="${user.passenger.name}"/>
+                        <form:hidden path="id" value="${user.id}"/>
+                        <p>
+                            <button class="btn btn-outline-info mrgn-top" type="submit">Change</button>
+                        </p>
+                    </form:form>
+                    <form:form method="post"
+                               modelAttribute="changeUserDataDTO"
+                               onsubmit="return '/customer_account'">
+                        <label>
+                            Change surname
+                        </label>
+                        <form:input path="newSurname" type="text" class="form-control"
+                                    placeholder="${user.passenger.surname}"/>
+                        <form:hidden path="id" value="${user.id}"/>
+                        <p><button class="btn btn-outline-info mrgn-top" type="submit">Change</button></p>
+                    </form:form>
+                    <form:form method="post"
+                               modelAttribute="changeUserDataDTO"
+                               onsubmit="return '/customer_account'">
+                        <label>
+                            Change birthday
+                        </label>
+                        <form:input path="newBirthday" type="date" class="form-control"
+                                    placeholder="${user.passenger.birthday}"/>
+                        <form:hidden path="id" value="${user.id}"/>
+                        <p><button class="btn btn-outline-info mrgn-top" type="submit">Change</button></p>
+                    </form:form>
+                    <form:form method="post"
+                               modelAttribute="changeUserDataDTO"
+                               onsubmit="return '/customer_account'">
+                        <label>
+                            Change login (Поменять логин)
+                        </label>
+                        <form:input path="newLogin" type="text" class="form-control" placeholder="${user.login}"/>
+                        <form:hidden path="id" value="${user.id}"/>
+                        <p>
+                            <button class="btn btn-outline-info mrgn-top" type="submit">Change</button>
+                        </p>
+                    </form:form>
+                    <form:form method="post"
+                               modelAttribute="changeUserDataDTO"
+                               onsubmit="return '/customer_account'">
+                        <label>
+                            Change password
+                        </label>
+                        <form:input path="newPassword" type="password" class="form-control" placeholder="Enter new password"/>
+                        <form:hidden path="id" value="${user.id}"/>
+                        <p><button class="btn btn-outline-info mrgn-top" type="submit">Change</button></p>
+                    </form:form>
+                    <br>
+                </div>
+
+                <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
 
 
                     <h4>User data</h4>
@@ -118,66 +186,6 @@
                     <h4>Tickets</h4>
                     <p>No tickets yet...</p>
 
-                </div>
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                    <h4>Change user data</h4>
-                    <form:form method="post"
-                               modelAttribute="changeUserDataDTO"
-                               onsubmit="return '/customer_account'">
-                    <label>
-                        Change name
-                    </label>
-                        <form:input path="newName" type="text" class="form-control" placeholder="${user.passenger.name}"/>
-                        <form:hidden path="id" value="${user.id}"/>
-                        <p>
-                            <button class="btn btn-outline-info mrgn-top" type="submit">Change</button>
-                        </p>
-                    </form:form>
-                    <form:form method="post"
-                               modelAttribute="changeUserDataDTO"
-                               onsubmit="return '/customer_account'">
-                    <label>
-                        Change surname
-                    </label>
-                        <form:input path="newSurname" type="text" class="form-control"
-                                    placeholder="${user.passenger.surname}"/>
-                        <form:hidden path="id" value="${user.id}"/>
-                        <p><button class="btn btn-outline-info mrgn-top" type="submit">Change</button></p>
-                    </form:form>
-                    <form:form method="post"
-                               modelAttribute="changeUserDataDTO"
-                               onsubmit="return '/customer_account'">
-                    <label>
-                        Change birthday
-                    </label>
-                        <form:input path="newBirthday" type="date" class="form-control"
-                                    placeholder="${user.passenger.birthday}"/>
-                        <form:hidden path="id" value="${user.id}"/>
-                    <p><button class="btn btn-outline-info mrgn-top" type="submit">Change</button></p>
-                    </form:form>
-                    <form:form method="post"
-                               modelAttribute="changeUserDataDTO"
-                               onsubmit="return '/customer_account'">
-                        <label>
-                            Change login (Поменять логин)
-                        </label>
-                        <form:input path="newLogin" type="text" class="form-control" placeholder="${user.login}"/>
-                        <form:hidden path="id" value="${user.id}"/>
-                        <p>
-                            <button class="btn btn-outline-info mrgn-top" type="submit">Change</button>
-                        </p>
-                    </form:form>
-                    <form:form method="post"
-                               modelAttribute="changeUserDataDTO"
-                               onsubmit="return '/customer_account'">
-                    <label>
-                        Change password
-                    </label>
-                    <form:input path="newPassword" type="password" class="form-control" placeholder="Enter new password"/>
-                        <form:hidden path="id" value="${user.id}"/>
-                    <p><button class="btn btn-outline-info mrgn-top" type="submit">Change</button></p>
-                    </form:form>
-                    <br>
                 </div>
             </div>
         </div>
