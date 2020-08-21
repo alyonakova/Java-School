@@ -78,9 +78,15 @@ public class UserController {
     }
 
     @PostMapping(value = "/employee_account")
-    public String changeEmployeeData(@ModelAttribute ChangeUserDataDTO changeUserDataDTO, Model model) {
+    public String changeEmployeeData(@Valid @ModelAttribute ChangeUserDataDTO changeUserDataDTO,
+                                     BindingResult validationResult, Model model) {
+        //TODO check if the login is in DB
+        model.addAttribute("validationErrors", validationResult.getAllErrors());
+        if (validationResult.hasErrors()) {
+            return "employeeAccount";
+        }
         userService.updateEmployeeData(changeUserDataDTO);
-        return "redirect:/employee_account";
+        return "employeeAccount";
     }
 
     @PostMapping(value = "/customer_account")
