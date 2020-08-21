@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page session="true"%>
 <!doctype html>
 <html lang="en">
@@ -89,12 +90,14 @@
                             <input name="username" type="text" class="form-control"
                                    placeholder="Enter your login" required/></label>
                         <label> Password
-                            <input name="password" type="password" class="form-control" placeholder="password" required/></label>
+                            <input name="password" type="password" class="form-control" placeholder="password"
+                                   required/></label>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <p>
                             <button class="btn btn-lg btn-success find-button mx-auto" type="submit">Sign in</button>
                         </p>
                     </form>
+
                 </div>
             </div>
             <div class="col bg-light sign-up-container">
@@ -130,23 +133,34 @@
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
+                    <c:forEach var="error" items="${validationErrors}">
+                        <div class="alert alert-danger" role="alert">
+                                ${error.defaultMessage}
+                        </div>
+                    </c:forEach>
 
                     <form:form method="post"
                                modelAttribute="registrationFormDTO"
                                action="/registration_status">
                         <label> Name
                             <form:input path="name" type="text" class="form-control"
-                                        placeholder="Enter your name" required="true"/></label>
+                                        placeholder="Enter your name"
+                                        minlength="2" maxlength="30"
+                                        required="true"/></label>
                         <label> Surname
                             <form:input path="surname" type="text" class="form-control"
+                                        minlength="2" maxlength="30"
                                         placeholder="Enter your surname" required="true"/></label>
                         <label> Login
                             <form:input path="login" type="text" class="form-control"
+                                        minlength="3" maxlength="60"
                                         placeholder="Enter your login" required="true"/></label>
                         <label> Birthday
                             <form:input path="birthday" type="date" class="form-control" required="true"/></label>
                         <label> Password
-                            <form:input path="userPassword" type="password" class="form-control" placeholder="password" required="true"/></label>
+                            <form:input path="userPassword" type="password" class="form-control"
+                                        minlength="4" maxlength="20"
+                                        placeholder="password" required="true"/></label>
                         <p>
                             <button class="btn btn-lg btn-success find-button mx-auto" type="submit">Sign up</button>
                         </p>
