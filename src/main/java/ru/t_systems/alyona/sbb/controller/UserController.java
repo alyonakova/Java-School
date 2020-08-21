@@ -79,9 +79,13 @@ public class UserController {
 
     @PostMapping(value = "/employee_account")
     public String changeEmployeeData(@Valid @ModelAttribute ChangeUserDataDTO changeUserDataDTO,
-                                     BindingResult validationResult, Model model) {
+                                     BindingResult validationResult, Model model,
+                                     @AuthenticationPrincipal UserDetailsDTO authorizedUserDetails) {
         //TODO check if the login is in DB
         model.addAttribute("validationErrors", validationResult.getAllErrors());
+        model.addAttribute("userDetails", authorizedUserDetails);
+        model.addAttribute("user", userService.getUserById(authorizedUserDetails.getId()));
+        model.addAttribute("changeUserDataDTO", new ChangeUserDataDTO());
         if (validationResult.hasErrors()) {
             return "employeeAccount";
         }
@@ -95,9 +99,8 @@ public class UserController {
                                      @AuthenticationPrincipal UserDetailsDTO authorizedUserDetails) {
         //TODO check if the login is in DB
         model.addAttribute("validationErrors", validationResult.getAllErrors());
-        UserDTO user = userService.getUserById(authorizedUserDetails.getId());
         model.addAttribute("userDetails", authorizedUserDetails);
-        model.addAttribute("user", user);
+        model.addAttribute("user", userService.getUserById(authorizedUserDetails.getId()));
         model.addAttribute("changeUserDataDTO", new ChangeUserDataDTO());
         if (validationResult.hasErrors()) {
             return "customerAccount";

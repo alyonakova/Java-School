@@ -83,7 +83,7 @@
 <main role="main" class="d-flex flex-column h-100">
     <div class="flex-shrink-0">
         <div class="container bg-light container-pdng">
-            <h2 class="mt-5">Welcome!</h2>
+            <h2 class="mt-5">Welcome, ${user.login}!</h2>
             <h4>Change user data</h4>
             <c:forEach var="error" items="${validationErrors}">
                 <div class="alert alert-danger" role="alert">
