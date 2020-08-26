@@ -77,7 +77,7 @@ public class DatabaseBackedSegmentEdgeImpl implements SegmentEdge {
                 .ticketsLeft(getAvailableTicketsCount())
                 .price(getPriceFranks())
                 .cancelled(isCancelled())
-                .delayed(isDelayed())
+                .delayedMinutes(delayedInMinutes())
                 .build();
     }
 
@@ -86,9 +86,9 @@ public class DatabaseBackedSegmentEdgeImpl implements SegmentEdge {
         return false;
     }
 
-    private boolean isDelayed() {
+    private int delayedInMinutes() {
         // TODO: Implement delaying of segments
-        return false;
+        return 0;
     }
 
     private TrainEntity getTrain() {
