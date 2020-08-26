@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.t_systems.alyona.sbb.converter.TrainConverter;
+import ru.t_systems.alyona.sbb.converter.TrainDepartureConverter;
 import ru.t_systems.alyona.sbb.dto.*;
 import ru.t_systems.alyona.sbb.entity.SegmentTemplateEntity;
 import ru.t_systems.alyona.sbb.entity.StationEntity;
@@ -33,6 +34,7 @@ public class TrainServiceImpl implements TrainService {
     private final SegmentTemplateRepository segmentTemplateRepository;
     private final StationRepository stationRepository;
     private final TrainDepartureRepository departureRepository;
+    private final TrainDepartureConverter trainDepartureConverter;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TrainServiceImpl.class);
 
@@ -101,5 +103,28 @@ public class TrainServiceImpl implements TrainService {
             timeOffset += dto.getTravelDurationMinutes() + dto.getStopDurationMinutes();
         }
         return segmentTemplateEntities;
+    }
+
+    @Override
+    public List<TrainDepartureDTO> getDeparturesByTrain(String trainNumber) {
+        TrainEntity trainEntity = trainRepository.getById(trainNumber);
+        return trainDepartureConverter
+                .toDTOList(departureRepository.getDeparturesByTrain(trainEntity));
+    }
+
+    @Override
+    public List<SegmentTemplateDTO> getSegmentsByTrainNumber(String trainNumber) {
+        List<SegmentTemplateDTO> result = new ArrayList<>();
+        TrainEntity trainEntity = trainRepository.getById(trainNumber);
+        List<SegmentTemplateEntity> segments = segmentTemplateRepository.getByTrain(trainEntity);
+        for (SegmentTemplateEntity segment : segments) {
+            result.add(SegmentTemplateDTO.builder()
+                    .sourceStation(segment.getStationFrom().getName())
+                    .destinationStation(segment.getStationTo().getName())
+                    .indexWithinTrainRoute(segment.getIndexWithinTrainRoute())
+                    .build());
+        }
+        result.sort(SegmentTemplateDTO.COMPARE_BY_ROUTE_INDEX);
+        return result;
     }
 }

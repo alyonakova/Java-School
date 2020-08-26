@@ -3,10 +3,13 @@ package ru.t_systems.alyona.sbb.repository.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.t_systems.alyona.sbb.entity.TrainDepartureEntity;
+import ru.t_systems.alyona.sbb.entity.TrainEntity;
 import ru.t_systems.alyona.sbb.repository.TrainDepartureRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.Collection;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -27,5 +30,14 @@ public class TrainDepartureRepositoryImpl
             entityManager.persist(entity);
         }
         return entities;
+    }
+
+    @Override
+    public List<TrainDepartureEntity> getDeparturesByTrain(TrainEntity train) {
+        TypedQuery<TrainDepartureEntity> query = getEntityManager().createQuery(
+                "SELECT t FROM TrainDepartureEntity t WHERE t.train = :train",
+                TrainDepartureEntity.class);
+        query.setParameter("train", train);
+        return query.getResultList();
     }
 }

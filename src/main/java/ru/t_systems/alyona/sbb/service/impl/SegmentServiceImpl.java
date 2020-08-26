@@ -12,6 +12,7 @@ import ru.t_systems.alyona.sbb.dto.TrainDTO;
 import ru.t_systems.alyona.sbb.entity.SegmentTemplateEntity;
 import ru.t_systems.alyona.sbb.entity.TrainDepartureEntity;
 import ru.t_systems.alyona.sbb.entity.TrainEntity;
+import ru.t_systems.alyona.sbb.repository.SegmentTemplateRepository;
 import ru.t_systems.alyona.sbb.repository.TrainRepository;
 import ru.t_systems.alyona.sbb.service.SegmentService;
 
@@ -27,6 +28,7 @@ public class SegmentServiceImpl implements SegmentService {
     private final TrainRepository trainRepository;
     private final TrainConverter trainConverter;
     private final StationConverter stationConverter;
+    private final SegmentTemplateRepository segmentTemplateRepository;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SegmentServiceImpl.class);
 
