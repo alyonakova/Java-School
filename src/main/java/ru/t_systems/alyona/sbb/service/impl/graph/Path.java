@@ -2,8 +2,6 @@ package ru.t_systems.alyona.sbb.service.impl.graph;
 
 import ru.t_systems.alyona.sbb.service.impl.graph.support.SimplePath;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 

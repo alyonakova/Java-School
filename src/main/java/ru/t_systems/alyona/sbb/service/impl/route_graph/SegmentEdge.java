@@ -1,7 +1,6 @@
 package ru.t_systems.alyona.sbb.service.impl.route_graph;
 
 import ru.t_systems.alyona.sbb.dto.SegmentDTO;
-import ru.t_systems.alyona.sbb.dto.TrainDTO;
 import ru.t_systems.alyona.sbb.service.impl.graph.Edge;
 
 import java.time.ZonedDateTime;
