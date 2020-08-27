@@ -44,7 +44,7 @@ public class ConnectionSearchServiceImpl implements ConnectionSearchService {
         } catch (EmptyResultDataAccessException e) {
             String wrongStationName = (departureNode == null) ?
                     request.getDepartureStationName() : request.getArrivalStationName();
-            return ConnectionSearchResultDTO.error("No \"" + wrongStationName + "\" station found");
+            return ConnectionSearchResultDTO.error("No station with name “" + wrongStationName + "” found.");
         }
 
         ZonedDateTime requestedDepartureTime = request.getDepartureTime().atZone(departureNode.getTimeZone());
