@@ -123,7 +123,16 @@
             <h3>Change train timetable</h3>
             <ul class="list-group">
                 <li class="list-group-item">
-                    <button class="btn btn-danger">Cancel a train</button>
+                    <c:choose>
+                        <c:when test="true ${cancelled}">
+                            Train is cancelled
+                            <button class="btn btn-success">Return a train</button>
+                        </c:when>
+                        <c:otherwise>
+                            Train is active
+                            <button class="btn btn-danger">Cancel a train</button>
+                        </c:otherwise>
+                    </c:choose>
                 </li>
                 <li class="list-group-item">
                     Delay a train by <input type="number" min="0"> minutes

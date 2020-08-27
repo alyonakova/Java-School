@@ -10,4 +10,6 @@ public class TrainDepartureDTO {
     private TrainDTO train;
 
     private Instant departureTime;
+
+    private boolean cancelled;
 }

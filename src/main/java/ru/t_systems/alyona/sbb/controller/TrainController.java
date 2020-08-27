@@ -10,6 +10,7 @@ import ru.t_systems.alyona.sbb.service.ConnectionSearchService;
 import ru.t_systems.alyona.sbb.service.TrainService;
 
 import javax.inject.Provider;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -50,8 +51,11 @@ public class TrainController {
 
     @GetMapping(value = "/trains/{id}")
     public String showTrainItem(@PathVariable("id") String trainNumber, Model model) {
-        model.addAttribute("trainDepartures", trainService.getDeparturesByTrain(trainNumber));
-        model.addAttribute("segments", trainService.getSegmentsByTrainNumber(trainNumber));
+        TrainDTO train = trainService.getById(trainNumber);
+        List<TrainDepartureDTO> trainDepartures = trainService.getDeparturesByTrain(train);
+        model.addAttribute("trainDepartures", trainDepartures);
+        model.addAttribute("segments", trainService.getSegmentsByTrainNumber(train));
+        model.addAttribute("cancelled", trainService.isTrainCancelled(trainDepartures));
         return "trainItem";
     }
 

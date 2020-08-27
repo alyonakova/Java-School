@@ -56,7 +56,10 @@ public class TicketServiceImpl implements TicketService {
     private boolean isEnoughTickets(List<TicketSegmentDTO> segments, int ticketsToBuy) {
             int ticketsAvailable = segments.stream()
                     .mapToInt(segment -> {
-                        int boughtTicketsCount = ticketSegmentRepository.findBySegmentTemplateIdAndTrainDepartureTime(segment.getSegmentTemplateId(), segment.getTrainDepartureTime()).size();
+                        int boughtTicketsCount = ticketSegmentRepository
+                                .findBySegmentTemplateIdAndTrainDepartureTime(
+                                        segment.getSegmentTemplateId(), segment.getTrainDepartureTime()
+                                ).size();
                         return segment.getTrainCapacity() - boughtTicketsCount;
                     })
                     .min()
@@ -154,7 +157,7 @@ public class TicketServiceImpl implements TicketService {
         for (ChainDTO chain : connection.getChains()) {
             for (SegmentDTO segment : chain.getSegments()) {
                 segments.add(TicketSegmentDTO.builder()
-                        .ticketId(null) // FIXME
+                        .ticketId(null) // no ticket is created yet
                         .indexInTicket(indexInTicket)
                         .segmentTemplateId(segment.getSegmentTemplateId())
                         .trainDepartureTime(segment.getTrainDepartureTime())
@@ -169,10 +172,9 @@ public class TicketServiceImpl implements TicketService {
     private void createTicket(TicketDTO ticket) {
         try {
             TicketEntity ticketEntity = ticketRepository.create(ticketConverter.toEntity(ticket));
-            // TODO: Create all TicketSegment entities at once, not in a loop
-            //ticketSegmentRepository.createAll(ticketSegmentConverter.toEntityList(ticket.getSegments()));
+
             for (TicketSegmentDTO segment : ticket.getSegments()) {
-                // FIXME: This conversion is ugly, maybe move to TicketSegmentConverter
+
                 ticketSegmentRepository.create(TicketSegmentEntity.builder()
                         .ticket(ticketEntity)
                         .segmentTemplate(segmentTemplateRepository.findById(segment.getSegmentTemplateId()))

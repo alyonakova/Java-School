@@ -10,6 +10,8 @@ public interface TrainService {
 
     List<TrainDTO> getAllTrains();
     OperationResultDTO createTrain(CreateTrainRequestDTO request);
-    List<TrainDepartureDTO> getDeparturesByTrain(String trainNumber);
-    List<SegmentTemplateDTO> getSegmentsByTrainNumber(String trainNumber);
+    List<TrainDepartureDTO> getDeparturesByTrain(TrainDTO train);
+    List<SegmentTemplateDTO> getSegmentsByTrainNumber(TrainDTO train);
+    TrainDTO getById(String trainNumber);
+    boolean isTrainCancelled(List<TrainDepartureDTO> trainDepartures);
 }

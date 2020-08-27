@@ -106,16 +106,16 @@ public class TrainServiceImpl implements TrainService {
     }
 
     @Override
-    public List<TrainDepartureDTO> getDeparturesByTrain(String trainNumber) {
-        TrainEntity trainEntity = trainRepository.getById(trainNumber);
+    public List<TrainDepartureDTO> getDeparturesByTrain(TrainDTO train) {
+        TrainEntity trainEntity = trainConverter.toEntity(train);
         return trainDepartureConverter
                 .toDTOList(departureRepository.getDeparturesByTrain(trainEntity));
     }
 
     @Override
-    public List<SegmentTemplateDTO> getSegmentsByTrainNumber(String trainNumber) {
+    public List<SegmentTemplateDTO> getSegmentsByTrainNumber(TrainDTO train) {
         List<SegmentTemplateDTO> result = new ArrayList<>();
-        TrainEntity trainEntity = trainRepository.getById(trainNumber);
+        TrainEntity trainEntity = trainConverter.toEntity(train);
         List<SegmentTemplateEntity> segments = segmentTemplateRepository.getByTrain(trainEntity);
         for (SegmentTemplateEntity segment : segments) {
             result.add(SegmentTemplateDTO.builder()
@@ -126,5 +126,15 @@ public class TrainServiceImpl implements TrainService {
         }
         result.sort(SegmentTemplateDTO.COMPARE_BY_ROUTE_INDEX);
         return result;
+    }
+
+    @Override
+    public TrainDTO getById(String trainNumber) {
+        return trainConverter.toDTO(trainRepository.getById(trainNumber));
+    }
+
+    @Override
+    public boolean isTrainCancelled(List<TrainDepartureDTO> trainDepartures) {
+        return trainDepartures.stream().allMatch(TrainDepartureDTO::isCancelled);
     }
 }

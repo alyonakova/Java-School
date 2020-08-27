@@ -27,6 +27,9 @@ public class TrainDepartureEntity {
     @Column(name = "departure_time")
     private Instant departureTime;
 
+    @Column(name = "cancelled")
+    private boolean cancelled;
+
     @Data
     @Builder
     @NoArgsConstructor
