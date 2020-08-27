@@ -13,14 +13,6 @@ public class DepthFirstSearch {
 
     public <V extends Vertex<V, E>,
             E extends Edge<V, E>>
-    Collection<Path<V, E>> findAllSimplePaths(V source, V target) {
-        HashSet<Path<V, E>> discoveredPathsToSource = new HashSet<>();
-        discoveredPathsToSource.add(Path.emptyFrom(source));
-        return new FindAllSimplePaths().findAllSimplePaths(source, target, discoveredPathsToSource, PathEdgeFilter.alwaysPassing());
-    }
-
-    public <V extends Vertex<V, E>,
-            E extends Edge<V, E>>
     Collection<Path<V, E>> findAllSimplePaths(V source, V target, PathEdgeFilter<V, E> pathEdgeFilter) {
         HashSet<Path<V, E>> discoveredPathsToSource = new HashSet<>();
         discoveredPathsToSource.add(Path.emptyFrom(source));
@@ -28,15 +20,9 @@ public class DepthFirstSearch {
     }
 
     @FunctionalInterface
-    public static interface PathEdgeFilter<
+    public interface PathEdgeFilter<
             V extends Vertex<V, E>,
             E extends Edge<V, E>> {
-
-        static <V extends Vertex<V, E>,
-                E extends Edge<V, E>>
-        PathEdgeFilter<V, E> alwaysPassing() {
-            return (edge, path) -> true;
-        }
 
         boolean mayAppend(E nextEdge, Path<V, E> currentPath);
     }
