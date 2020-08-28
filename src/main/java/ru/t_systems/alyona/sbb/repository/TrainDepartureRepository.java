@@ -15,4 +15,6 @@ public interface TrainDepartureRepository {
     Iterable<TrainDepartureEntity> create(Collection<TrainDepartureEntity> entities);
 
     List<TrainDepartureEntity> getDeparturesByTrain(TrainEntity train);
+
+    void cancelAllTrainDepartures(TrainEntity train);
 }

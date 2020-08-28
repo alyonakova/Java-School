@@ -7,6 +7,7 @@ import ru.t_systems.alyona.sbb.entity.TrainEntity;
 import ru.t_systems.alyona.sbb.repository.TrainDepartureRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.Collection;
 import java.util.List;
@@ -39,5 +40,13 @@ public class TrainDepartureRepositoryImpl
                 TrainDepartureEntity.class);
         query.setParameter("train", train);
         return query.getResultList();
+    }
+
+    @Override
+    public void cancelAllTrainDepartures(TrainEntity train) {
+        Query query = getEntityManager().createQuery(
+                "UPDATE TrainDepartureEntity t SET t.cancelled = true WHERE t.train = :train");
+        query.setParameter("train", train);
+        query.executeUpdate();
     }
 }

@@ -14,4 +14,5 @@ public interface TrainService {
     List<SegmentTemplateDTO> getSegmentsByTrainNumber(TrainDTO train);
     TrainDTO getById(String trainNumber);
     boolean isTrainCancelled(List<TrainDepartureDTO> trainDepartures);
+    OperationResultDTO cancelTrain(TrainDTO train);
 }

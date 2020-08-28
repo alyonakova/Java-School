@@ -134,7 +134,20 @@ public class TrainServiceImpl implements TrainService {
     }
 
     @Override
+    @Transactional
     public boolean isTrainCancelled(List<TrainDepartureDTO> trainDepartures) {
         return trainDepartures.stream().allMatch(TrainDepartureDTO::isCancelled);
+    }
+
+    @Override
+    @Transactional
+    public OperationResultDTO cancelTrain(TrainDTO train) {
+        try {
+            TrainEntity trainEntity = trainConverter.toEntity(train);
+            departureRepository.cancelAllTrainDepartures(trainEntity);
+        } catch (Exception e) {
+            LOGGER.error("Failed to cancel the train", e);
+        }
+        return OperationResultDTO.successful("Train successfully cancelled");
     }
 }
