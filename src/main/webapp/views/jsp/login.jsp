@@ -2,6 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@page session="true"%>
 <!doctype html>
 <html lang="en">
@@ -105,33 +106,7 @@
                     <h4>Do not have an account? Create it!</h4>
 
                     <c:forEach var="message" items="${messages}">
-                        <c:choose>
-                            <c:when test="${message.severity == 'INFORMATIONAL'}">
-                                <div class="alert alert-info" role="alert">
-                                        ${message.text}
-                                </div>
-                            </c:when>
-                            <c:when test="${message.severity == 'WARNING'}">
-                                <div class="alert alert-warning" role="alert">
-                                        ${message.text}
-                                </div>
-                            </c:when>
-                            <c:when test="${message.severity == 'ERROR'}">
-                                <div class="alert alert-danger" role="alert">
-                                        ${message.text}
-                                </div>
-                            </c:when>
-                            <c:when test="${message.severity == 'TECHNICAL_ERROR'}">
-                                <div class="alert alert-danger" role="alert">
-                                        ${message.text}
-                                </div>
-                            </c:when>
-                            <c:otherwise>
-                                <div class="alert alert-secondary" role="alert">
-                                        ${message.text}
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
+                        <t:messageAlert message="${message}"/>
                     </c:forEach>
                     <c:forEach var="error" items="${validationErrors}">
                         <div class="alert alert-danger" role="alert">

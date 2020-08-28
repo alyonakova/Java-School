@@ -3,6 +3,8 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -137,13 +139,7 @@
             <ul class="list-group">
                 <li class="list-group-item">
                     <c:forEach var="message" items="${messages}">
-                        <c:choose>
-                            <c:when test="${message.severity == 'ERROR'}">
-                                <div class="alert alert-danger" role="alert">
-                                        ${message.text}
-                                </div>
-                            </c:when>
-                        </c:choose>
+                        <t:messageAlert message="${message}"/>
                     </c:forEach>
                     <c:choose>
                         <c:when test="${cancelled}">

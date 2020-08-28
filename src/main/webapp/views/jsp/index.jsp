@@ -5,6 +5,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -116,11 +117,7 @@
         <div class="container my-3">
             <c:forEach var="message" items="${messageConnectionSearchData}">
                 <c:choose>
-                    <c:when test="${message.severity == 'ERROR'}">
-                        <div class="alert alert-danger" role="alert">
-                                ${message.text}
-                        </div>
-                    </c:when>
+                    <t:messageAlert message="${message}"/>
                 </c:choose>
             </c:forEach>
             <form:form method="post" action="/" modelAttribute="outboundQuery">

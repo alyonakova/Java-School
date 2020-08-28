@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -192,18 +193,7 @@
                     <div class="station-messages-list"></div>
 
                     <c:forEach var="message" items="${stationCreationMessages}">
-                        <c:choose>
-                            <c:when test="${message.severity == 'INFORMATIONAL'}">
-                                <div class="alert alert-info" role="alert">
-                                        ${message.text}
-                                </div>
-                            </c:when>
-                            <c:when test="${message.severity == 'ERROR'}">
-                                <div class="alert alert-danger" role="alert">
-                                        ${message.text}
-                                </div>
-                            </c:when>
-                        </c:choose>
+                        <t:messageAlert message="${message}"/>
                     </c:forEach>
 
                     <div class="row">
