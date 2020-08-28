@@ -65,12 +65,25 @@ public class TrainController {
         TrainDTO train = trainService.getById(trainNumber);
         List<TrainDepartureDTO> trainDepartures = trainService.getDeparturesByTrain(train);
         OperationResultDTO result = trainService.cancelTrain(train);
+        fillTrainItemPage(model, result, train, trainDepartures);
+        return "trainItem";
+    }
+
+    @PostMapping(value = "/trains/{id}/restore")
+    public String restoreTrain(@PathVariable("id") String trainNumber, Model model) {
+        TrainDTO train = trainService.getById(trainNumber);
+        List<TrainDepartureDTO> trainDepartures = trainService.getDeparturesByTrain(train);
+        OperationResultDTO result = trainService.restoreTrain(train);
+        fillTrainItemPage(model, result, train, trainDepartures);
+        return "trainItem";
+    }
+
+    public void fillTrainItemPage(Model model, OperationResultDTO result, TrainDTO train, List<TrainDepartureDTO> trainDepartures) {
         model.addAttribute("messages", result.getMessages());
         model.addAttribute("train", train);
         model.addAttribute("trainDepartures", trainDepartures);
         model.addAttribute("segments", trainService.getSegmentsByTrainNumber(train));
         model.addAttribute("cancelled", trainService.isTrainCancelled(trainDepartures));
-        return "trainItem";
     }
 
 }

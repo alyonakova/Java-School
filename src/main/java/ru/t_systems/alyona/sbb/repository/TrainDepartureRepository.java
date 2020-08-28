@@ -17,4 +17,6 @@ public interface TrainDepartureRepository {
     List<TrainDepartureEntity> getDeparturesByTrain(TrainEntity train);
 
     void cancelAllTrainDepartures(TrainEntity train);
+
+    void restoreAllTrainDepartures(TrainEntity train);
 }

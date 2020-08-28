@@ -148,7 +148,11 @@
                     <c:choose>
                         <c:when test="${cancelled}">
                             Train is cancelled
-                            <button class="btn btn-primary"> Restore the train</button>
+                            <form:form method="post" action="/trains/${train.id}/restore">
+                                <button class="btn btn-primary" type="submit">
+                                    Restore the train
+                                </button>
+                            </form:form>
                         </c:when>
                         <c:otherwise>
                             <%-- TODO: Pass trainId from controller as a separate attribute --%>
