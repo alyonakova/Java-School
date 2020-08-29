@@ -115,6 +115,16 @@
                             </c:when>
                             <c:otherwise>
                                 <span class="badge badge-success">Active</span>
+
+                                <c:choose>
+                                    <c:when test="${trainDeparture.delayed}">
+                                        <span class="badge badge-danger">Delayed by ${trainDeparture.delayInMinutes} min</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="badge badge-success">On schedule</span>
+                                    </c:otherwise>
+                                </c:choose>
+
                             </c:otherwise>
                         </c:choose>
 
@@ -162,8 +172,13 @@
                     </c:choose>
                 </li>
                 <li class="list-group-item">
-                    Delay a train by <input type="number" min="0"> minutes
-                    <button class="btn btn-primary">Delay</button>
+
+                    <form:form method="post" action="/trains/${train.id}/delay" modelAttribute="delayForm">
+                        Delay a train by <form:input path="delayInMinutes" type="number" min="0"/> minutes
+                        <button class="btn btn-primary" type="submit">
+                            Delay
+                        </button>
+                    </form:form>
                 </li>
             </ul>
         </div>

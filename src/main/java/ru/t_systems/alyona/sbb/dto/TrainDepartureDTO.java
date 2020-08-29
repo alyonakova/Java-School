@@ -12,4 +12,10 @@ public class TrainDepartureDTO {
     private Instant departureTime;
 
     private boolean cancelled;
+
+    private int delayInMinutes;
+
+    public boolean isDelayed() {
+        return this.delayInMinutes > 0;
+    }
 }

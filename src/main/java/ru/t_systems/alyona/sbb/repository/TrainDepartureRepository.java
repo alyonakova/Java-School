@@ -19,4 +19,6 @@ public interface TrainDepartureRepository {
     void cancelAllTrainDepartures(TrainEntity train);
 
     void restoreAllTrainDepartures(TrainEntity train);
+
+    void delayAllTrainDepartures(TrainEntity train, int delayInMinutes);
 }

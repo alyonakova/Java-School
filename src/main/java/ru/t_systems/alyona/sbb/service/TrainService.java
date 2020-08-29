@@ -16,4 +16,5 @@ public interface TrainService {
     boolean isTrainCancelled(List<TrainDepartureDTO> trainDepartures);
     OperationResultDTO cancelTrain(TrainDTO train);
     OperationResultDTO restoreTrain(TrainDTO train);
+    OperationResultDTO delayTrain(TrainDTO train, int delayInMinutes);
 }

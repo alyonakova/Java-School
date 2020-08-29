@@ -71,6 +71,8 @@ public class TrainServiceImpl implements TrainService {
                             .map(time -> TrainDepartureEntity.builder()
                                     .train(trainEntity)
                                     .departureTime(time.atZone(departureTimeZone).toInstant())
+                                    .cancelled(false)
+                                    .delayInMinutes(0)
                                     .build())
                             .collect(toList());
             departureRepository.create(trainDepartureEntities);
@@ -160,6 +162,18 @@ public class TrainServiceImpl implements TrainService {
         } catch (Exception e) {
             LOGGER.error("Failed to restore the train", e);
         }
-        return OperationResultDTO.successful("train successfully restored");
+        return OperationResultDTO.successful("Train successfully restored");
+    }
+
+    @Override
+    @Transactional
+    public OperationResultDTO delayTrain(TrainDTO train, int delayInMinutes) {
+        try {
+            TrainEntity trainEntity = trainConverter.toEntity(train);
+            departureRepository.delayAllTrainDepartures(trainEntity, delayInMinutes);
+        } catch (Exception e) {
+            LOGGER.error("Failed to delay the train", e);
+        }
+        return OperationResultDTO.successful("Train successfully delayed");
     }
 }

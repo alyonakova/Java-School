@@ -116,9 +116,7 @@
         <h1 class="my-3" style="text-align: center">Start your trip with SBB!</h1>
         <div class="container my-3">
             <c:forEach var="message" items="${messageConnectionSearchData}">
-                <c:choose>
-                    <t:messageAlert message="${message}"/>
-                </c:choose>
+                <t:messageAlert message="${message}"/>
             </c:forEach>
             <form:form method="post" action="/" modelAttribute="outboundQuery">
                 <div class="row">

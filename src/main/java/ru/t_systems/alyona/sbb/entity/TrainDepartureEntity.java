@@ -30,6 +30,9 @@ public class TrainDepartureEntity {
     @Column(name = "cancelled")
     private boolean cancelled;
 
+    @Column(name = "delay")
+    private int delayInMinutes;
+
     @Data
     @Builder
     @NoArgsConstructor
