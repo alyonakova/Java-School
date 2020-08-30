@@ -31,4 +31,6 @@ public interface TrainService {
     OperationResultDTO cancelTrainDeparture(TrainDepartureDTO trainDeparture);
 
     OperationResultDTO restoreTrainDeparture(TrainDepartureDTO trainDeparture);
+
+    OperationResultDTO delayTrainDeparture(TrainDepartureDTO trainDeparture, int delayInMinutes);
 }

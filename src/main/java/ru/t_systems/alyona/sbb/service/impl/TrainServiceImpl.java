@@ -217,4 +217,16 @@ public class TrainServiceImpl implements TrainService {
         }
         return OperationResultDTO.successful("Departure successfully restored");
     }
+
+    @Override
+    @Transactional
+    public OperationResultDTO delayTrainDeparture(TrainDepartureDTO trainDeparture, int delayInMinutes) {
+        try {
+            TrainDepartureEntity trainDepartureEntity = trainDepartureConverter.toEntity(trainDeparture);
+            departureRepository.delayTrainDeparture(trainDepartureEntity, delayInMinutes);
+        } catch (Exception e) {
+            LOGGER.error("Failed to delay the train departure", e);
+        }
+        return OperationResultDTO.successful("Train departure successfully delayed");
+    }
 }

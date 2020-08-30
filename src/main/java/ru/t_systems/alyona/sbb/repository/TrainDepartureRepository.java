@@ -28,4 +28,6 @@ public interface TrainDepartureRepository {
     void cancelTrainDeparture(TrainDepartureEntity trainDeparture);
 
     void restoreTrainDeparture(TrainDepartureEntity trainDeparture);
+
+    void delayTrainDeparture(TrainDepartureEntity trainDeparture, int delayInMinutes);
 }

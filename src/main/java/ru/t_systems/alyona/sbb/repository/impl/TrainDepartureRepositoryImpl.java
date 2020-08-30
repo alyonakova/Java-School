@@ -98,4 +98,14 @@ public class TrainDepartureRepositoryImpl
         query.setParameter("trainDeparture", trainDeparture);
         query.executeUpdate();
     }
+
+    @Override
+    public void delayTrainDeparture(TrainDepartureEntity trainDeparture, int delayInMinutes) {
+        Query query = getEntityManager().createQuery(
+                "UPDATE TrainDepartureEntity t SET t.delayInMinutes = :delayInMinutes WHERE t = :trainDeparture"
+        );
+        query.setParameter("delayInMinutes", delayInMinutes);
+        query.setParameter("trainDeparture", trainDeparture);
+        query.executeUpdate();
+    }
 }
