@@ -206,4 +206,15 @@ public class TrainServiceImpl implements TrainService {
         return OperationResultDTO.successful("Departure successfully cancelled");
     }
 
+    @Override
+    @Transactional
+    public OperationResultDTO restoreTrainDeparture(TrainDepartureDTO trainDeparture) {
+        try {
+            TrainDepartureEntity trainDepartureEntity = trainDepartureConverter.toEntity(trainDeparture);
+            departureRepository.restoreTrainDeparture(trainDepartureEntity);
+        } catch (Exception e) {
+            LOGGER.error("Failed to restore train departure", e);
+        }
+        return OperationResultDTO.successful("Departure successfully restored");
+    }
 }

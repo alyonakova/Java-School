@@ -89,4 +89,13 @@ public class TrainDepartureRepositoryImpl
         query.setParameter("trainDeparture", trainDeparture);
         query.executeUpdate();
     }
+
+    @Override
+    public void restoreTrainDeparture(TrainDepartureEntity trainDeparture) {
+        Query query = getEntityManager().createQuery(
+                "UPDATE TrainDepartureEntity t SET t.cancelled = false WHERE t = :trainDeparture"
+        );
+        query.setParameter("trainDeparture", trainDeparture);
+        query.executeUpdate();
+    }
 }

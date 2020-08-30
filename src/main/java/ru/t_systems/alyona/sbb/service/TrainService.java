@@ -29,4 +29,6 @@ public interface TrainService {
     TrainDepartureDTO getTrainDeparture(String trainNumber, String departureTime);
 
     OperationResultDTO cancelTrainDeparture(TrainDepartureDTO trainDeparture);
+
+    OperationResultDTO restoreTrainDeparture(TrainDepartureDTO trainDeparture);
 }
