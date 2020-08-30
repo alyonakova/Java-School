@@ -17,4 +17,5 @@ public interface TrainService {
     OperationResultDTO cancelTrain(TrainDTO train);
     OperationResultDTO restoreTrain(TrainDTO train);
     OperationResultDTO delayTrain(TrainDTO train, int delayInMinutes);
+    TrainDepartureDTO getTrainDeparture(String trainNumber, String departureTime);
 }

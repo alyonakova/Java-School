@@ -96,4 +96,13 @@ public class TrainController {
         return "trainItem";
     }
 
+    @GetMapping(value = "/trains/{id}/departures/{departureTime}")
+    public String showTrainDeparture(@PathVariable("id") String trainNumber,
+                                     @PathVariable("departureTime") String departureTime, Model model) {
+        TrainDepartureDTO trainDeparture = trainService.getTrainDeparture(trainNumber, departureTime);
+        model.addAttribute("trainDeparture", trainDeparture);
+        model.addAttribute("delayForm", new DelayFormDTO());
+        return "trainDeparture";
+    }
+
 }

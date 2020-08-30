@@ -161,7 +161,6 @@
                             </form:form>
                         </c:when>
                         <c:otherwise>
-                            <%-- TODO: Pass trainId from controller as a separate attribute --%>
                             Train is active
                             <form:form method="post" action="/trains/${train.id}/cancel">
                                 <button class="btn btn-danger" type="submit">

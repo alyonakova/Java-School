@@ -18,6 +18,7 @@ import ru.t_systems.alyona.sbb.repository.TrainDepartureRepository;
 import ru.t_systems.alyona.sbb.repository.TrainRepository;
 import ru.t_systems.alyona.sbb.service.TrainService;
 
+import java.time.Instant;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -176,4 +177,21 @@ public class TrainServiceImpl implements TrainService {
         }
         return OperationResultDTO.successful("Train successfully delayed");
     }
+
+    @Override
+    @Transactional
+    public TrainDepartureDTO getTrainDeparture(String trainNumber, String departureTime) {
+        TrainDepartureDTO trainDeparture = null;
+        try {
+            TrainEntity trainEntity = trainRepository.getById(trainNumber);
+            Instant departureTimeDate = Instant.parse(departureTime);
+            trainDeparture = trainDepartureConverter.toDTO(
+                    departureRepository.getTrainDeparture(trainEntity, departureTimeDate)
+            );
+        } catch (Exception e) {
+            LOGGER.error("Failed to get train departure", e);
+        }
+        return trainDeparture;
+    }
+
 }

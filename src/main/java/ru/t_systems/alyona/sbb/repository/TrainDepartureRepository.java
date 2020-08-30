@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import ru.t_systems.alyona.sbb.entity.TrainDepartureEntity;
 import ru.t_systems.alyona.sbb.entity.TrainEntity;
 
+import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface TrainDepartureRepository {
     void restoreAllTrainDepartures(TrainEntity train);
 
     void delayAllTrainDepartures(TrainEntity train, int delayInMinutes);
+
+    TrainDepartureEntity getTrainDeparture(TrainEntity train, Instant departureTime);
 }

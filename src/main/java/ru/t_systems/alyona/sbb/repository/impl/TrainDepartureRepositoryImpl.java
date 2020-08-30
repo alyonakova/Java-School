@@ -9,6 +9,7 @@ import ru.t_systems.alyona.sbb.repository.TrainDepartureRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 
@@ -67,5 +68,16 @@ public class TrainDepartureRepositoryImpl
         query.setParameter("delayInMinutes", delayInMinutes);
         query.setParameter("train", train);
         query.executeUpdate();
+    }
+
+    @Override
+    public TrainDepartureEntity getTrainDeparture(TrainEntity train, Instant departureTime) {
+        TypedQuery<TrainDepartureEntity> query = getEntityManager().createQuery(
+                "SELECT t FROM TrainDepartureEntity t WHERE t.train = :train AND t.departureTime = :departureTime",
+                TrainDepartureEntity.class
+        );
+        query.setParameter("train", train);
+        query.setParameter("departureTime", departureTime);
+        return query.getResultList().stream().findFirst().orElse(null);
     }
 }

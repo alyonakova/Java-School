@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -42,13 +45,13 @@
         }
     </style>
     <!-- Custom styles for this template -->
-    <link href="../resources/css/styles.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/styles.css" rel="stylesheet">
 </head>
 <body>
 <header>
-    <sec:authorize var="loggedIn" access="isAuthenticated()" />
+    <sec:authorize var="loggedIn" access="isAuthenticated()"/>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <img src="../resources/images/SBB_Logo.jpg" class="logo">
+        <img src="${pageContext.request.contextPath}/resources/images/SBB_Logo.jpg" class="logo">
         <a class="navbar-brand logo-text" href="${pageContext.request.contextPath}/">SBB CFF FFS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +60,8 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/">Home <span
+                            class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/timetable">Timetable</a>
@@ -73,16 +77,18 @@
                 </li>
             </ul>
             <a href="${pageContext.request.contextPath}/employee_account">
-                <img src="../resources/images/account.png" class="account_logo">
+                <img src="${pageContext.request.contextPath}/resources/images/account.png" class="account_logo">
             </a>
             <c:choose>
                 <c:when test="${loggedIn}">
-                    <form class="form-inline mt-2 mt-md-0" method="get" action="${pageContext.request.contextPath}/logout">
+                    <form class="form-inline mt-2 mt-md-0" method="get"
+                          action="${pageContext.request.contextPath}/logout">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign out</button>
                     </form>
                 </c:when>
                 <c:otherwise>
-                    <form class="form-inline mt-2 mt-md-0" method="get" action="${pageContext.request.contextPath}/sign_in">
+                    <form class="form-inline mt-2 mt-md-0" method="get"
+                          action="${pageContext.request.contextPath}/sign_in">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign in</button>
                     </form>
                 </c:otherwise>
@@ -92,9 +98,79 @@
 </header>
 <main role="main">
 
-    <div class="container mt-4">
-        <div class="container bg-light">
+    <div class="row">
+        <div class="container mt-3 mr-2 col bg-light">
+            <h3>Departure info</h3>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    Train ${trainDeparture.train.id}
+                </li>
+                <li class="list-group-item">
+                    <javatime:format value="${trainDeparture.departureTime}" pattern="d MMM uuuu (z) HH:mm"
+                                     locale="C"/>
+                </li>
+                <li class="list-group-item">
+                    <c:choose>
+                        <c:when test="${trainDeparture.cancelled}">
+                            <span class="badge badge-danger">Cancelled</span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="badge badge-success">Active</span>
 
+                            <c:choose>
+                                <c:when test="${trainDeparture.delayed}">
+                                    <span class="badge badge-danger">Delayed by ${trainDeparture.delayInMinutes} min</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="badge badge-success">On schedule</span>
+                                </c:otherwise>
+                            </c:choose>
+
+                        </c:otherwise>
+                    </c:choose>
+                </li>
+            </ul>
+
+        </div>
+        <div class="container mt-3 col bg-light">
+            <h3>Change departure timetable</h3>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <%--                    <c:forEach var="message" items="${messages}">--%>
+                    <%--                        <t:messageAlert message="${message}"/>--%>
+                    <%--                    </c:forEach>--%>
+                    <c:choose>
+                        <c:when test="${trainDeparture.cancelled}">
+                            Departure is cancelled
+                            <form:form method="post"
+                                       action="/trains/${trainDeparture.train.id}/departures/${trainDeparture.departureTime}/restore">
+                                <button class="btn btn-primary" type="submit">
+                                    Restore the departure
+                                </button>
+                            </form:form>
+                        </c:when>
+                        <c:otherwise>
+                            Departure is active
+                            <form:form method="post"
+                                       action="/trains/${trainDeparture.train.id}/departures/${trainDeparture.departureTime}/cancel">
+                                <button class="btn btn-danger" type="submit">
+                                    Cancel the departure
+                                </button>
+                            </form:form>
+                        </c:otherwise>
+                    </c:choose>
+                </li>
+                <li class="list-group-item">
+                    <form:form method="post"
+                               action="/trains/${trainDeparture.train.id}/departures/${trainDeparture.departureTime}/delay"
+                               modelAttribute="delayForm">
+                        Delay a train by <form:input path="delayInMinutes" type="number" min="0"/> minutes
+                        <button class="btn btn-primary" type="submit">
+                            Delay
+                        </button>
+                    </form:form>
+                </li>
+            </ul>
         </div>
     </div>
 
