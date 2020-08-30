@@ -24,4 +24,6 @@ public interface TrainDepartureRepository {
     void delayAllTrainDepartures(TrainEntity train, int delayInMinutes);
 
     TrainDepartureEntity getTrainDeparture(TrainEntity train, Instant departureTime);
+
+    void cancelTrainDeparture(TrainDepartureEntity trainDeparture);
 }

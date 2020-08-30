@@ -9,13 +9,24 @@ import java.util.List;
 public interface TrainService {
 
     List<TrainDTO> getAllTrains();
+
     OperationResultDTO createTrain(CreateTrainRequestDTO request);
+
     List<TrainDepartureDTO> getDeparturesByTrain(TrainDTO train);
+
     List<SegmentTemplateDTO> getSegmentsByTrainNumber(TrainDTO train);
+
     TrainDTO getById(String trainNumber);
+
     boolean isTrainCancelled(List<TrainDepartureDTO> trainDepartures);
+
     OperationResultDTO cancelTrain(TrainDTO train);
+
     OperationResultDTO restoreTrain(TrainDTO train);
+
     OperationResultDTO delayTrain(TrainDTO train, int delayInMinutes);
+
     TrainDepartureDTO getTrainDeparture(String trainNumber, String departureTime);
+
+    OperationResultDTO cancelTrainDeparture(TrainDepartureDTO trainDeparture);
 }

@@ -80,4 +80,13 @@ public class TrainDepartureRepositoryImpl
         query.setParameter("departureTime", departureTime);
         return query.getResultList().stream().findFirst().orElse(null);
     }
+
+    @Override
+    public void cancelTrainDeparture(TrainDepartureEntity trainDeparture) {
+        Query query = getEntityManager().createQuery(
+                "UPDATE TrainDepartureEntity t SET t.cancelled = true WHERE t = :trainDeparture"
+        );
+        query.setParameter("trainDeparture", trainDeparture);
+        query.executeUpdate();
+    }
 }

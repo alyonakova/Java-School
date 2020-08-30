@@ -105,4 +105,15 @@ public class TrainController {
         return "trainDeparture";
     }
 
+    @PostMapping(value = "/trains/{id}/departures/{departureTime}/cancel")
+    public String cancelDeparture(@PathVariable("id") String trainNumber,
+                                  @PathVariable("departureTime") String departureTime, Model model) {
+        TrainDepartureDTO trainDeparture = trainService.getTrainDeparture(trainNumber, departureTime);
+        OperationResultDTO result = trainService.cancelTrainDeparture(trainDeparture);
+        model.addAttribute("trainDeparture", trainDeparture);
+        model.addAttribute("messages", result.getMessages());
+        model.addAttribute("delayForm", new DelayFormDTO());
+        return "trainDeparture";
+    }
+
 }

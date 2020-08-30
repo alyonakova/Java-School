@@ -136,9 +136,9 @@
             <h3>Change departure timetable</h3>
             <ul class="list-group">
                 <li class="list-group-item">
-                    <%--                    <c:forEach var="message" items="${messages}">--%>
-                    <%--                        <t:messageAlert message="${message}"/>--%>
-                    <%--                    </c:forEach>--%>
+                    <c:forEach var="message" items="${messages}">
+                        <t:messageAlert message="${message}"/>
+                    </c:forEach>
                     <c:choose>
                         <c:when test="${trainDeparture.cancelled}">
                             Departure is cancelled
