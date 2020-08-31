@@ -76,7 +76,7 @@
 
     <div class="container">
         <div class="row sign-in-up-container">
-            <div class="col bg-light sign-in-container">
+            <div class="col bg-light rounded-container">
                 <div class="sign-in-form">
                     <h3 class="text-center">Sign in</h3>
                     <c:choose>

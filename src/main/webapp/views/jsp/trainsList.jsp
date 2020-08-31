@@ -92,17 +92,15 @@
 </header>
 <main role="main">
 
-    <div class="container mt-4">
-        <div class="container bg-light">
-            <h2>All trains list</h2>
-            <ul>
-                <c:forEach var="train" items="${trains}">
-                    <li>
-                        <a href="${pageContext.request.contextPath}/trains/${train.id}">${train.id}</a>
-                    </li>
-                </c:forEach>
-            </ul>
-        </div>
+    <div class="container bg-light mt-4 p-md-4 col-6 rounded-container">
+        <h2>All trains list</h2>
+        <ul class="list-group">
+            <c:forEach var="train" items="${trains}">
+                <li class="list-group-item">
+                    <a href="${pageContext.request.contextPath}/trains/${train.id}">${train.id}</a>
+                </li>
+            </c:forEach>
+        </ul>
     </div>
 
     <!-- FOOTER -->
