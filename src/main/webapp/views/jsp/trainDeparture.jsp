@@ -98,8 +98,8 @@
 </header>
 <main role="main">
 
-    <div class="row">
-        <div class="container mt-3 mr-2 col bg-light">
+    <div class="row mr-2 ml-2">
+        <div class="container mt-4 mr-2 ml-2 col bg-light pb-2">
             <h3>Departure info</h3>
             <ul class="list-group">
                 <li class="list-group-item">
@@ -132,7 +132,7 @@
             </ul>
 
         </div>
-        <div class="container mt-3 col bg-light">
+        <div class="container mt-4 mr-2 col bg-light pb-2">
             <h3>Change departure timetable</h3>
             <ul class="list-group">
                 <li class="list-group-item">
