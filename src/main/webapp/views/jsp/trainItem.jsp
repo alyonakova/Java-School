@@ -98,9 +98,9 @@
     </nav>
 </header>
 <main role="main">
-    <h2>Train ${train.id}</h2>
-    <div class="row">
-        <div class="container mt-3 mr-2 col bg-light">
+    <h2 class="text-center mt-1">Train ${train.id}</h2>
+    <div class="row ml-2 mr-2">
+        <div class="container mt-3 mr-2 col bg-light rounded-container">
             <h3>Departures</h3>
             <ul class="list-group">
                 <c:forEach var="trainDeparture" items="${trainDepartures}">
@@ -132,7 +132,7 @@
                 </c:forEach>
             </ul>
         </div>
-        <div class="container mt-3 mr-2 col bg-light">
+        <div class="container mt-3 mr-2 col bg-light rounded-container">
             <h3>Segments</h3>
             <ul class="list-group">
                 <c:forEach var="segment" items="${segments}" varStatus="segmentsCount">
@@ -144,7 +144,7 @@
                 </c:forEach>
             </ul>
         </div>
-        <div class="container mt-3 col bg-light">
+        <div class="container mt-3 pb-2 col bg-light rounded-container">
             <h3>Change train timetable</h3>
             <ul class="list-group">
                 <li class="list-group-item">
