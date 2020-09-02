@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.t_systems.alyona.sbb.dto.*;
 import ru.t_systems.alyona.sbb.service.ConnectionSearchService;
 import ru.t_systems.alyona.sbb.service.TrainService;
@@ -53,53 +54,58 @@ public class TrainController {
     public String showTrainItem(@PathVariable("id") String trainNumber, Model model) {
         TrainDTO train = trainService.getById(trainNumber);
         List<TrainDepartureDTO> trainDepartures = trainService.getDeparturesByTrain(train);
-        fillTrainItemPage(model, train, trainDepartures);
+        List<SegmentTemplateDTO> segmentTemplates = trainService.getSegmentsByTrainNumber(train);
+        boolean isTrainCancelled = trainService.isTrainCancelled(trainDepartures);
+
+        model.addAttribute("train", train);
+        model.addAttribute("trainDepartures", trainDepartures);
+        model.addAttribute("segments", segmentTemplates);
+        model.addAttribute("cancelled", isTrainCancelled);
+        model.addAttribute("delayForm", new DelayFormDTO());
         return "trainItem";
     }
 
     @PostMapping(value = "/trains/{id}/cancel")
-    public String cancelTrain(@PathVariable("id") String trainNumber, Model model) {
+    public String cancelTrain(@PathVariable("id") String trainNumber,
+                              RedirectAttributes redirectAttributes) {
+
         TrainDTO train = trainService.getById(trainNumber);
-        List<TrainDepartureDTO> trainDepartures = trainService.getDeparturesByTrain(train);
         OperationResultDTO result = trainService.cancelTrain(train);
-        model.addAttribute("messages", result.getMessages());
-        fillTrainItemPage(model, train, trainDepartures);
-        return "trainItem";
+
+        redirectAttributes.addFlashAttribute("messages", result.getMessages());
+        return "redirect:/trains/{id}";
     }
 
     @PostMapping(value = "/trains/{id}/restore")
-    public String restoreTrain(@PathVariable("id") String trainNumber, Model model) {
-        TrainDTO train = trainService.getById(trainNumber);
-        List<TrainDepartureDTO> trainDepartures = trainService.getDeparturesByTrain(train);
-        OperationResultDTO result = trainService.restoreTrain(train);
-        model.addAttribute("messages", result.getMessages());
-        fillTrainItemPage(model, train, trainDepartures);
-        return "trainItem";
-    }
+    public String restoreTrain(@PathVariable("id") String trainNumber,
+                               RedirectAttributes redirectAttributes) {
 
-    public void fillTrainItemPage(Model model, TrainDTO train,
-                                  List<TrainDepartureDTO> trainDepartures) {
-        model.addAttribute("train", train);
-        model.addAttribute("trainDepartures", trainDepartures);
-        model.addAttribute("segments", trainService.getSegmentsByTrainNumber(train));
-        model.addAttribute("cancelled", trainService.isTrainCancelled(trainDepartures));
-        model.addAttribute("delayForm", new DelayFormDTO());
+        TrainDTO train = trainService.getById(trainNumber);
+        OperationResultDTO result = trainService.restoreTrain(train);
+
+        redirectAttributes.addFlashAttribute("messages", result.getMessages());
+        return "redirect:/trains/{id}";
     }
 
     @PostMapping(value = "/trains/{id}/delay")
-    public String delayTrain(@PathVariable("id") String trainNumber, @ModelAttribute DelayFormDTO delayForm, Model model) {
+    public String delayTrain(@PathVariable("id") String trainNumber,
+                             @ModelAttribute DelayFormDTO delayForm,
+                             RedirectAttributes redirectAttributes) {
+
         TrainDTO train = trainService.getById(trainNumber);
-        List<TrainDepartureDTO> trainDepartures = trainService.getDeparturesByTrain(train);
         OperationResultDTO result = trainService.delayTrain(train, delayForm.getDelayInMinutes());
-        model.addAttribute("messages", result.getMessages());
-        fillTrainItemPage(model, train, trainDepartures);
-        return "trainItem";
+
+        redirectAttributes.addFlashAttribute("messages", result.getMessages());
+        return "redirect:/trains/{id}";
     }
 
     @GetMapping(value = "/trains/{id}/departures/{departureTime}")
     public String showTrainDeparture(@PathVariable("id") String trainNumber,
-                                     @PathVariable("departureTime") String departureTime, Model model) {
+                                     @PathVariable("departureTime") String departureTime,
+                                     Model model) {
+
         TrainDepartureDTO trainDeparture = trainService.getTrainDeparture(trainNumber, departureTime);
+
         model.addAttribute("trainDeparture", trainDeparture);
         model.addAttribute("delayForm", new DelayFormDTO());
         return "trainDeparture";
@@ -107,9 +113,12 @@ public class TrainController {
 
     @PostMapping(value = "/trains/{id}/departures/{departureTime}/cancel")
     public String cancelDeparture(@PathVariable("id") String trainNumber,
-                                  @PathVariable("departureTime") String departureTime, Model model) {
+                                  @PathVariable("departureTime") String departureTime,
+                                  Model model) {
+
         TrainDepartureDTO trainDeparture = trainService.getTrainDeparture(trainNumber, departureTime);
         OperationResultDTO result = trainService.cancelTrainDeparture(trainDeparture);
+
         model.addAttribute("trainDeparture", trainDeparture);
         model.addAttribute("messages", result.getMessages());
         model.addAttribute("delayForm", new DelayFormDTO());
@@ -118,9 +127,11 @@ public class TrainController {
 
     @PostMapping(value = "/trains/{id}/departures/{departureTime}/restore")
     public String restoreDeparture(@PathVariable("id") String trainNumber,
-                                  @PathVariable("departureTime") String departureTime, Model model) {
+                                   @PathVariable("departureTime") String departureTime, Model model) {
+
         TrainDepartureDTO trainDeparture = trainService.getTrainDeparture(trainNumber, departureTime);
         OperationResultDTO result = trainService.restoreTrainDeparture(trainDeparture);
+
         model.addAttribute("trainDeparture", trainDeparture);
         model.addAttribute("messages", result.getMessages());
         model.addAttribute("delayForm", new DelayFormDTO());
@@ -131,8 +142,10 @@ public class TrainController {
     public String delayDeparture(@PathVariable("id") String trainNumber,
                                  @PathVariable("departureTime") String departureTime,
                                  @ModelAttribute DelayFormDTO delayForm, Model model) {
+
         TrainDepartureDTO trainDeparture = trainService.getTrainDeparture(trainNumber, departureTime);
         OperationResultDTO result = trainService.delayTrainDeparture(trainDeparture, delayForm.getDelayInMinutes());
+
         model.addAttribute("trainDeparture", trainDeparture);
         model.addAttribute("messages", result.getMessages());
         model.addAttribute("delayForm", new DelayFormDTO());
