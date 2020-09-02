@@ -146,15 +146,15 @@
         </div>
         <div class="container mt-3 pb-2 col bg-light rounded-container">
             <h3>Change train timetable</h3>
+            <c:forEach var="message" items="${messages}">
+                <t:messageAlert message="${message}"/>
+            </c:forEach>
             <ul class="list-group">
                 <li class="list-group-item">
-                    <c:forEach var="message" items="${messages}">
-                        <t:messageAlert message="${message}"/>
-                    </c:forEach>
                     <c:choose>
                         <c:when test="${cancelled}">
                             Train is cancelled
-                            <form:form method="post" action="/trains/${train.id}/restore">
+                            <form:form method="post" action="${pageContext.request.contextPath}/trains/${train.id}/restore">
                                 <button class="btn btn-primary" type="submit">
                                     Restore the train
                                 </button>
@@ -162,7 +162,7 @@
                         </c:when>
                         <c:otherwise>
                             Train is active
-                            <form:form method="post" action="/trains/${train.id}/cancel">
+                            <form:form method="post" action="${pageContext.request.contextPath}/trains/${train.id}/cancel">
                                 <button class="btn btn-danger" type="submit">
                                     Cancel the train
                                 </button>
@@ -172,7 +172,7 @@
                 </li>
                 <li class="list-group-item">
 
-                    <form:form method="post" action="/trains/${train.id}/delay" modelAttribute="delayForm">
+                    <form:form method="post" action="${pageContext.request.contextPath}/trains/${train.id}/delay" modelAttribute="delayForm">
                         Delay a train by <form:input path="delayInMinutes" type="number" min="0"/> minutes
                         <button class="btn btn-primary" type="submit">
                             Delay

@@ -42,13 +42,13 @@
         }
     </style>
     <!-- Custom styles for this template -->
-    <link href="../resources/css/styles.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/styles.css" rel="stylesheet">
 </head>
 <body>
 <header>
-    <sec:authorize var="loggedIn" access="isAuthenticated()" />
+    <sec:authorize var="loggedIn" access="isAuthenticated()"/>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <img src="../resources/images/SBB_Logo.jpg" class="logo">
+        <img src="${pageContext.request.contextPath}/resources/images/SBB_Logo.jpg" class="logo">
         <a class="navbar-brand logo-text" href="${pageContext.request.contextPath}/">SBB CFF FFS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +57,8 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/">Home <span
+                            class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/timetable">Timetable</a>
@@ -73,16 +74,18 @@
                 </li>
             </ul>
             <a href="${pageContext.request.contextPath}/employee_account">
-                <img src="../resources/images/account.png" class="account_logo">
+                <img src="${pageContext.request.contextPath}/resources/images/account.png" class="account_logo">
             </a>
             <c:choose>
                 <c:when test="${loggedIn}">
-                    <form class="form-inline mt-2 mt-md-0" method="get" action="${pageContext.request.contextPath}/logout">
+                    <form class="form-inline mt-2 mt-md-0" method="get"
+                          action="${pageContext.request.contextPath}/logout">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign out</button>
                     </form>
                 </c:when>
                 <c:otherwise>
-                    <form class="form-inline mt-2 mt-md-0" method="get" action="${pageContext.request.contextPath}/sign_in">
+                    <form class="form-inline mt-2 mt-md-0" method="get"
+                          action="${pageContext.request.contextPath}/sign_in">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign in</button>
                     </form>
                 </c:otherwise>
@@ -94,13 +97,14 @@
 
     <div class="container bg-light mt-4 p-md-4 col-6 rounded-container">
         <h2>All trains list</h2>
-        <ul class="list-group">
+        <div class="list-group">
             <c:forEach var="train" items="${trains}">
-                <li class="list-group-item">
-                    <a href="${pageContext.request.contextPath}/trains/${train.id}">${train.id}</a>
-                </li>
+                <a class="list-group-item list-group-item-action"
+                   href="${pageContext.request.contextPath}/trains/${train.id}">
+                    Train ${train.id}
+                </a>
             </c:forEach>
-        </ul>
+        </div>
     </div>
 
     <!-- FOOTER -->

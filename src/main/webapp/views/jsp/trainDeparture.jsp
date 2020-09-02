@@ -143,7 +143,7 @@
                         <c:when test="${trainDeparture.cancelled}">
                             Departure is cancelled
                             <form:form method="post"
-                                       action="/trains/${trainDeparture.train.id}/departures/${trainDeparture.departureTime}/restore">
+                                       action="${pageContext.request.contextPath}/trains/${trainDeparture.train.id}/departures/${trainDeparture.departureTime}/restore">
                                 <button class="btn btn-primary" type="submit">
                                     Restore the departure
                                 </button>
@@ -152,7 +152,7 @@
                         <c:otherwise>
                             Departure is active
                             <form:form method="post"
-                                       action="/trains/${trainDeparture.train.id}/departures/${trainDeparture.departureTime}/cancel">
+                                       action="${pageContext.request.contextPath}/trains/${trainDeparture.train.id}/departures/${trainDeparture.departureTime}/cancel">
                                 <button class="btn btn-danger" type="submit">
                                     Cancel the departure
                                 </button>
@@ -162,7 +162,7 @@
                 </li>
                 <li class="list-group-item">
                     <form:form method="post"
-                               action="/trains/${trainDeparture.train.id}/departures/${trainDeparture.departureTime}/delay"
+                               action="${pageContext.request.contextPath}/trains/${trainDeparture.train.id}/departures/${trainDeparture.departureTime}/delay"
                                modelAttribute="delayForm">
                         Delay a train by <form:input path="delayInMinutes" type="number" min="0"/> minutes
                         <button class="btn btn-primary" type="submit">

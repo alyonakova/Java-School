@@ -45,12 +45,12 @@
         }
     </style>
     <!-- Custom styles for this template -->
-    <link href="../resources/css/styles.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/styles.css" rel="stylesheet">
 </head>
 <body>
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <img src="../resources/images/SBB_Logo.jpg" class="logo">
+        <img src="${pageContext.request.contextPath}/resources/images/SBB_Logo.jpg" class="logo">
         <a class="navbar-brand logo-text" href="${pageContext.request.contextPath}/">SBB CFF FFS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,7 +86,7 @@
                             </div>
                         </c:when>
                     </c:choose>
-                    <form action="perform_login" method="post">
+                    <form action="${pageContext.request.contextPath}/perform_login" method="post">
                         <label> Login
                             <input name="username" type="text" class="form-control"
                                    placeholder="Enter your login" required/></label>
@@ -116,7 +116,7 @@
 
                     <form:form method="post"
                                modelAttribute="registrationFormDTO"
-                               action="/registration_status">
+                               action="${pageContext.request.contextPath}/registration_status">
                         <label> Name
                             <form:input path="name" type="text" class="form-control"
                                         placeholder="Enter your name"

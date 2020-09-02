@@ -42,13 +42,13 @@
         }
     </style>
     <!-- Custom styles for this template -->
-    <link href="../resources/css/styles.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/styles.css" rel="stylesheet">
 </head>
 <body>
 <header>
     <sec:authorize var="loggedIn" access="isAuthenticated()" />
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <img src="../resources/images/SBB_Logo.jpg" class="logo">
+        <img src="${pageContext.request.contextPath}/resources/images/SBB_Logo.jpg" class="logo">
         <a class="navbar-brand logo-text" href="${pageContext.request.contextPath}/">SBB CFF FFS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,12 +76,12 @@
             </ul>
             <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
                 <a href="${pageContext.request.contextPath}/employee_account">
-                    <img src="../resources/images/account.png" class="account_logo">
+                    <img src="${pageContext.request.contextPath}/resources/images/account.png" class="account_logo">
                 </a>
             </sec:authorize>
             <sec:authorize access="hasRole('ROLE_CUSTOMER')">
                 <a href="${pageContext.request.contextPath}/customer_account">
-                    <img src="../resources/images/account.png" class="account_logo">
+                    <img src="${pageContext.request.contextPath}/resources/images/account.png" class="account_logo">
                 </a>
             </sec:authorize>
             <c:choose>

@@ -50,13 +50,13 @@
         }
     </style>
     <!-- Custom styles for this template -->
-    <link href="../resources/css/styles.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/styles.css" rel="stylesheet">
 </head>
 <body>
 <header>
-    <sec:authorize var="loggedIn" access="isAuthenticated()" />
+    <sec:authorize var="loggedIn" access="isAuthenticated()"/>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <img src="../resources/images/SBB_Logo.jpg" class="logo">
+        <img src="${pageContext.request.contextPath}/resources/images/SBB_Logo.jpg" class="logo">
         <a class="navbar-brand logo-text" href="${pageContext.request.contextPath}/">SBB CFF FFS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,43 +65,59 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/">
+                        Home <span class="sr-only">(current)</span>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/timetable">Timetable</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/timetable">
+                        Timetable
+                    </a>
                 </li>
                 <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/passengers">Passengers</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/passengers">
+                            Passengers
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/crud">CRUD<span class="sr-only"></span></a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/crud">
+                            CRUD <span class="sr-only">(current)</span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/trains">Trains<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/trains">
+                            Trains <span class="sr-only">(current)</span>
+                        </a>
                     </li>
                 </sec:authorize>
             </ul>
             <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
                 <a href="${pageContext.request.contextPath}/employee_account">
-                    <img src="../resources/images/account.png" class="account_logo">
+                    <img src="${pageContext.request.contextPath}/resources/images/account.png" class="account_logo">
                 </a>
             </sec:authorize>
             <sec:authorize access="hasRole('ROLE_CUSTOMER')">
                 <a href="${pageContext.request.contextPath}/customer_account">
-                    <img src="../resources/images/account.png" class="account_logo">
+                    <img src="${pageContext.request.contextPath}/resources/images/account.png" class="account_logo">
                 </a>
             </sec:authorize>
 
             <c:choose>
                 <c:when test="${loggedIn}">
-                    <form class="form-inline mt-2 mt-md-0" method="get" action="${pageContext.request.contextPath}/logout">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign out</button>
+                    <form class="form-inline mt-2 mt-md-0" method="get"
+                          action="${pageContext.request.contextPath}/logout">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                            Sign out
+                        </button>
                     </form>
                 </c:when>
                 <c:otherwise>
-                    <form class="form-inline mt-2 mt-md-0" method="get" action="${pageContext.request.contextPath}/sign_in">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign in</button>
+                    <form class="form-inline mt-2 mt-md-0" method="get"
+                          action="${pageContext.request.contextPath}/sign_in">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                            Sign in
+                        </button>
                     </form>
                 </c:otherwise>
             </c:choose>
@@ -118,21 +134,22 @@
             <c:forEach var="message" items="${messageConnectionSearchData}">
                 <t:messageAlert message="${message}"/>
             </c:forEach>
-            <form:form method="post" action="/" modelAttribute="outboundQuery">
+            <form:form method="post" action="${pageContext.request.contextPath}/connections"
+                       modelAttribute="outboundQuery">
                 <div class="row">
                     <div class="col-md-6">
                         <label>
                             From
                         </label>
-                        <form:input path="departureStationName" type="text" class="form-control" placeholder="Station"
-                                    required="required"/>
+                        <form:input path="departureStationName" type="text" class="form-control"
+                                    placeholder="Station" required="required"/>
                     </div>
                     <div class="col-md-6">
                         <label>
                             To
                         </label>
-                        <form:input path="arrivalStationName" type="text" class="form-control" placeholder="Station"
-                                    required="required"/>
+                        <form:input path="arrivalStationName" type="text" class="form-control"
+                                    placeholder="Station" required="required"/>
                     </div>
                 </div>
                 <div class="row">
@@ -146,8 +163,7 @@
                     </div>
                 </div>
                 <div class="my-3">
-                    <button class="btn btn-lg btn-success find-button mx-auto" type="submit"
-                            formaction="/connections">
+                    <button class="btn btn-lg btn-success find-button mx-auto" type="submit">
                         Find routes
                     </button>
                 </div>
@@ -163,23 +179,37 @@
 
         <div class="row my-4">
             <div class="col-lg-4">
-                <img src="../resources/images/red_train.jpg" class="round-pic">
+                <img src="${pageContext.request.contextPath}/resources/images/red_train.jpg" class="round-pic">
                 <h2>Find train</h2>
-                <p>Enter the departure and arrival stations & departure time interval and you'll get
-                    all the available trains.</p>
-                <p><a class="btn btn-secondary" href="${pageContext.request.contextPath}/" role="button">View details &raquo;</a></p>
+                <p>
+                    Enter the departure and arrival stations & departure time interval and you'll get
+                    all the available trains.
+                </p>
+                <p>
+                    <a class="btn btn-secondary" href="${pageContext.request.contextPath}/" role="button">
+                        View details &raquo;
+                    </a>
+                </p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4">
-                <img src="../resources/images/clock.jpg" class="round-pic">
+                <img src="${pageContext.request.contextPath}/resources/images/clock.jpg" class="round-pic">
                 <h2>Timetable</h2>
                 <p>You can easily get the timetable of every station you need!</p>
-                <p><a class="btn btn-secondary" href="${pageContext.request.contextPath}/timetable" role="button">View details &raquo;</a></p>
+                <p>
+                    <a class="btn btn-secondary" href="${pageContext.request.contextPath}/timetable" role="button">
+                        View details &raquo;
+                    </a>
+                </p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4">
-                <img src="../resources/images/ticket.jpg" class="round-pic">
+                <img src="${pageContext.request.contextPath}/resources/images/ticket.jpg" class="round-pic">
                 <h2>Buy ticket</h2>
                 <p>Have you already chosen the available train? Sign in and buy a ticket and have a nice trip!</p>
-                <p><a class="btn btn-secondary" href="${pageContext.request.contextPath}/" role="button">View details &raquo;</a></p>
+                <p>
+                    <a class="btn btn-secondary" href="${pageContext.request.contextPath}/" role="button">
+                        View details &raquo;
+                    </a>
+                </p>
             </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
 
