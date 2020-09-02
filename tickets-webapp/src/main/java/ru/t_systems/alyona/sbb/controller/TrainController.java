@@ -147,8 +147,15 @@ public class TrainController {
     @PostMapping(value = "/trains/{id}/departures/{departureTime}/delay")
     public String delayDeparture(@PathVariable("id") String trainNumber,
                                  @PathVariable("departureTime") String departureTime,
-                                 @ModelAttribute DelayFormDTO delayForm,
+                                 @Valid @ModelAttribute DelayFormDTO delayForm,
+                                 BindingResult validationResult,
                                  RedirectAttributes redirectAttributes) {
+
+        redirectAttributes.addFlashAttribute("validationErrors", validationResult.getAllErrors());
+
+        if (validationResult.hasErrors()) {
+            return "redirect:/trains/{id}/departures/{departureTime}";
+        }
 
         TrainDepartureDTO trainDeparture = trainService.getTrainDeparture(trainNumber, departureTime);
         OperationResultDTO result = trainService.delayTrainDeparture(trainDeparture, Integer.parseInt(delayForm.getDelayInMinutes()));

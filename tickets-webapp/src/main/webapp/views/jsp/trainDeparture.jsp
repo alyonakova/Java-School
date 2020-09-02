@@ -139,6 +139,13 @@
                     <c:forEach var="message" items="${messages}">
                         <t:messageAlert message="${message}"/>
                     </c:forEach>
+
+                    <c:forEach var="error" items="${validationErrors}">
+                        <div class="alert alert-danger" role="alert">
+                                ${error.defaultMessage}
+                        </div>
+                    </c:forEach>
+
                     <c:choose>
                         <c:when test="${trainDeparture.cancelled}">
                             Departure is cancelled
@@ -164,7 +171,8 @@
                     <form:form method="post"
                                action="${pageContext.request.contextPath}/trains/${trainDeparture.train.id}/departures/${trainDeparture.departureTime}/delay"
                                modelAttribute="delayForm">
-                        Delay a train by <form:input path="delayInMinutes" type="number" min="0"/> minutes
+                        Delay a train by <form:input path="delayInMinutes" type="number" pattern="[0-9]{,4}"
+                                                     min="0" required="required"/> minutes
                         <button class="btn btn-primary" type="submit">
                             Delay
                         </button>
