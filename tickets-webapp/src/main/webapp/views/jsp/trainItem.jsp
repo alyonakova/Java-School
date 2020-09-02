@@ -149,12 +149,19 @@
             <c:forEach var="message" items="${messages}">
                 <t:messageAlert message="${message}"/>
             </c:forEach>
+
+            <c:forEach var="error" items="${validationErrors}">
+                <div class="alert alert-danger" role="alert">
+                        ${error.defaultMessage}
+                </div>
+            </c:forEach>
             <ul class="list-group">
                 <li class="list-group-item">
                     <c:choose>
                         <c:when test="${cancelled}">
                             Train is cancelled
-                            <form:form method="post" action="${pageContext.request.contextPath}/trains/${train.id}/restore">
+                            <form:form method="post"
+                                       action="${pageContext.request.contextPath}/trains/${train.id}/restore">
                                 <button class="btn btn-primary" type="submit">
                                     Restore the train
                                 </button>
@@ -162,7 +169,8 @@
                         </c:when>
                         <c:otherwise>
                             Train is active
-                            <form:form method="post" action="${pageContext.request.contextPath}/trains/${train.id}/cancel">
+                            <form:form method="post"
+                                       action="${pageContext.request.contextPath}/trains/${train.id}/cancel">
                                 <button class="btn btn-danger" type="submit">
                                     Cancel the train
                                 </button>
@@ -172,8 +180,12 @@
                 </li>
                 <li class="list-group-item">
 
-                    <form:form method="post" action="${pageContext.request.contextPath}/trains/${train.id}/delay" modelAttribute="delayForm">
-                        Delay a train by <form:input path="delayInMinutes" type="number" min="0"/> minutes
+                    <form:form method="post" action="${pageContext.request.contextPath}/trains/${train.id}/delay"
+                               modelAttribute="delayForm">
+                        Delay a train by
+                        <form:input path="delayInMinutes" type="number" pattern="[0-9]{,4}"
+                                    min="0" required="required"/>
+                        minutes
                         <button class="btn btn-primary" type="submit">
                             Delay
                         </button>

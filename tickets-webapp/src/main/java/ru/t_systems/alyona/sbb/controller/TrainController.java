@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.t_systems.alyona.sbb.dto.*;
@@ -11,6 +12,7 @@ import ru.t_systems.alyona.sbb.service.ConnectionSearchService;
 import ru.t_systems.alyona.sbb.service.TrainService;
 
 import javax.inject.Provider;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -89,11 +91,18 @@ public class TrainController {
 
     @PostMapping(value = "/trains/{id}/delay")
     public String delayTrain(@PathVariable("id") String trainNumber,
-                             @ModelAttribute DelayFormDTO delayForm,
+                             @Valid @ModelAttribute DelayFormDTO delayForm,
+                             BindingResult validationResult,
                              RedirectAttributes redirectAttributes) {
 
+        redirectAttributes.addFlashAttribute("validationErrors", validationResult.getAllErrors());
+
+        if (validationResult.hasErrors()) {
+            return "redirect:/trains/{id}";
+        }
+
         TrainDTO train = trainService.getById(trainNumber);
-        OperationResultDTO result = trainService.delayTrain(train, delayForm.getDelayInMinutes());
+        OperationResultDTO result = trainService.delayTrain(train, Integer.parseInt(delayForm.getDelayInMinutes()));
 
         redirectAttributes.addFlashAttribute("messages", result.getMessages());
         return "redirect:/trains/{id}";
@@ -142,7 +151,7 @@ public class TrainController {
                                  RedirectAttributes redirectAttributes) {
 
         TrainDepartureDTO trainDeparture = trainService.getTrainDeparture(trainNumber, departureTime);
-        OperationResultDTO result = trainService.delayTrainDeparture(trainDeparture, delayForm.getDelayInMinutes());
+        OperationResultDTO result = trainService.delayTrainDeparture(trainDeparture, Integer.parseInt(delayForm.getDelayInMinutes()));
 
         redirectAttributes.addFlashAttribute("messages", result.getMessages());
         return "redirect:/trains/{id}/departures/{departureTime}";
