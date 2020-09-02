@@ -58,7 +58,7 @@ public class PersistenceConfig {
 
     Properties jpaProperties() {
         var properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "validate");
+     //   properties.setProperty("hibernate.hbm2ddl.auto", "validate"); TODO
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL10Dialect");
         return properties;
     }

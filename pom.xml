@@ -4,12 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.t-systems.alyona.t_systems_sbb</groupId>
-    <artifactId>T_Systems_SBB</artifactId>
+    <groupId>ru.t-systems.alyona.sbb</groupId>
+    <artifactId>sbb</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
 
-    <name>T-Systems SBB</name>
+    <name>SBB</name>
+    <description>Ticket selling system and timetable web application for SBB.</description>
     <url>https://github.com/alyonakova/Java-School</url>
 
     <properties>
@@ -27,134 +28,141 @@
         <spring-orm.version>5.2.8.RELEASE</spring-orm.version>
     </properties>
 
-    <dependencies>
-        <!-- PRODUCTION DEPENDENCIES -->
-        <!-- Java EE APIs, including Java Servlet API -->
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>8.0.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- Needed for .jsp files to work -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <!-- Spring dependency injection (including @Autowired) -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <!-- Spring MVC (including @Controller) -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <!-- Spring Security -->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-            <version>${spring-security.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>${spring-security.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-taglibs</artifactId>
-            <version>${spring-security.version}</version>
-        </dependency>
-        <!-- An implementation of Java Persistence API (JPA) -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>${spring-orm.version}</version>
-        </dependency>
-        <!-- PostgreSQL JDBC driver -->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.2.14</version>
-        </dependency>
-        <!-- Bean-to-bean mapping -->
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
-        </dependency>
-        <!-- JSON (de)serialization -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.11.2</version>
-        </dependency>
-        <!-- (De)serialization of java.time classes (e.g. LocalDateTime) -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>2.11.2</version>
-        </dependency>
-        <!-- Reduces boilerplate code -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <optional>true</optional>
-        </dependency>
-        <!-- Extensions for Java Stream API, e.g. partial reduction -->
-        <dependency>
-            <groupId>one.util</groupId>
-            <artifactId>streamex</artifactId>
-            <version>0.7.3</version>
-        </dependency>
-        <!-- Allows formatting java.time classes in JSP (with tag <javatime:format>) -->
-        <dependency>
-            <groupId>net.sargue</groupId>
-            <artifactId>java-time-jsptags</artifactId>
-            <version>1.1.4</version>
-        </dependency>
-        <!-- Java EE Dependency Injection API, including javax.inject.Provider<T> -->
-        <dependency>
-            <groupId>javax.inject</groupId>
-            <artifactId>javax.inject</artifactId>
-            <version>1</version>
-        </dependency>
+    <modules>
+        <module>tickets-webapp</module>
+    </modules>
 
-        <!-- TEST DEPENDENCIES -->
-        <!-- The JUnit Jupiter test framework -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- logging -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>2.11.1</version>
-        </dependency>
-        <!-- Validation -->
-        <dependency>
-            <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>6.0.20.Final</version>
-        </dependency>
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <!-- PRODUCTION DEPENDENCIES -->
+            <!-- Java EE APIs, including Java Servlet API -->
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>8.0.1</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- Needed for .jsp files to work -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>jstl</artifactId>
+                <version>1.2</version>
+            </dependency>
+            <!-- Spring dependency injection (including @Autowired) -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!-- Spring MVC (including @Controller) -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!-- Spring Security -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-web</artifactId>
+                <version>${spring-security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-config</artifactId>
+                <version>${spring-security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-taglibs</artifactId>
+                <version>${spring-security.version}</version>
+            </dependency>
+            <!-- An implementation of Java Persistence API (JPA) -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-orm</artifactId>
+                <version>${spring-orm.version}</version>
+            </dependency>
+            <!-- PostgreSQL JDBC driver -->
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>42.2.14</version>
+            </dependency>
+            <!-- Bean-to-bean mapping -->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <!-- JSON (de)serialization -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.11.2</version>
+            </dependency>
+            <!-- (De)serialization of java.time classes (e.g. LocalDateTime) -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>2.11.2</version>
+            </dependency>
+            <!-- Reduces boilerplate code -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <optional>true</optional>
+            </dependency>
+            <!-- Extensions for Java Stream API, e.g. partial reduction -->
+            <dependency>
+                <groupId>one.util</groupId>
+                <artifactId>streamex</artifactId>
+                <version>0.7.3</version>
+            </dependency>
+            <!-- Allows formatting java.time classes in JSP (with tag <javatime:format>) -->
+            <dependency>
+                <groupId>net.sargue</groupId>
+                <artifactId>java-time-jsptags</artifactId>
+                <version>1.1.4</version>
+            </dependency>
+            <!-- Java EE Dependency Injection API, including javax.inject.Provider<T> -->
+            <dependency>
+                <groupId>javax.inject</groupId>
+                <artifactId>javax.inject</artifactId>
+                <version>1</version>
+            </dependency>
+            <!-- Logging -->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-slf4j-impl</artifactId>
+                <version>2.11.1</version>
+            </dependency>
+            <!-- Validation -->
+            <dependency>
+                <groupId>org.hibernate.validator</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>6.0.20.Final</version>
+            </dependency>
+            <!-- END OF PRODUCTION DEPENDENCIES -->
+
+            <!-- TEST DEPENDENCIES -->
+            <!-- The JUnit Jupiter test framework -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- END OF TEST DEPENDENCIES -->
+        </dependencies>
+    </dependencyManagement>
 
     <build>
-        <finalName>T_Systems_SBB</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
