@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/sign_in")
                 .loginProcessingUrl("/perform_login")
                 .defaultSuccessUrl("/", true)
-        .failureUrl("/fail-sign-in");
+                .failureUrl("/fail-sign-in");
         http.logout()
                 .invalidateHttpSession(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
