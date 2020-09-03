@@ -32,6 +32,14 @@
         <module>tickets-webapp</module>
     </modules>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/alyonakova/Java-School</url>
+        </repository>
+    </distributionManagement>
+
     <dependencyManagement>
         <dependencies>
             <!-- PRODUCTION DEPENDENCIES -->
