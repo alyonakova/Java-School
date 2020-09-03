@@ -6,11 +6,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.t_systems.alyona.sbb.converter.PassengerConverter;
 import ru.t_systems.alyona.sbb.converter.StationConverter;
+import ru.t_systems.alyona.sbb.converter.TicketConverter;
 import ru.t_systems.alyona.sbb.converter.UserConverter;
 import ru.t_systems.alyona.sbb.dto.*;
+import ru.t_systems.alyona.sbb.entity.PassengerEntity;
 import ru.t_systems.alyona.sbb.entity.UserEntity;
 import ru.t_systems.alyona.sbb.repository.StationRepository;
+import ru.t_systems.alyona.sbb.repository.TicketRepository;
 import ru.t_systems.alyona.sbb.repository.UserRepository;
 import ru.t_systems.alyona.sbb.service.PassengerService;
 import ru.t_systems.alyona.sbb.service.TrainService;
@@ -30,6 +34,9 @@ public class UserServiceImpl implements UserService {
     private final StationConverter stationConverter;
     private final StationRepository stationRepository;
     private final PasswordEncoder passwordEncoder;
+    private final PassengerConverter passengerConverter;
+    private final TicketConverter ticketConverter;
+    private final TicketRepository ticketRepository;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -172,5 +179,19 @@ public class UserServiceImpl implements UserService {
                 .text("Wrong login or password!")
                 .severity(MessageDTO.Severity.ERROR)
                 .build();
+    }
+
+    @Override
+    @Transactional
+    public List<TicketDTO> getUserTickets(UserDTO user) {
+        List<TicketDTO> userTickets = null;
+        try {
+            PassengerDTO passenger = user.getPassenger();
+            PassengerEntity passengerEntity = passengerConverter.toEntity(passenger);
+            userTickets = ticketConverter.toDTOList(ticketRepository.getByPassenger(passengerEntity));
+        } catch (Exception e) {
+            LOGGER.error("Failed to get passenger's tickets", e);
+        }
+        return userTickets;
     }
 }

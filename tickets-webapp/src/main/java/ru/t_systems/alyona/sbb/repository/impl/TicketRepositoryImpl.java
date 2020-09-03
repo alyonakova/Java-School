@@ -2,9 +2,11 @@ package ru.t_systems.alyona.sbb.repository.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import ru.t_systems.alyona.sbb.entity.PassengerEntity;
 import ru.t_systems.alyona.sbb.entity.TicketEntity;
 import ru.t_systems.alyona.sbb.repository.TicketRepository;
 
+import javax.persistence.TypedQuery;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
@@ -46,5 +48,13 @@ public class TicketRepositoryImpl
     public TicketEntity create(TicketEntity ticket) {
         getEntityManager().persist(ticket);
         return ticket;
+    }
+
+    @Override
+    public List<TicketEntity> getByPassenger(PassengerEntity passenger) {
+        TypedQuery<TicketEntity> query = getEntityManager().createQuery(
+                "SELECT t FROM TicketEntity t WHERE t.passenger = :passenger", TicketEntity.class);
+        query.setParameter("passenger", passenger);
+        return query.getResultList();
     }
 }

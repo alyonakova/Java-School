@@ -1,8 +1,7 @@
 package ru.t_systems.alyona.sbb.service;
 
 import org.springframework.stereotype.Service;
-import ru.t_systems.alyona.sbb.dto.BuyTicketFormDTO;
-import ru.t_systems.alyona.sbb.dto.OperationResultDTO;
+import ru.t_systems.alyona.sbb.dto.*;
 
 @Service
 public interface TicketService {

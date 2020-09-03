@@ -40,6 +40,7 @@ public class UserController {
             UserDTO user = userService.getUserById(authorizedUserDetails.getId());
             model.addAttribute("userDetails", authorizedUserDetails);
             model.addAttribute("user", user);
+            model.addAttribute("tickets", userService.getUserTickets(user));
             model.addAttribute("changeUserDataDTO", new ChangeUserDataDTO());
             return "customerAccount";
         } else {
@@ -99,7 +100,9 @@ public class UserController {
                                      @AuthenticationPrincipal UserDetailsDTO authorizedUserDetails) {
         model.addAttribute("validationErrors", validationResult.getAllErrors());
         model.addAttribute("userDetails", authorizedUserDetails);
-        model.addAttribute("user", userService.getUserById(authorizedUserDetails.getId()));
+        UserDTO user = userService.getUserById(authorizedUserDetails.getId());
+        model.addAttribute("user", user);
+        model.addAttribute("tickets", userService.getUserTickets(user));
         model.addAttribute("changeUserDataDTO", new ChangeUserDataDTO());
         if (validationResult.hasErrors()) {
             return "customerAccount";

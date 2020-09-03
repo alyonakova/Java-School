@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -188,7 +189,16 @@
 
 
                     <h4>Tickets</h4>
-                    <p>No tickets yet...</p>
+                    <ul class="list-group">
+                        <c:forEach var="ticket" items="${tickets}">
+                            <li class="list-group-item">
+                                <div>Ticket ${ticket.id}</div>
+                                <div>Departure date:
+                                <javatime:format value="${ticket.segments.get(0).trainDepartureTime}" pattern="d MMM uuuu (z) HH:mm"
+                                                 locale="C"/></div>
+                            </li>
+                        </c:forEach>
+                    </ul>
 
                 </div>
             </div>

@@ -22,4 +22,6 @@ public interface UserService {
     UserDTO getUserById(BigInteger id);
 
     MessageDTO displayUnsuccessfulSignIn();
+
+    List<TicketDTO> getUserTickets(UserDTO user);
 }

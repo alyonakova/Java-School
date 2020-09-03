@@ -1,6 +1,7 @@
 package ru.t_systems.alyona.sbb.repository;
 
 import org.springframework.stereotype.Repository;
+import ru.t_systems.alyona.sbb.entity.PassengerEntity;
 import ru.t_systems.alyona.sbb.entity.TicketEntity;
 
 import java.math.BigInteger;
@@ -14,4 +15,5 @@ public interface TicketRepository {
     List<TicketEntity> getAll();
     List<TicketEntity> getByPassengerNameAndBirthday(String name, String surname, LocalDate birthday);
     TicketEntity create(TicketEntity ticket);
+    List<TicketEntity> getByPassenger(PassengerEntity passenger);
 }
