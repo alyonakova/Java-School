@@ -1,16 +1,25 @@
 package ru.t_systems.alyona.sbb.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Builder
+@AllArgsConstructor
 public class OperationResultDTO {
 
     private boolean successful;
     private List<MessageDTO> messages;
+
+    public OperationResultDTO() {
+        this.successful = false;
+        this.messages = new ArrayList<>();
+    }
 
     public static OperationResultDTO successful(String messageText) {
         return builder()

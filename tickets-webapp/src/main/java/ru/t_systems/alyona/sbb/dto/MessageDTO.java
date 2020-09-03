@@ -18,4 +18,11 @@ public class MessageDTO implements Serializable {
         ERROR,
         TECHNICAL_ERROR,
     }
+
+    public static MessageDTO error(String text) {
+        return MessageDTO.builder()
+                .severity(MessageDTO.Severity.ERROR)
+                .text(text)
+                .build();
+    }
 }

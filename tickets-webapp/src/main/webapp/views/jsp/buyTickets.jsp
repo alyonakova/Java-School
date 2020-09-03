@@ -205,13 +205,13 @@
             <tbody>
             <tr>
                 <td>
-                    <input type="text" class="form-control" placeholder="Name" name="passengers[][name]"/>
+                    <input type="text" class="form-control" placeholder="Name" name="passengers[][name]" required/>
                 </td>
                 <td>
-                    <input type="text" class="form-control" placeholder="Surname" name="passengers[][surname]"/>
+                    <input type="text" class="form-control" placeholder="Surname" name="passengers[][surname]" required/>
                 </td>
                 <td>
-                    <input type="date" class="form-control" name="passengers[][birthday]"/>
+                    <input type="date" class="form-control" name="passengers[][birthday]" required/>
                 </td>
             </tr>
             </tbody>

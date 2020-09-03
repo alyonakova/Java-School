@@ -21,12 +21,12 @@ public class PassengerDTO implements Serializable {
 
     @NotNull(message = "Name can't be empty")
     @Size(min = 2, max = 30, message = "Min name length is 2, max is 30")
-    @Pattern(regexp = "^[a-zA-Z \\-]+$", message = "Latin letters, hyphens, spaces are allowed")
+    @Pattern(regexp = "^[a-zA-Z \\-]+$", message = "Latin letters, hyphens, spaces are allowed for name")
     private String name;
 
     @NotNull(message = "Surname can't be empty")
     @Size(min = 2, max = 30, message = "Min surname length is 2, max is 30")
-    @Pattern(regexp = "^[a-zA-Z \\-]+$", message = "Latin letters, hyphens, spaces are allowed")
+    @Pattern(regexp = "^[a-zA-Z \\-]+$", message = "Latin letters, hyphens, spaces are allowed for surname")
     private String surname;
 
     @NotNull(message = "Birthday can't be empty")

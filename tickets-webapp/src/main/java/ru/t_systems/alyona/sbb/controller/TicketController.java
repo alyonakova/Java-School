@@ -3,6 +3,8 @@ package ru.t_systems.alyona.sbb.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import ru.t_systems.alyona.sbb.dto.BuyTicketFormDTO;
 import ru.t_systems.alyona.sbb.dto.ConnectionDTO;
@@ -11,6 +13,8 @@ import ru.t_systems.alyona.sbb.dto.OperationResultDTO;
 import ru.t_systems.alyona.sbb.service.TicketService;
 
 import javax.inject.Provider;
+import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -37,7 +41,18 @@ public class TicketController {
 
     @PostMapping(path = "/buyTickets")
     @ResponseBody
-    public OperationResultDTO buyTickets(@RequestBody BuyTicketFormDTO request) {
+    public OperationResultDTO buyTickets(@Valid @RequestBody BuyTicketFormDTO request, BindingResult validationResult) {
+
+        OperationResultDTO result = new OperationResultDTO();
+
+        if (validationResult.hasErrors()) {
+            for (ObjectError error : validationResult.getAllErrors()) {
+                result.getMessages().add(
+                        MessageDTO.error(error.getDefaultMessage())
+                );
+            }
+            return result;
+        }
         return ticketService.buy(request);
     }
 }
