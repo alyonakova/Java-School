@@ -42,17 +42,6 @@ public class TicketServiceImpl implements TicketService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketServiceImpl.class);
 
-    @Override
-    public List<TicketDTO> getAllTickets() {
-        List<TicketDTO> result = null;
-        try {
-            result = ticketConverter.toDTOList(ticketRepository.getAll());
-        } catch (Exception e) {
-            LOGGER.error("Failed to get all existing tickets", e);
-        }
-        return result;
-    }
-
     private boolean isEnoughTickets(List<TicketSegmentDTO> segments, int ticketsToBuy) {
             int ticketsAvailable = segments.stream()
                     .mapToInt(segment -> {
