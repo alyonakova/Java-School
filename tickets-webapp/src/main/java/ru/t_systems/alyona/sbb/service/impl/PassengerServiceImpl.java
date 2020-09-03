@@ -41,17 +41,6 @@ public class PassengerServiceImpl implements PassengerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PassengerServiceImpl.class);
 
     @Override
-    public List<PassengerDTO> getAllPassengers() {
-        List<PassengerDTO> result = null;
-        try {
-            result = passengerConverter.toDTOList(passengerRepository.getAll());
-        } catch (Exception e) {
-            LOGGER.error("Failed to get all passengers", e);
-        }
-        return result;
-    }
-
-    @Override
     @Transactional
     public Set<PassengerWithTrainDTO> getPassengersWithTrains() {
         List<TicketEntity> allTickets = ticketRepository.getAll();

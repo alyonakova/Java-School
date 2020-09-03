@@ -13,7 +13,6 @@ import java.util.Set;
 @Service
 public interface PassengerService {
 
-    List<PassengerDTO> getAllPassengers();
     Set<PassengerWithTrainDTO> getPassengersWithTrains();
     PassengerDTO createPassenger(String name, String surname, LocalDate birthday);
     OperationResultDTO updatePassengerData(ChangeUserDataDTO changeUserDataDTO);
