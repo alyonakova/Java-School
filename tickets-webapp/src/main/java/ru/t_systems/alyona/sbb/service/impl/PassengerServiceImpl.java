@@ -32,7 +32,6 @@ public class PassengerServiceImpl implements PassengerService {
     private final PassengerConverter passengerConverter;
     private final PassengerRepository passengerRepository;
     private final TrainConverter trainConverter;
-    private final TicketService ticketService;
     private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
     private final UserConverter userConverter;
