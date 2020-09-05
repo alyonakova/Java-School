@@ -123,6 +123,21 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- Mocking framework for unit tests -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+        </dependency>
+        <!-- A JUnit extension to @InjectMocks into test subjects -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+        </dependency>
+        <!-- Google Truth, an assertions library -->
+        <dependency>
+            <groupId>com.google.truth</groupId>
+            <artifactId>truth</artifactId>
+        </dependency>
         <!-- END OF TEST DEPENDENCIES -->
     </dependencies>
 
