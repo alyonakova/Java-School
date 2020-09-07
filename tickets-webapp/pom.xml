@@ -19,8 +19,12 @@
     <url>https://github.com/alyonakova/Java-School</url>
 
     <dependencies>
-        <!-- PRODUCTION DEPENDENCIES -->
-        <!-- Java EE APIs, including Java Servlet API -->
+        <!-- PRODUCTION DEPENDENCIES --><!-- Java EE APIs, including Java Servlet API -->
+        <!-- Timetable DTO and related classes -->
+        <dependency>
+            <groupId>ru.t-systems.alyona.sbb</groupId>
+            <artifactId>sbb-timetable-domain-objects</artifactId>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
@@ -34,6 +38,10 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
         </dependency>
         <!-- Spring MVC (including @Controller) -->
         <dependency>
