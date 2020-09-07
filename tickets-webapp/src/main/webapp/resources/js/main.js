@@ -97,7 +97,7 @@ function addTrain() {
         segments: Array.from(segmentsTable.querySelectorAll("tr")).map(segmentFromRow),
         departureTimes: Array.from(departuresTable.querySelectorAll("tr")).map(departureTimeFromRow)
     };
-    fetch(new Request(`/api/trains`), {
+    fetch(new Request(`${requestContextPath}/api/trains`), {
         method: 'POST',
         body: JSON.stringify(request),
         headers: {
@@ -131,10 +131,10 @@ function addStation() {
     let csrfHeader = document.querySelector("meta[name='_csrf_header']").getAttribute('content');
     let request = {
         name: String(document.getElementById('station-name').value),
-        zoneId: String(document.getElementById('zone-id'). value)
+        zoneId: String(document.getElementById('zone-id').value)
     };
     fetch(
-        new Request(`/api/stations`), {
+        new Request(`${requestContextPath}/api/stations`), {
             method: 'POST',
             body: JSON.stringify(request),
             headers: {

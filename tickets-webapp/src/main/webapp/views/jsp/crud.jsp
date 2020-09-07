@@ -198,15 +198,18 @@
 
                     <div class="row">
                         <label for="station-name" class="col-md-auto">Station name:</label>
-                            <input type="text" class="col form-control" placeholder="Station name" id="station-name">
+                        <input type="text" class="col form-control" placeholder="Station name" id="station-name">
                         <div class="w-100"></div>
                         <label for="zone-id" class="col-md-auto">Zone:</label>
-                            <input type="text" class="col form-control mrgn-top" placeholder="Zone id" id="zone-id">
-                        <p><a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="col-md-auto">All time zones</a></p>
+                        <input type="text" class="col form-control mrgn-top" placeholder="Zone id" id="zone-id">
+                        <p><a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="col-md-auto">
+                            All time zones</a></p>
                     </div>
-                        <p>
-                            <button class="btn btn-lg btn-success find-button mx-auto" onclick="addStation()">Add station</button>
-                        </p>
+                    <p>
+                        <button class="btn btn-lg btn-success find-button mx-auto" onclick="addStation()">
+                            Add station
+                        </button>
+                    </p>
                 </div>
 
                 <div class="tab-pane fade" id="allTrains" role="tabpanel" aria-labelledby="allTrains-tab">
@@ -271,6 +274,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+<script>
+    const requestContextPath = '${pageContext.request.contextPath}';
+</script>
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 </body>
 </html>
