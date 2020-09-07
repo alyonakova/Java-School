@@ -1,8 +1,7 @@
 package ru.t_systems.alyona.sbb.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +17,6 @@ import ru.t_systems.alyona.sbb.repository.PassengerRepository;
 import ru.t_systems.alyona.sbb.repository.TicketRepository;
 import ru.t_systems.alyona.sbb.repository.UserRepository;
 import ru.t_systems.alyona.sbb.service.PassengerService;
-import ru.t_systems.alyona.sbb.service.TicketService;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -27,6 +25,7 @@ import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class PassengerServiceImpl implements PassengerService {
 
     private final PassengerConverter passengerConverter;
@@ -36,8 +35,6 @@ public class PassengerServiceImpl implements PassengerService {
     private final UserRepository userRepository;
     private final UserConverter userConverter;
     private final PasswordEncoder passwordEncoder;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(PassengerServiceImpl.class);
 
     @Override
     @Transactional
@@ -54,7 +51,7 @@ public class PassengerServiceImpl implements PassengerService {
                 }
             }
         } catch (Exception e) {
-            LOGGER.error("Failed to get passengers with their trains", e);
+            log.error("Failed to get passengers with their trains", e);
         }
         return passengerTrainSet;
     }
@@ -68,7 +65,7 @@ public class PassengerServiceImpl implements PassengerService {
             final PassengerEntity createdPassenger = passengerRepository.create(newPassanger);
             passenger = passengerConverter.toDTO(createdPassenger);
         } catch (Exception e) {
-            LOGGER.error("Failed to create new passenger", e);
+            log.error("Failed to create new passenger", e);
         }
         return passenger;
     }
@@ -124,7 +121,7 @@ public class PassengerServiceImpl implements PassengerService {
         try {
             userRepository.updateLogin(login, userConverter.toEntity(user));
         } catch (Exception e) {
-            LOGGER.error("Failed to update user login", e);
+            log.error("Failed to update user login", e);
         }
     }
 
@@ -132,7 +129,7 @@ public class PassengerServiceImpl implements PassengerService {
         try {
             userRepository.updatePassword(passwordEncoder.encode(password), userConverter.toEntity(user));
         } catch (Exception e) {
-            LOGGER.error("Failed to update user password", e);
+            log.error("Failed to update user password", e);
         }
     }
 
@@ -140,7 +137,7 @@ public class PassengerServiceImpl implements PassengerService {
         try {
             passengerRepository.updateName(name, userConverter.toEntity(user));
         } catch (Exception e) {
-            LOGGER.error("Failed to update user name", e);
+            log.error("Failed to update user name", e);
         }
     }
 
@@ -148,7 +145,7 @@ public class PassengerServiceImpl implements PassengerService {
         try {
             passengerRepository.updateSurname(surname, userConverter.toEntity(user));
         } catch (Exception e) {
-            LOGGER.error("Failed to update user surname");
+            log.error("Failed to update user surname");
         }
     }
 
@@ -156,7 +153,7 @@ public class PassengerServiceImpl implements PassengerService {
         try {
             passengerRepository.updateBirthday(birthday, userConverter.toEntity(user));
         } catch (Exception e) {
-            LOGGER.error("Failed to update user birthday");
+            log.error("Failed to update user birthday");
         }
     }
 }

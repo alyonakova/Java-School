@@ -1,8 +1,7 @@
 package ru.t_systems.alyona.sbb.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.t_systems.alyona.sbb.converter.TrainConverter;
@@ -28,6 +27,7 @@ import static java.util.stream.Collectors.toList;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class TrainServiceImpl implements TrainService {
 
     private final TrainConverter trainConverter;
@@ -37,15 +37,13 @@ public class TrainServiceImpl implements TrainService {
     private final TrainDepartureRepository departureRepository;
     private final TrainDepartureConverter trainDepartureConverter;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TrainServiceImpl.class);
-
     @Override
     public List<TrainDTO> getAllTrains() {
         List<TrainDTO> result = null;
         try {
             result = trainConverter.toDTOList(trainRepository.getAll());
         } catch (Exception e) {
-            LOGGER.error("Failed to get all existing trains", e);
+            log.error("Failed to get all existing trains", e);
         }
         return result;
     }
@@ -78,7 +76,7 @@ public class TrainServiceImpl implements TrainService {
                             .collect(toList());
             departureRepository.create(trainDepartureEntities);
         } catch (Exception e) {
-            LOGGER.error("Failed to create a new train", e);
+            log.error("Failed to create a new train", e);
         }
 
         return OperationResultDTO.successful("Train successfully created.");
@@ -149,7 +147,7 @@ public class TrainServiceImpl implements TrainService {
             TrainEntity trainEntity = trainConverter.toEntity(train);
             departureRepository.cancelAllTrainDepartures(trainEntity);
         } catch (Exception e) {
-            LOGGER.error("Failed to cancel the train", e);
+            log.error("Failed to cancel the train", e);
         }
         return OperationResultDTO.successful("Train successfully cancelled");
     }
@@ -161,7 +159,7 @@ public class TrainServiceImpl implements TrainService {
             TrainEntity trainEntity = trainConverter.toEntity(train);
             departureRepository.restoreAllTrainDepartures(trainEntity);
         } catch (Exception e) {
-            LOGGER.error("Failed to restore the train", e);
+            log.error("Failed to restore the train", e);
         }
         return OperationResultDTO.successful("Train successfully restored");
     }
@@ -173,7 +171,7 @@ public class TrainServiceImpl implements TrainService {
             TrainEntity trainEntity = trainConverter.toEntity(train);
             departureRepository.delayAllTrainDepartures(trainEntity, delayInMinutes);
         } catch (Exception e) {
-            LOGGER.error("Failed to delay the train", e);
+            log.error("Failed to delay the train", e);
         }
         return OperationResultDTO.successful("Train successfully delayed");
     }
@@ -189,7 +187,7 @@ public class TrainServiceImpl implements TrainService {
                     departureRepository.getTrainDeparture(trainEntity, departureTimeDate)
             );
         } catch (Exception e) {
-            LOGGER.error("Failed to get train departure", e);
+            log.error("Failed to get train departure", e);
         }
         return trainDeparture;
     }
@@ -201,7 +199,7 @@ public class TrainServiceImpl implements TrainService {
             TrainDepartureEntity trainDepartureEntity = trainDepartureConverter.toEntity(trainDeparture);
             departureRepository.cancelTrainDeparture(trainDepartureEntity);
         } catch (Exception e) {
-            LOGGER.error("Failed to cancel train departure", e);
+            log.error("Failed to cancel train departure", e);
         }
         return OperationResultDTO.successful("Departure successfully cancelled");
     }
@@ -213,7 +211,7 @@ public class TrainServiceImpl implements TrainService {
             TrainDepartureEntity trainDepartureEntity = trainDepartureConverter.toEntity(trainDeparture);
             departureRepository.restoreTrainDeparture(trainDepartureEntity);
         } catch (Exception e) {
-            LOGGER.error("Failed to restore train departure", e);
+            log.error("Failed to restore train departure", e);
         }
         return OperationResultDTO.successful("Departure successfully restored");
     }
@@ -225,7 +223,7 @@ public class TrainServiceImpl implements TrainService {
             TrainDepartureEntity trainDepartureEntity = trainDepartureConverter.toEntity(trainDeparture);
             departureRepository.delayTrainDeparture(trainDepartureEntity, delayInMinutes);
         } catch (Exception e) {
-            LOGGER.error("Failed to delay the train departure", e);
+            log.error("Failed to delay the train departure", e);
         }
         return OperationResultDTO.successful("Train departure successfully delayed");
     }

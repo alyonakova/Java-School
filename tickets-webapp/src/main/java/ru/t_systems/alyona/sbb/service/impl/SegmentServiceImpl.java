@@ -1,8 +1,7 @@
 package ru.t_systems.alyona.sbb.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.t_systems.alyona.sbb.converter.StationConverter;
@@ -22,13 +21,12 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class SegmentServiceImpl implements SegmentService {
 
     private final TrainRepository trainRepository;
     private final TrainConverter trainConverter;
     private final StationConverter stationConverter;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(SegmentServiceImpl.class);
 
     @Override
     @Transactional
@@ -55,7 +53,7 @@ public class SegmentServiceImpl implements SegmentService {
                 }
             }
         } catch (Exception e) {
-            LOGGER.error("Failed to get all existing segments", e);
+            log.error("Failed to get all existing segments", e);
         }
         return result;
     }

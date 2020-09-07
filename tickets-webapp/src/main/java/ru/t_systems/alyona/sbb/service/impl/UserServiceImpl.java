@@ -1,8 +1,7 @@
 package ru.t_systems.alyona.sbb.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +24,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final PassengerService passengerService;
@@ -37,8 +37,6 @@ public class UserServiceImpl implements UserService {
     private final PassengerConverter passengerConverter;
     private final TicketConverter ticketConverter;
     private final TicketRepository ticketRepository;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Override
     @Transactional
@@ -64,7 +62,7 @@ public class UserServiceImpl implements UserService {
             final UserDTO userDTO = new UserDTO(null, registrationForm.getLogin(), true, passenger, passwordEncoder.encode(registrationForm.getUserPassword()));
             userRepository.create(userConverter.toEntity(userDTO));
         } catch (Exception e) {
-            LOGGER.error("Failed to create a new user", e);
+            log.error("Failed to create a new user", e);
             UserRegistrationResultDTO.builder()
                     .successful(false)
                     .messages(List.of(
@@ -91,7 +89,7 @@ public class UserServiceImpl implements UserService {
         try {
             user = userConverter.toDTO(userRepository.getByLogin(login));
         } catch (Exception e) {
-            LOGGER.error("Failed to get user by login", e);
+            log.error("Failed to get user by login", e);
         }
         return user;
     }
@@ -102,7 +100,7 @@ public class UserServiceImpl implements UserService {
         try {
             user = userConverter.toDTO(userRepository.getById(id));
         } catch (Exception e) {
-            LOGGER.error("Failed to get user by ID", e);
+            log.error("Failed to get user by ID", e);
         }
         return user;
     }
@@ -113,7 +111,7 @@ public class UserServiceImpl implements UserService {
         try {
             result = trainService.getAllTrains();
         } catch (Exception e) {
-            LOGGER.error("Failed to get all existing trains", e);
+            log.error("Failed to get all existing trains", e);
         }
         return result;
     }
@@ -124,7 +122,7 @@ public class UserServiceImpl implements UserService {
         try {
             result = stationConverter.toDTOList(stationRepository.getAll());
         } catch (Exception e) {
-            LOGGER.error("Failed to get all existing stations", e);
+            log.error("Failed to get all existing stations", e);
         }
         return result;
     }
@@ -161,7 +159,7 @@ public class UserServiceImpl implements UserService {
         try {
             userRepository.updateLogin(login, userConverter.toEntity(user));
         } catch (Exception e) {
-            LOGGER.error("Failed to update user login", e);
+            log.error("Failed to update user login", e);
         }
     }
 
@@ -169,7 +167,7 @@ public class UserServiceImpl implements UserService {
         try {
             userRepository.updatePassword(passwordEncoder.encode(password), userConverter.toEntity(user));
         } catch (Exception e) {
-            LOGGER.error("Failed to update user password", e);
+            log.error("Failed to update user password", e);
         }
     }
 
@@ -190,7 +188,7 @@ public class UserServiceImpl implements UserService {
             PassengerEntity passengerEntity = passengerConverter.toEntity(passenger);
             userTickets = ticketConverter.toDTOList(ticketRepository.getByPassenger(passengerEntity));
         } catch (Exception e) {
-            LOGGER.error("Failed to get passenger's tickets", e);
+            log.error("Failed to get passenger's tickets", e);
         }
         return userTickets;
     }

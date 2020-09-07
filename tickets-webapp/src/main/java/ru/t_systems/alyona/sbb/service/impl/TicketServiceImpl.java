@@ -1,8 +1,7 @@
 package ru.t_systems.alyona.sbb.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.t_systems.alyona.sbb.controller.ConnectionCache;
@@ -28,6 +27,7 @@ import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class TicketServiceImpl implements TicketService {
 
     public static final Duration ALLOWED_TIME_BEFORE_TRAIN_DEPARTURE = Duration.ofMinutes(10);
@@ -39,8 +39,6 @@ public class TicketServiceImpl implements TicketService {
     private final PassengerConverter passengerConverter;
     private final TicketSegmentRepository ticketSegmentRepository;
     private final SegmentTemplateRepository segmentTemplateRepository;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(TicketServiceImpl.class);
 
     private boolean isEnoughTickets(List<TicketSegmentDTO> segments, int ticketsToBuy) {
             int ticketsAvailable = segments.stream()
@@ -71,7 +69,7 @@ public class TicketServiceImpl implements TicketService {
                 }
             }
         } catch (Exception e) {
-            LOGGER.error("Failed to check if there is the same passenger in new ticket segments", e);
+            log.error("Failed to check if there is the same passenger in new ticket segments", e);
         }
         return false;
     }
@@ -88,7 +86,7 @@ public class TicketServiceImpl implements TicketService {
                     name, surname, birthday
             ));
         } catch (Exception e) {
-            LOGGER.error("Failed to get tickets of passenger with given name, surname and birthday", e);
+            log.error("Failed to get tickets of passenger with given name, surname and birthday", e);
         }
         return result;
     }
@@ -172,7 +170,7 @@ public class TicketServiceImpl implements TicketService {
                         .build());
             }
         } catch (Exception e) {
-            LOGGER.error("Failed to create a new ticket", e);
+            log.error("Failed to create a new ticket", e);
         }
     }
 

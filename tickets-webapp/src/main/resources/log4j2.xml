@@ -9,5 +9,8 @@
         <Root level="error">
             <AppenderRef ref="STDERR"/>
         </Root>
+        <Logger name="ru.t_systems.alyona.sbb" level="info" additivity="false">
+            <AppenderRef ref="STDERR"/>
+        </Logger>
     </Loggers>
 </Configuration>
