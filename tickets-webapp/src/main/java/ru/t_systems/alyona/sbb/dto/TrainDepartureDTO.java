@@ -18,4 +18,10 @@ public class TrainDepartureDTO {
     public boolean isDelayed() {
         return this.delayInMinutes > 0;
     }
+
+    public String getStatus() {
+        if (cancelled) return "Cancelled";
+        if (isDelayed()) return "Delayed for " + this.delayInMinutes + " min";
+        return "On time";
+    }
 }

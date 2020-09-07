@@ -1,8 +1,6 @@
 package ru.t_systems.alyona.sbb.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,8 +20,10 @@ public class TrainEntity {
     private int seatsCount;
 
     @OneToMany(mappedBy = "train")
+    @ToString.Exclude
     private List<SegmentTemplateEntity> segmentTemplates;
 
     @OneToMany(mappedBy = "train")
+    @ToString.Exclude
     private List<TrainDepartureEntity> departures;
 }

@@ -3,6 +3,7 @@ package ru.t_systems.alyona.sbb.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import ru.t_systems.alyona.sbb.converter.ZoneIdConverter;
 
 import javax.persistence.*;
@@ -30,9 +31,11 @@ public class StationEntity {
     private ZoneId zoneId;
 
     @OneToMany(mappedBy = "stationFrom")
+    @ToString.Exclude
     private List<SegmentTemplateEntity> segmentsTemplateFromStation;
 
     @OneToMany(mappedBy = "stationTo")
+    @ToString.Exclude
     private List<SegmentTemplateEntity> segmentsTemplateToStation;
 
 }
