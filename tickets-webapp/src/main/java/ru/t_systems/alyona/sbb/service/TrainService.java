@@ -14,7 +14,7 @@ public interface TrainService {
 
     List<TrainDepartureDTO> getDeparturesByTrain(TrainDTO train);
 
-    List<SegmentTemplateDTO> getSegmentsByTrainNumber(TrainDTO train);
+    List<SegmentTemplateDTO> getSegmentsByTrain(TrainDTO train);
 
     TrainDTO getById(String trainNumber);
 

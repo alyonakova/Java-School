@@ -56,7 +56,7 @@ public class TrainController {
     public String showTrainItem(@PathVariable("id") String trainNumber, Model model) {
         TrainDTO train = trainService.getById(trainNumber);
         List<TrainDepartureDTO> trainDepartures = trainService.getDeparturesByTrain(train);
-        List<SegmentTemplateDTO> segmentTemplates = trainService.getSegmentsByTrainNumber(train);
+        List<SegmentTemplateDTO> segmentTemplates = trainService.getSegmentsByTrain(train);
         boolean isTrainCancelled = trainService.isTrainCancelled(trainDepartures);
 
         model.addAttribute("train", train);

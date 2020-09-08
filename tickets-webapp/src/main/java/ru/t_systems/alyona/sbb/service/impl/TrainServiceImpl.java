@@ -114,7 +114,7 @@ public class TrainServiceImpl implements TrainService {
     }
 
     @Override
-    public List<SegmentTemplateDTO> getSegmentsByTrainNumber(TrainDTO train) {
+    public List<SegmentTemplateDTO> getSegmentsByTrain(TrainDTO train) {
         List<SegmentTemplateDTO> result = new ArrayList<>();
         TrainEntity trainEntity = trainConverter.toEntity(train);
         List<SegmentTemplateEntity> segments = segmentTemplateRepository.getByTrain(trainEntity);
@@ -148,6 +148,7 @@ public class TrainServiceImpl implements TrainService {
             departureRepository.cancelAllTrainDepartures(trainEntity);
         } catch (Exception e) {
             log.error("Failed to cancel the train", e);
+            return OperationResultDTO.error("Failed to cancel the train");
         }
         return OperationResultDTO.successful("Train successfully cancelled");
     }
@@ -160,6 +161,7 @@ public class TrainServiceImpl implements TrainService {
             departureRepository.restoreAllTrainDepartures(trainEntity);
         } catch (Exception e) {
             log.error("Failed to restore the train", e);
+            return OperationResultDTO.error("Failed to restore the train");
         }
         return OperationResultDTO.successful("Train successfully restored");
     }
@@ -172,6 +174,7 @@ public class TrainServiceImpl implements TrainService {
             departureRepository.delayAllTrainDepartures(trainEntity, delayInMinutes);
         } catch (Exception e) {
             log.error("Failed to delay the train", e);
+            return OperationResultDTO.error("Failed to delay the train");
         }
         return OperationResultDTO.successful("Train successfully delayed");
     }
@@ -200,6 +203,7 @@ public class TrainServiceImpl implements TrainService {
             departureRepository.cancelTrainDeparture(trainDepartureEntity);
         } catch (Exception e) {
             log.error("Failed to cancel train departure", e);
+            return OperationResultDTO.error("Failed to cancel train departure");
         }
         return OperationResultDTO.successful("Departure successfully cancelled");
     }
