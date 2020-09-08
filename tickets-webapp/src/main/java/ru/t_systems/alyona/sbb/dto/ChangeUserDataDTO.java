@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Data
 public class ChangeUserDataDTO {
 
-    private BigInteger id;
+    private BigInteger userId;
 
     @Size(min = 3, max = 60, message = "Min login length is 3, max is 60")
     private String login;
