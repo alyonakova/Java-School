@@ -82,35 +82,35 @@ public class PassengerServiceImpl implements PassengerService {
 
             changeLogin(
                     changeUserDataDTO.getNewLogin(),
-                    userConverter.toDTO(userRepository.getById(changeUserDataDTO.getId()))
+                    userConverter.toDTO(userRepository.getById(changeUserDataDTO.getUserId()))
             );
             return OperationResultDTO.successful("Login is successfully updated");
 
         } else if (changeUserDataDTO.getNewPassword() != null) {
             changePassword(
                     changeUserDataDTO.getNewPassword(),
-                    userConverter.toDTO(userRepository.getById(changeUserDataDTO.getId()))
+                    userConverter.toDTO(userRepository.getById(changeUserDataDTO.getUserId()))
             );
             return OperationResultDTO.successful("Password is successfully updated");
 
         } else if (changeUserDataDTO.getNewName() != null) {
             changeName(
                     changeUserDataDTO.getNewName(),
-                    userConverter.toDTO(userRepository.getById(changeUserDataDTO.getId()))
+                    userConverter.toDTO(userRepository.getById(changeUserDataDTO.getUserId()))
             );
             return OperationResultDTO.successful("Name is successfully updated");
 
         } else if (changeUserDataDTO.getNewSurname() != null) {
             changeSurname(
                     changeUserDataDTO.getNewSurname(),
-                    userConverter.toDTO(userRepository.getById(changeUserDataDTO.getId()))
+                    userConverter.toDTO(userRepository.getById(changeUserDataDTO.getUserId()))
             );
             return OperationResultDTO.successful("Surname is successfully updated");
 
         } else if (changeUserDataDTO.getNewBirthday() != null) {
             changeBirthday(
                     changeUserDataDTO.getNewBirthday(),
-                    userConverter.toDTO(userRepository.getById(changeUserDataDTO.getId()))
+                    userConverter.toDTO(userRepository.getById(changeUserDataDTO.getUserId()))
             );
             return OperationResultDTO.successful("Birthday is successfully updated");
         }
