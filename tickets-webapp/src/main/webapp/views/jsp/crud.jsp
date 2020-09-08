@@ -101,10 +101,6 @@
                     <a class="nav-link" id="addStation-tab" data-toggle="tab" href="#addStation" role="tab"
                        aria-controls="addStation" aria-selected="false">Add station</a>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="allTrains-tab" data-toggle="tab" href="#allTrains" role="tab"
-                       aria-controls="allTrains" aria-selected="false">All trains</a>
-                </li>
             </ul>
 
             <div class="tab-content" id="myTabContent">
@@ -209,26 +205,6 @@
                             Add station
                         </button>
                     </p>
-                </div>
-
-                <div class="tab-pane fade" id="allTrains" role="tabpanel" aria-labelledby="allTrains-tab">
-                    <h2>All trains</h2>
-                    <table class="table">
-                        <thead class="thead-light">
-                        <tr>
-                            <th scope="col">Train</th>
-                            <th scope="col">Capacity</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach var="train" items="${trains}">
-                            <tr>
-                                <td>${train.id}</td>
-                                <td>${train.seatsCount}</td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
                 </div>
 
             </div>

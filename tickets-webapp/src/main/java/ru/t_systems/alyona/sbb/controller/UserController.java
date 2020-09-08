@@ -49,8 +49,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/crud")
-    public String showCrudPage(Model model) {
-        model.addAttribute("trains", userService.getAllTrainsForCRUD());
+    public String showCrudPage() {
         return "crud";
     }
 

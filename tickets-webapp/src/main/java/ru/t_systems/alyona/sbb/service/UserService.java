@@ -13,8 +13,6 @@ public interface UserService {
 
     UserDTO getUserByLogin(String login);
 
-    List<TrainDTO> getAllTrainsForCRUD();
-
     OperationResultDTO updateEmployeeData(ChangeUserDataDTO changeUserDataDTO);
 
     UserDTO getUserById(BigInteger id);

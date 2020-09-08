@@ -6,13 +6,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.t_systems.alyona.sbb.converter.PassengerConverter;
-import ru.t_systems.alyona.sbb.converter.StationConverter;
 import ru.t_systems.alyona.sbb.converter.TicketConverter;
 import ru.t_systems.alyona.sbb.converter.UserConverter;
 import ru.t_systems.alyona.sbb.dto.*;
 import ru.t_systems.alyona.sbb.entity.PassengerEntity;
 import ru.t_systems.alyona.sbb.entity.UserEntity;
-import ru.t_systems.alyona.sbb.repository.StationRepository;
 import ru.t_systems.alyona.sbb.repository.TicketRepository;
 import ru.t_systems.alyona.sbb.repository.UserRepository;
 import ru.t_systems.alyona.sbb.service.PassengerService;
@@ -30,9 +28,6 @@ public class UserServiceImpl implements UserService {
     private final PassengerService passengerService;
     private final UserConverter userConverter;
     private final UserRepository userRepository;
-    private final TrainService trainService;
-    private final StationConverter stationConverter;
-    private final StationRepository stationRepository;
     private final PasswordEncoder passwordEncoder;
     private final PassengerConverter passengerConverter;
     private final TicketConverter ticketConverter;
@@ -103,17 +98,6 @@ public class UserServiceImpl implements UserService {
             log.error("Failed to get user by ID", e);
         }
         return user;
-    }
-
-    @Override
-    public List<TrainDTO> getAllTrainsForCRUD() {
-        List<TrainDTO> result = null;
-        try {
-            result = trainService.getAllTrains();
-        } catch (Exception e) {
-            log.error("Failed to get all existing trains", e);
-        }
-        return result;
     }
 
     @Transactional
