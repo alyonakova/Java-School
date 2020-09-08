@@ -73,7 +73,10 @@
                     <a class="nav-link" href="${pageContext.request.contextPath}/crud">CRUD<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/trains">Trains<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/trains">Trains<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/stations">Stations<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <a href="${pageContext.request.contextPath}/employee_account">
@@ -101,10 +104,6 @@
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" id="allTrains-tab" data-toggle="tab" href="#allTrains" role="tab"
                        aria-controls="allTrains" aria-selected="false">All trains</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="allStations-tab" data-toggle="tab" href="#allStations" role="tab"
-                       aria-controls="allStations" aria-selected="false">All stations</a>
                 </li>
             </ul>
 
@@ -232,28 +231,6 @@
                     </table>
                 </div>
 
-                <div class="tab-pane fade" id="allStations" role="tabpanel" aria-labelledby="allStations-tab">
-                    <hr>
-                    <h2>All stations</h2>
-                    <table class="table">
-                        <thead class="thead-light">
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Station name</th>
-                            <th scope="col">Zone id</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach var="station" items="${stations}">
-                            <tr>
-                                <td>${station.id}</td>
-                                <td>${station.name}</td>
-                                <td>${station.zoneId}</td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
             </div>
 
         </div>

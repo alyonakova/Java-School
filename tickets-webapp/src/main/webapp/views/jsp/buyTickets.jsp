@@ -79,6 +79,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/trains">Trains<span class="sr-only">(current)</span></a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/stations">Stations<span class="sr-only"></span></a>
+                    </li>
                 </sec:authorize>
             </ul>
             <sec:authorize access="hasRole('ROLE_EMPLOYEE')">

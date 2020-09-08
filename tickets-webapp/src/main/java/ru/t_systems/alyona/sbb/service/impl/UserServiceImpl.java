@@ -116,17 +116,6 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
-    @Override
-    public List<StationDTO> getAllStationsForCRUD() {
-        List<StationDTO> result = null;
-        try {
-            result = stationConverter.toDTOList(stationRepository.getAll());
-        } catch (Exception e) {
-            log.error("Failed to get all existing stations", e);
-        }
-        return result;
-    }
-
     @Transactional
     public OperationResultDTO updateEmployeeData(ChangeUserDataDTO changeUserDataDTO) {
 
@@ -139,7 +128,7 @@ public class UserServiceImpl implements UserService {
 
             changeLogin(
                     changeUserDataDTO.getNewLogin(),
-                    getUserById(changeUserDataDTO.getId())
+                    getUserById(changeUserDataDTO.getUserId())
             );
             return OperationResultDTO.successful("Login is successfully updated");
 
@@ -147,12 +136,12 @@ public class UserServiceImpl implements UserService {
 
             changePassword(
                     changeUserDataDTO.getNewPassword(),
-                    getUserById(changeUserDataDTO.getId())
+                    getUserById(changeUserDataDTO.getUserId())
             );
 
             return OperationResultDTO.successful("Password is successfully updated");
         }
-        return OperationResultDTO.technicalError("Nothing to update");
+        return OperationResultDTO.error("Nothing to update");
     }
 
     private void changeLogin(String login, UserDTO user) {
@@ -165,7 +154,8 @@ public class UserServiceImpl implements UserService {
 
     private void changePassword(String password, UserDTO user) {
         try {
-            userRepository.updatePassword(passwordEncoder.encode(password), userConverter.toEntity(user));
+            String encodedPassword = passwordEncoder.encode(password);
+            userRepository.updatePassword(encodedPassword, userConverter.toEntity(user));
         } catch (Exception e) {
             log.error("Failed to update user password", e);
         }

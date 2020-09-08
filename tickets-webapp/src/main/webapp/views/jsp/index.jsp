@@ -82,12 +82,17 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/crud">
-                            CRUD <span class="sr-only">(current)</span>
+                            CRUD <span class="sr-only"></span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/trains">
-                            Trains <span class="sr-only">(current)</span>
+                            Trains <span class="sr-only"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/stations">
+                            Stations <span class="sr-only">(current)</span>
                         </a>
                     </li>
                 </sec:authorize>

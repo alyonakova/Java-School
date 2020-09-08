@@ -11,6 +11,8 @@ import ru.t_systems.alyona.sbb.entity.StationEntity;
 import ru.t_systems.alyona.sbb.repository.StationRepository;
 import ru.t_systems.alyona.sbb.service.StationService;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 @Slf4j
@@ -33,5 +35,16 @@ public class StationServiceImpl implements StationService {
             return OperationResultDTO.error("Failed to create a new station");
         }
         return OperationResultDTO.successful("Station successfully created.");
+    }
+
+    @Override
+    public List<StationDTO> getAllStations() {
+        List<StationDTO> result = null;
+        try {
+            result = stationConverter.toDTOList(stationRepository.getAll());
+        } catch (Exception e) {
+            log.error("Failed to get all existing stations", e);
+        }
+        return result;
     }
 }
