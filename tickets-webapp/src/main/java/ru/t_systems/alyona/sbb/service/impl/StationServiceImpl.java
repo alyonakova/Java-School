@@ -30,6 +30,7 @@ public class StationServiceImpl implements StationService {
             stationRepository.create(stationConverter.toEntity(station));
         } catch (Exception e) {
             log.error("Failed to create a new station", e);
+            return OperationResultDTO.error("Failed to create a new station");
         }
         return OperationResultDTO.successful("Station successfully created.");
     }
