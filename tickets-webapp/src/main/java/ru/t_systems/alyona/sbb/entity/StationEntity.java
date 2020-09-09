@@ -1,9 +1,6 @@
 package ru.t_systems.alyona.sbb.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import ru.t_systems.alyona.sbb.converter.ZoneIdConverter;
 
 import javax.persistence.*;
@@ -15,6 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "station")
 public class StationEntity {
 

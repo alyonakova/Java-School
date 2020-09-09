@@ -77,6 +77,7 @@ public class TrainServiceImpl implements TrainService {
             departureRepository.create(trainDepartureEntities);
         } catch (Exception e) {
             log.error("Failed to create a new train", e);
+            return OperationResultDTO.error("Failed to create a new train");
         }
 
         return OperationResultDTO.successful("Train successfully created.");
