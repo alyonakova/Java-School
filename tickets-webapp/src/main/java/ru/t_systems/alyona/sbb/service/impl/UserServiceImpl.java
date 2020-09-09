@@ -14,7 +14,6 @@ import ru.t_systems.alyona.sbb.entity.UserEntity;
 import ru.t_systems.alyona.sbb.repository.TicketRepository;
 import ru.t_systems.alyona.sbb.repository.UserRepository;
 import ru.t_systems.alyona.sbb.service.PassengerService;
-import ru.t_systems.alyona.sbb.service.TrainService;
 import ru.t_systems.alyona.sbb.service.UserService;
 
 import java.math.BigInteger;
@@ -54,7 +53,8 @@ public class UserServiceImpl implements UserService {
 
         //create user
         try {
-            final UserDTO userDTO = new UserDTO(null, registrationForm.getLogin(), true, passenger, passwordEncoder.encode(registrationForm.getUserPassword()));
+            final UserDTO userDTO = new UserDTO(null, registrationForm.getLogin(), true, passenger,
+                    passwordEncoder.encode(registrationForm.getUserPassword()));
             userRepository.create(userConverter.toEntity(userDTO));
         } catch (Exception e) {
             log.error("Failed to create a new user", e);
