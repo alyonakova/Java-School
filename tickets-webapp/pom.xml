@@ -29,6 +29,11 @@
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>javax.jms-api</artifactId>
+            <version>2.0.1</version>
+        </dependency>
         <!-- Needed for .jsp files to work -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -120,6 +125,20 @@
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <!-- Connect to remote JNDI -->
+        <dependency>
+            <groupId>org.wildfly.wildfly-http-client</groupId>
+            <artifactId>wildfly-http-naming-client</artifactId>
+            <version>1.1.3.Final</version>
+        </dependency>
+        <!-- Connect to remote JMS -->
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-jms-client-bom</artifactId>
+            <version>20.0.1.Final</version>
+            <type>pom</type>
+            <scope>import</scope>
         </dependency>
         <!-- END OF PRODUCTION DEPENDENCIES -->
 

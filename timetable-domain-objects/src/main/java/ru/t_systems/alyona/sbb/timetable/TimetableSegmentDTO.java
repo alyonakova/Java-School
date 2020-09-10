@@ -11,6 +11,8 @@ import java.time.ZonedDateTime;
 @AllArgsConstructor
 public class TimetableSegmentDTO implements Serializable {
 
+    private ZonedDateTime trainDepartureDate;
+
     private String trainNumber;
 
     private ZonedDateTime departureDate;

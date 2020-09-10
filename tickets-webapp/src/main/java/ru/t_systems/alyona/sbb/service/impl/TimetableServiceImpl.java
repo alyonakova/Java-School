@@ -15,6 +15,7 @@ import ru.t_systems.alyona.sbb.timetable.TimetableDTO;
 import ru.t_systems.alyona.sbb.timetable.TimetableSegmentDTO;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public class TimetableServiceImpl implements TimetableService {
                                 .arrivalStation(segmentArrivalStation)
                                 .arrivalDate(arrivalTime)
                                 .status(departureConverter.toDTO(departure).getStatus())
+                                .trainDepartureDate(departure.getDepartureTime().atZone(ZoneId.of("UTC")))
                                 .build());
                     }
                 }

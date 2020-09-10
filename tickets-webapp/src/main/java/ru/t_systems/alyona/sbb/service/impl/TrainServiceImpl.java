@@ -16,6 +16,7 @@ import ru.t_systems.alyona.sbb.repository.StationRepository;
 import ru.t_systems.alyona.sbb.repository.TrainDepartureRepository;
 import ru.t_systems.alyona.sbb.repository.TrainRepository;
 import ru.t_systems.alyona.sbb.service.TrainService;
+import ru.t_systems.alyona.sbb.timetable.TimetableUpdateDTO;
 
 import java.time.Instant;
 import java.time.ZoneId;
@@ -36,6 +37,7 @@ public class TrainServiceImpl implements TrainService {
     private final StationRepository stationRepository;
     private final TrainDepartureRepository departureRepository;
     private final TrainDepartureConverter trainDepartureConverter;
+    private final TimetableUpdateSender timetableUpdateSender;
 
     @Override
     public List<TrainDTO> getAllTrains() {
@@ -146,7 +148,16 @@ public class TrainServiceImpl implements TrainService {
     public OperationResultDTO cancelTrain(TrainDTO train) {
         try {
             TrainEntity trainEntity = trainConverter.toEntity(train);
+            departureRepository.delayAllTrainDepartures(trainEntity, 0);
             departureRepository.cancelAllTrainDepartures(trainEntity);
+            List<TrainDepartureEntity> departures = departureRepository.getDeparturesByTrain(trainEntity);
+            timetableUpdateSender.sendMessageToTopic(TimetableUpdateDTO.builder()
+                    .trainNumber(train.getId())
+                    .trainDepartureDates(departures.stream()
+                            .map(d -> d.getDepartureTime().atZone(ZoneId.of("UTC")))
+                            .collect(toList()))
+                    .newStatus("Cancelled")
+                    .build());
         } catch (Exception e) {
             log.error("Failed to cancel the train", e);
             return OperationResultDTO.error("Failed to cancel the train");
@@ -160,6 +171,14 @@ public class TrainServiceImpl implements TrainService {
         try {
             TrainEntity trainEntity = trainConverter.toEntity(train);
             departureRepository.restoreAllTrainDepartures(trainEntity);
+            List<TrainDepartureEntity> departures = departureRepository.getDeparturesByTrain(trainEntity);
+            timetableUpdateSender.sendMessageToTopic(TimetableUpdateDTO.builder()
+                    .trainNumber(train.getId())
+                    .trainDepartureDates(departures.stream()
+                            .map(d -> d.getDepartureTime().atZone(ZoneId.of("UTC")))
+                            .collect(toList()))
+                    .newStatus("On time")
+                    .build());
         } catch (Exception e) {
             log.error("Failed to restore the train", e);
             return OperationResultDTO.error("Failed to restore the train");
