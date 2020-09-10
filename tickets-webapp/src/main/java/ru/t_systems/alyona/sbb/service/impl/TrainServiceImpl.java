@@ -230,6 +230,11 @@ public class TrainServiceImpl implements TrainService {
         try {
             TrainDepartureEntity trainDepartureEntity = trainDepartureConverter.toEntity(trainDeparture);
             departureRepository.cancelTrainDeparture(trainDepartureEntity);
+            timetableUpdateSender.sendMessageToTopic(TimetableUpdateDTO.builder()
+                    .trainNumber(trainDeparture.getTrain().getId())
+                    .trainDepartureDates(List.of(trainDeparture.getDepartureTime().atZone(ZoneId.of("UTC"))))
+                    .newStatus("Cancelled")
+                    .build());
         } catch (Exception e) {
             log.error("Failed to cancel train departure", e);
             return OperationResultDTO.error("Failed to cancel train departure");
@@ -243,6 +248,11 @@ public class TrainServiceImpl implements TrainService {
         try {
             TrainDepartureEntity trainDepartureEntity = trainDepartureConverter.toEntity(trainDeparture);
             departureRepository.restoreTrainDeparture(trainDepartureEntity);
+            timetableUpdateSender.sendMessageToTopic(TimetableUpdateDTO.builder()
+                    .trainNumber(trainDeparture.getTrain().getId())
+                    .trainDepartureDates(List.of(trainDeparture.getDepartureTime().atZone(ZoneId.of("UTC"))))
+                    .newStatus("On time")
+                    .build());
         } catch (Exception e) {
             log.error("Failed to restore train departure", e);
         }
@@ -255,6 +265,12 @@ public class TrainServiceImpl implements TrainService {
         try {
             TrainDepartureEntity trainDepartureEntity = trainDepartureConverter.toEntity(trainDeparture);
             departureRepository.delayTrainDeparture(trainDepartureEntity, delayInMinutes);
+            String statusMessage = (delayInMinutes == 0) ? "On time" : "Delayed by " + delayInMinutes + " min";
+            timetableUpdateSender.sendMessageToTopic(TimetableUpdateDTO.builder()
+                    .trainNumber(trainDeparture.getTrain().getId())
+                    .trainDepartureDates(List.of(trainDeparture.getDepartureTime().atZone(ZoneId.of("UTC"))))
+                    .newStatus(statusMessage)
+                    .build());
         } catch (Exception e) {
             log.error("Failed to delay the train departure", e);
         }
