@@ -192,6 +192,15 @@ public class TrainServiceImpl implements TrainService {
         try {
             TrainEntity trainEntity = trainConverter.toEntity(train);
             departureRepository.delayAllTrainDepartures(trainEntity, delayInMinutes);
+            List<TrainDepartureEntity> departures = departureRepository.getDeparturesByTrain(trainEntity);
+            String statusMessage = (delayInMinutes == 0) ? "On time" : "Delayed by " + delayInMinutes + " min";
+            timetableUpdateSender.sendMessageToTopic(TimetableUpdateDTO.builder()
+                    .trainNumber(train.getId())
+                    .trainDepartureDates(departures.stream()
+                            .map(d -> d.getDepartureTime().atZone(ZoneId.of("UTC")))
+                            .collect(toList()))
+                    .newStatus(statusMessage)
+                    .build());
         } catch (Exception e) {
             log.error("Failed to delay the train", e);
             return OperationResultDTO.error("Failed to delay the train");
