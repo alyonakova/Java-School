@@ -140,9 +140,7 @@
             <ul class="list-group">
                 <c:forEach var="segment" items="${segments}" varStatus="segmentsCount">
                     <li class="list-group-item">
-                        <a href="${pageContext.request.contextPath}/trains/${train.id}/segments/${segmentsCount.count}">
-                                ${segment.sourceStation} &LongRightArrow; ${segment.destinationStation}
-                        </a>
+                            ${segment.sourceStation} &LongRightArrow; ${segment.destinationStation}
                     </li>
                 </c:forEach>
             </ul>
