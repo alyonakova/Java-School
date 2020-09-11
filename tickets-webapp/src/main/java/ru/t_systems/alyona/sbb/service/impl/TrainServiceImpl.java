@@ -22,6 +22,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -128,7 +129,7 @@ public class TrainServiceImpl implements TrainService {
                     .indexWithinTrainRoute(segment.getIndexWithinTrainRoute())
                     .build());
         }
-        result.sort(SegmentTemplateDTO.COMPARE_BY_ROUTE_INDEX);
+        result.sort(Comparator.comparing(SegmentTemplateDTO::getIndexWithinTrainRoute));
         return result;
     }
 
