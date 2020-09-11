@@ -169,6 +169,12 @@
                 <artifactId>hibernate-validator</artifactId>
                 <version>6.0.20.Final</version>
             </dependency>
+            <!-- Spring JMS -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jms</artifactId>
+                <version>5.2.8.RELEASE</version>
+            </dependency>
             <!-- END OF PRODUCTION DEPENDENCIES -->
 
             <!-- TEST DEPENDENCIES -->
