@@ -22,7 +22,7 @@ import ru.t_systems.alyona.sbb.repository.TrainRepository;
 import java.time.Instant;
 import java.util.List;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 

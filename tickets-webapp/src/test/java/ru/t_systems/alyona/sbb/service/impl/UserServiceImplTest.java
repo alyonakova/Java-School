@@ -21,8 +21,8 @@ import ru.t_systems.alyona.sbb.repository.UserRepository;
 import java.math.BigInteger;
 import java.util.List;
 
-import static com.google.common.truth.Truth.assertThat;
 import static java.util.Collections.emptyList;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
