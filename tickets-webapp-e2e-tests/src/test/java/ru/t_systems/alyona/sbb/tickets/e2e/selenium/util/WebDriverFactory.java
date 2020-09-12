@@ -1,4 +1,4 @@
-package ru.t_systems.alyona.sbb.selenium.util;
+package ru.t_systems.alyona.sbb.tickets.e2e.selenium.util;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeDriver;

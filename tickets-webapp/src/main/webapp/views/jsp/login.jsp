@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<%@page session="true"%>
+<%@page session="true" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -59,15 +59,21 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/">
+                        Home <span class="sr-only">(current)</span>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/timetable">Timetable</a
-                    >
+                    <a class="nav-link" href="${pageContext.request.contextPath}/timetable">
+                        Timetable
+                    </a>
                 </li>
             </ul>
             <form class="form-inline mt-2 mt-md-0" method="get" action="${pageContext.request.contextPath}/sign_in">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign in</button>
+                <button type="submit" class="btn btn-outline-success my-2 my-sm-0"
+                        data-test-id="sign-in-button">
+                    Sign in
+                </button>
             </form>
         </div>
     </nav>
@@ -81,7 +87,7 @@
                     <h3 class="text-center">Sign in</h3>
                     <c:choose>
                         <c:when test="${messageWrongCredentials.severity == 'ERROR'}">
-                            <div class="alert alert-danger" role="alert">
+                            <div class="alert alert-danger" role="alert" data-test-id="alert-message">
                                     ${messageWrongCredentials.text}
                             </div>
                         </c:when>
@@ -95,7 +101,9 @@
                                    required/></label>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <p>
-                            <button class="btn btn-lg btn-success find-button mx-auto" type="submit">Sign in</button>
+                            <button class="btn btn-lg btn-success find-button mx-auto" name="sign-btn" type="submit">
+                                Sign in
+                            </button>
                         </p>
                     </form>
 

@@ -31,6 +31,7 @@
     <modules>
         <module>tickets-webapp</module>
         <module>timetable-domain-objects</module>
+        <module>tickets-webapp-e2e-tests</module>
     </modules>
 
     <distributionManagement>
