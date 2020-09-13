@@ -108,7 +108,7 @@
                     Change login
                 </label>
                 <form:input path="newLogin" type="text" class="form-control" placeholder="${user.login}"/>
-                <form:hidden path="id" value="${user.id}"/>
+                <form:hidden path="userId" value="${user.id}"/>
                 <p><button class="btn btn-outline-info mrgn-top" type="submit">Change</button></p>
             </form:form>
             <form:form method="post"
@@ -118,7 +118,7 @@
                     Change password
                 </label>
                 <form:input path="newPassword" type="password" class="form-control" placeholder="Enter new password"/>
-                <form:hidden path="id" value="${user.id}"/>
+                <form:hidden path="userId" value="${user.id}"/>
                 <p>
                     <button class="btn btn-outline-info mrgn-top" type="submit">Change</button>
                 </p>
