@@ -29,4 +29,4 @@ jobs:
         app-name: 'sbb-tickets'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_5fbbc10a8497482f870853a228021704 }}
-        package: '${{ github.workspace }}/target/*.war'
+        package: '${{ github.workspace }}/tickets-webapp/target/*.war'
