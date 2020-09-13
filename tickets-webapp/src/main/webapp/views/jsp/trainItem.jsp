@@ -187,8 +187,18 @@
                         <form:input path="delayInMinutes" type="number" pattern="[0-9]{,4}"
                                     min="0" required="required"/>
                         minutes
-                        <button class="btn btn-primary" type="submit">
+                        <button class="btn btn-primary mt-2" type="submit">
                             Delay
+                        </button>
+                    </form:form>
+                </li>
+                <li class="list-group-item">
+                    <form:form method="post"
+                               action="${pageContext.request.contextPath}/trains/${train.id}/delay"
+                               modelAttribute="delayForm">
+                        <form:hidden path="delayInMinutes" value="0"/>
+                        <button class="btn btn-success mt-2" type="submit">
+                            Remove delay
                         </button>
                     </form:form>
                 </li>

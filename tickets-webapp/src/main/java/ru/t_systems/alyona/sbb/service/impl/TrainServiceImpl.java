@@ -206,7 +206,8 @@ public class TrainServiceImpl implements TrainService {
             log.error("Failed to delay the train", e);
             return OperationResultDTO.error("Failed to delay the train");
         }
-        return OperationResultDTO.successful("Train successfully delayed");
+        return (delayInMinutes == 0) ? OperationResultDTO.successful("Train successfully restored") :
+                OperationResultDTO.successful("Train successfully delayed");
     }
 
     @Override
