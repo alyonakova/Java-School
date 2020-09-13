@@ -197,7 +197,7 @@
                                action="${pageContext.request.contextPath}/trains/${train.id}/delay"
                                modelAttribute="delayForm">
                         <form:hidden path="delayInMinutes" value="0"/>
-                        <button class="btn btn-success mt-2" type="submit">
+                        <button class="btn btn-success" type="submit">
                             Remove delay
                         </button>
                     </form:form>

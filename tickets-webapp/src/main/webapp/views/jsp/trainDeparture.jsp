@@ -181,6 +181,16 @@
                         </button>
                     </form:form>
                 </li>
+                <li class="list-group-item">
+                    <form:form method="post"
+                               action="${pageContext.request.contextPath}/trains/${trainDeparture.train.id}/departures/${trainDeparture.departureTime}/delay"
+                               modelAttribute="delayForm">
+                        <form:hidden path="delayInMinutes" value="0"/>
+                        <button class="btn btn-success" type="submit">
+                            Remove delay
+                        </button>
+                    </form:form>
+                </li>
             </ul>
         </div>
     </div>
