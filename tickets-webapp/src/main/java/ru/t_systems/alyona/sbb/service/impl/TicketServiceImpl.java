@@ -121,7 +121,7 @@ public class TicketServiceImpl implements TicketService {
             //Create passenger in DB if he is not there
             PassengerEntity existingPassenger = passengerRepository.getByNameAndSurnameAndBirthday(
                     passenger.getName(), passenger.getSurname(), passenger.getBirthday()
-            ).orElse(null);
+            );
 
             if (existingPassenger == null) {
                 existingPassenger = passengerRepository.create(passengerConverter.toEntity(passenger));

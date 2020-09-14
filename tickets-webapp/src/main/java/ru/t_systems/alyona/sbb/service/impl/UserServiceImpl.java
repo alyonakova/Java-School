@@ -11,6 +11,7 @@ import ru.t_systems.alyona.sbb.converter.UserConverter;
 import ru.t_systems.alyona.sbb.dto.*;
 import ru.t_systems.alyona.sbb.entity.PassengerEntity;
 import ru.t_systems.alyona.sbb.entity.UserEntity;
+import ru.t_systems.alyona.sbb.repository.PassengerRepository;
 import ru.t_systems.alyona.sbb.repository.TicketRepository;
 import ru.t_systems.alyona.sbb.repository.UserRepository;
 import ru.t_systems.alyona.sbb.service.PassengerService;
@@ -31,6 +32,7 @@ public class UserServiceImpl implements UserService {
     private final PassengerConverter passengerConverter;
     private final TicketConverter ticketConverter;
     private final TicketRepository ticketRepository;
+    private final PassengerRepository passengerRepository;
 
     @Override
     @Transactional
@@ -40,9 +42,20 @@ public class UserServiceImpl implements UserService {
             return OperationResultDTO.error("A user with the specified login already exists.");
         }
 
-        //create passenger
-        PassengerDTO passenger = passengerService.createPassenger(registrationForm.getName(),
-                registrationForm.getSurname(), registrationForm.getBirthday());
+        //create or get passenger
+        PassengerEntity passengerEntity = passengerRepository.getByNameAndSurnameAndBirthday(
+                registrationForm.getName(), registrationForm.getSurname(), registrationForm.getBirthday());
+
+        PassengerDTO passenger;
+        if (passengerEntity != null) {
+            if (passengerEntity.getUser() != null) {
+                return OperationResultDTO.error("A user with specified name, surname and birthday already exists");
+            }
+            passenger = passengerConverter.toDTO(passengerEntity);
+        } else {
+            passenger = passengerService.createPassenger(registrationForm.getName(),
+                    registrationForm.getSurname(), registrationForm.getBirthday());
+        }
 
         //create user
         try {

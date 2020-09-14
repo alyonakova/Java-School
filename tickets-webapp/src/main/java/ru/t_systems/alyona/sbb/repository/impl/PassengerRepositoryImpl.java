@@ -11,7 +11,6 @@ import javax.persistence.TypedQuery;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -65,7 +64,7 @@ public class PassengerRepositoryImpl
     }
 
     @Override
-    public Optional<PassengerEntity> getByNameAndSurnameAndBirthday(String name, String surname, LocalDate birthday) {
+    public PassengerEntity getByNameAndSurnameAndBirthday(String name, String surname, LocalDate birthday) {
         TypedQuery<PassengerEntity> query = getEntityManager().createQuery(
                 "SELECT p FROM PassengerEntity p WHERE p.name = :name AND p.surname = :surname AND p.birthday = :birthday",
                 PassengerEntity.class
@@ -73,6 +72,6 @@ public class PassengerRepositoryImpl
         query.setParameter("name", name);
         query.setParameter("surname", surname);
         query.setParameter("birthday", birthday);
-        return query.getResultList().stream().findFirst();
+        return query.getResultList().stream().findFirst().orElse(null);
     }
 }
