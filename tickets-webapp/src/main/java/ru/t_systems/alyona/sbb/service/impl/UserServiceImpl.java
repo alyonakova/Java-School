@@ -34,17 +34,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserRegistrationResultDTO registerUser(RegistrationFormDTO registrationForm) {
+    public OperationResultDTO registerUser(RegistrationFormDTO registrationForm) {
 
         if (userRepository.getByLogin(registrationForm.getLogin()) != null) {
-            return UserRegistrationResultDTO.builder()
-                    .successful(false)
-                    .messages(List.of(
-                            MessageDTO.builder()
-                                    .text("A user with the specified login already exists.")
-                                    .severity(MessageDTO.Severity.ERROR)
-                                    .build()))
-                    .build();
+            return OperationResultDTO.error("A user with the specified login already exists.");
         }
 
         //create passenger
@@ -58,24 +51,10 @@ public class UserServiceImpl implements UserService {
             userRepository.create(userConverter.toEntity(userDTO));
         } catch (Exception e) {
             log.error("Failed to create a new user", e);
-            UserRegistrationResultDTO.builder()
-                    .successful(false)
-                    .messages(List.of(
-                            MessageDTO.builder()
-                                    .text("A technical error occurred, please try again later.")
-                                    .severity(MessageDTO.Severity.TECHNICAL_ERROR)
-                                    .build()))
-                    .build();
+            return OperationResultDTO.technicalError("A technical error occurred, please try again later.");
         }
 
-        return UserRegistrationResultDTO.builder()
-                .successful(true)
-                .messages(List.of(
-                        MessageDTO.builder()
-                                .text("Registration successful. Now you can log in.")
-                                .severity(MessageDTO.Severity.INFORMATIONAL)
-                                .build()))
-                .build();
+        return OperationResultDTO.successful("Registration successful. Now you can log in.");
     }
 
     @Override

@@ -67,7 +67,7 @@ public class UserController {
             model.addAttribute("registrationFormDTO", registrationFormDTO);
             return "login";
         }
-        UserRegistrationResultDTO result = userService.registerUser(registrationFormDTO);
+        OperationResultDTO result = userService.registerUser(registrationFormDTO);
         if (result.isSuccessful()) {
             model.addAttribute("registrationFormDTO", new RegistrationFormDTO());
         } else model.addAttribute("registrationFormDTO", registrationFormDTO);

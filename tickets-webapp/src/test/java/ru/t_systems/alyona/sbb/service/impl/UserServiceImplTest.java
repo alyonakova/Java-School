@@ -198,7 +198,7 @@ class UserServiceImplTest {
             var userEntity = mock(UserEntity.class);
             given(userRepository.getByLogin(registrationForm.getLogin())).willReturn(userEntity);
 
-            UserRegistrationResultDTO result = userService.registerUser(registrationForm);
+            OperationResultDTO result = userService.registerUser(registrationForm);
 
             assertThat(result.isSuccessful()).isFalse();
 
