@@ -51,8 +51,14 @@
     </style>
     <!-- Custom styles for this template -->
     <link href="${pageContext.request.contextPath}/resources/css/styles.css" rel="stylesheet">
+    <!-- Bootstrap 4 theme for tail.select -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/tail.select@0.5.15/css/bootstrap4/tail.select-default.min.css">
 </head>
 <body>
+<!-- tail.select -->
+<script type="application/javascript"
+        src="https://cdn.jsdelivr.net/npm/tail.select@0.5.15/js/tail.select-full.min.js"></script>
 <header>
     <sec:authorize var="loggedIn" access="isAuthenticated()"/>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -146,7 +152,7 @@
                         <label>
                             From
                         </label>
-                        <form:select path="departureStationName" cssClass="form-control" required="required">
+                        <form:select path="departureStationName" cssClass="form-control select station-select" required="required">
                             <form:option value="" label="Station..."/>
                             <form:options items="${stations}" itemValue="name" itemLabel="name"/>
                         </form:select>
@@ -155,7 +161,7 @@
                         <label>
                             To
                         </label>
-                        <form:select path="arrivalStationName" cssClass="form-control" required="required">
+                        <form:select path="arrivalStationName" cssClass="form-control select station-select" required="required">
                             <form:option value="" label="Station..."/>
                             <form:options items="${stations}" itemValue="name" itemLabel="name"/>
                         </form:select>
@@ -240,5 +246,15 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+<!-- tail.select -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        tail.select(".station-select", {
+            animate: false,
+            search: true,
+            width: '100%',
+        });
+    });
+</script>
 </body>
 </html>
