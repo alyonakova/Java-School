@@ -24,7 +24,8 @@ public class TrainController {
     private final Provider<ConnectionCache> connectionCacheProvider;
 
     @PostMapping(path = "/connections")
-    public String findConnections(@ModelAttribute ConnectionSearchQueryDTO query, Model model) {
+    public String findConnections(@ModelAttribute ConnectionSearchQueryDTO query, Model model,
+                                  RedirectAttributes redirectAttributes) {
 
         ConnectionSearchResultDTO result = connectionSearchService.findConnections(query);
         if (result.isSuccessful()) {
@@ -34,9 +35,8 @@ public class TrainController {
             connectionCacheProvider.get().putAll(result.getDiscoveredConnections());
             return "connectionSearchResults";
         } else {
-            model.addAttribute("messageConnectionSearchData", result.getMessages());
-            model.addAttribute("outboundQuery", query);
-            return "index";
+            redirectAttributes.addFlashAttribute("messageConnectionSearchData", result.getMessages());
+            return "redirect:/";
         }
     }
 

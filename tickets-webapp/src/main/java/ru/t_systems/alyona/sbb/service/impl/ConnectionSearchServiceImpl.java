@@ -34,10 +34,13 @@ public class ConnectionSearchServiceImpl implements ConnectionSearchService {
     @Transactional
     public ConnectionSearchResultDTO findConnections(ConnectionSearchQueryDTO request) {
 
+        if (request.getDepartureStationName().equals(request.getArrivalStationName()))
+            return ConnectionSearchResultDTO.error("Departure and arrival stations must be different!");
+
         RouteGraph routeGraph = getRouteGraph();
 
         StationNode departureNode = null;
-        StationNode arrivalNode = null;
+        StationNode arrivalNode;
 
         try {
 
