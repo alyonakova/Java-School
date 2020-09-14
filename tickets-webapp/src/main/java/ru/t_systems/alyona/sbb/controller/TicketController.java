@@ -14,7 +14,6 @@ import ru.t_systems.alyona.sbb.service.TicketService;
 
 import javax.inject.Provider;
 import javax.validation.Valid;
-import java.util.List;
 import java.util.UUID;
 
 @Controller

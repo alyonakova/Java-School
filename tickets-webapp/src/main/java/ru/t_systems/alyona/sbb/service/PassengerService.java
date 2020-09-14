@@ -7,7 +7,6 @@ import ru.t_systems.alyona.sbb.dto.PassengerDTO;
 import ru.t_systems.alyona.sbb.dto.PassengerWithTrainDTO;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 @Service
