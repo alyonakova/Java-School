@@ -60,9 +60,9 @@ public class PassengerServiceImpl implements PassengerService {
     public PassengerDTO createPassenger(String name, String surname, LocalDate birthday) {
         PassengerDTO passenger = null;
         try {
-            final PassengerEntity newPassanger = passengerConverter.toEntity(
+            final PassengerEntity newPassenger = passengerConverter.toEntity(
                     new PassengerDTO(null, name, surname, birthday));
-            final PassengerEntity createdPassenger = passengerRepository.create(newPassanger);
+            final PassengerEntity createdPassenger = passengerRepository.create(newPassenger);
             passenger = passengerConverter.toDTO(createdPassenger);
         } catch (Exception e) {
             log.error("Failed to create new passenger", e);
