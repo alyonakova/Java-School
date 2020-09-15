@@ -1,7 +1,6 @@
 package ru.t_systems.alyona.sbb.service.impl;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +14,7 @@ import ru.t_systems.alyona.sbb.entity.SegmentTemplateEntity;
 import ru.t_systems.alyona.sbb.entity.StationEntity;
 import ru.t_systems.alyona.sbb.entity.TrainDepartureEntity;
 import ru.t_systems.alyona.sbb.entity.TrainEntity;
+import ru.t_systems.alyona.sbb.exceptions.SBBApplicationException;
 import ru.t_systems.alyona.sbb.repository.SegmentTemplateRepository;
 import ru.t_systems.alyona.sbb.repository.TrainDepartureRepository;
 import ru.t_systems.alyona.sbb.repository.TrainRepository;
@@ -23,6 +23,7 @@ import java.time.Instant;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -46,6 +47,9 @@ class TrainServiceImplTest {
 
     @Mock
     SegmentTemplateRepository segmentTemplateRepository;
+
+    @Mock
+    TimetableUpdateSender timetableUpdateSender;
 
     static final String TRAIN_ID = "5s";
     static final int DELAY = 10;
@@ -83,8 +87,6 @@ class TrainServiceImplTest {
     class cancelTrain {
 
         @Test
-        @Disabled
-        //FIXME messages sender was added
         void returnsSuccessfulOperation_ifTrainCancelled() {
             trainDTO = mock(TrainDTO.class);
             trainEntity = mock(TrainEntity.class);
@@ -93,7 +95,6 @@ class TrainServiceImplTest {
             OperationResultDTO result = trainService.cancelTrain(trainDTO);
 
             assertThat(result.isSuccessful()).isTrue();
-
         }
     }
 
@@ -101,8 +102,6 @@ class TrainServiceImplTest {
     class restoreTrain {
 
         @Test
-        @Disabled
-        //FIXME messages sender was added
         void returnsSuccessfulOperation_ifTrainRestored() {
             trainDTO = mock(TrainDTO.class);
             trainEntity = mock(TrainEntity.class);
@@ -123,6 +122,7 @@ class TrainServiceImplTest {
         void returnsTrainDeparture_ifItExistsInRepository() {
 
             trainEntity = mock(TrainEntity.class);
+            given(trainRepository.existsById(TRAIN_ID)).willReturn(true);
             given(trainRepository.getById(TRAIN_ID)).willReturn(trainEntity);
 
             Instant departureTimeDate = Instant.parse(DEPARTURE_TIME);
@@ -140,13 +140,11 @@ class TrainServiceImplTest {
         @Test
         void returnsNull_ifTrainIsNotExists() {
             trainEntity = null;
-            given(trainRepository.getById(TRAIN_ID)).willReturn(trainEntity);
-            Instant departureTimeDate = Instant.parse(DEPARTURE_TIME);
-            given(departureRepository.getTrainDeparture(trainEntity, departureTimeDate)).willReturn(null);
+            given(trainRepository.existsById(TRAIN_ID)).willReturn(false);
 
-            TrainDepartureDTO trainDeparture = trainService.getTrainDeparture(TRAIN_ID, DEPARTURE_TIME);
-
-            assertThat(trainDeparture).isNull();
+            assertThatThrownBy(() ->
+                    trainService.getTrainDeparture(TRAIN_ID, DEPARTURE_TIME)
+            ).isInstanceOf(SBBApplicationException.class);
         }
     }
 
@@ -258,8 +256,6 @@ class TrainServiceImplTest {
     class delayTrain {
 
         @Test
-        @Disabled
-        //FIXME messages sender was added
         void returnsSuccessfulOperation_ifTrainDelayed() {
             var trainDTO = mock(TrainDTO.class);
             var trainEntity = mock(TrainEntity.class);
@@ -272,28 +268,9 @@ class TrainServiceImplTest {
     }
 
     @Nested
-    class cancelTrainDeparture {
-
-        @Test
-        @Disabled
-        //FIXME messages sender was added
-        void returnsSuccessfulOperation_ifDepartureCancelled() {
-            var trainDepartureDTO = mock(TrainDepartureDTO.class);
-            var trainDepartureEntity = mock(TrainDepartureEntity.class);
-            given(trainDepartureConverter.toEntity(trainDepartureDTO)).willReturn(trainDepartureEntity);
-
-            OperationResultDTO result = trainService.cancelTrainDeparture(trainDepartureDTO);
-
-            assertThat(result.isSuccessful()).isTrue();
-        }
-    }
-
-    @Nested
     class restoreTrainDeparture {
 
         @Test
-        @Disabled
-        //FIXME messages sender was added
         void returnsSuccessfulOperation_ifDepartureRestored() {
             var trainDepartureDTO = mock(TrainDepartureDTO.class);
             var trainDepartureEntity = mock(TrainDepartureEntity.class);
@@ -309,8 +286,6 @@ class TrainServiceImplTest {
     class delayTrainDeparture {
 
         @Test
-        @Disabled
-        //FIXME messages sender was added
         void returnsSuccessfulOperation_ifDepartureDelayed() {
             var trainDepartureDTO = mock(TrainDepartureDTO.class);
             var trainDepartureEntity = mock(TrainDepartureEntity.class);
