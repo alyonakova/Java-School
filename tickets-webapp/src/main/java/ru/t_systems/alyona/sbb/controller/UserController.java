@@ -14,6 +14,9 @@ import ru.t_systems.alyona.sbb.service.PassengerService;
 import ru.t_systems.alyona.sbb.service.UserService;
 
 import javax.validation.Valid;
+import java.time.ZoneId;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
@@ -50,7 +53,8 @@ public class UserController {
     }
 
     @GetMapping(value = "/crud")
-    public String showCrudPage() {
+    public String showCrudPage(Model model) {
+        model.addAttribute("knownTimeZoneIds", ZoneId.getAvailableZoneIds());
         return "crud";
     }
 

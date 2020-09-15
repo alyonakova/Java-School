@@ -19,6 +19,10 @@
     <!-- Custom styles for this template -->
     <link href="${pageContext.request.contextPath}/resources/css/styles.css" rel="stylesheet">
 
+    <!-- Bootstrap 4 theme for tail.select -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/tail.select@0.5.15/css/bootstrap4/tail.select-default.min.css">
+
     <meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 </head>
@@ -167,11 +171,24 @@
                     <div class="row">
                         <label for="station-name" class="col-md-auto">Station name:</label>
                         <input type="text" class="col form-control" placeholder="Station name" id="station-name">
+
                         <div class="w-100"></div>
-                        <label for="zone-id" class="col-md-auto">Zone:</label>
-                        <input type="text" class="col form-control mrgn-top" placeholder="Zone id" id="zone-id">
-                        <p><a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="col-md-auto">
-                            All time zones</a></p>
+
+                        <label for="zone-id" class="col-md-auto">
+                            Zone:
+                        </label>
+                        <select name="zone-id" id="zone-id"
+                                class="col form-control select zoneid-select mrgn-top">
+                            <c:forEach items="${knownTimeZoneIds}" var="zoneId">
+                                <option value="${zoneId}">${zoneId}</option>
+                            </c:forEach>
+                        </select>
+                        <%-- <input type="text" class="col form-control mrgn-top" placeholder="Zone id" id="zone-id"> --%>
+                        <p>
+                            <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="col-md-auto">
+                                All time zones
+                            </a>
+                        </p>
                     </div>
                     <p>
                         <button class="btn btn-lg btn-success find-button mx-auto" onclick="addStation()">
@@ -204,5 +221,17 @@
     const requestContextPath = '${pageContext.request.contextPath}';
 </script>
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+<!-- tail.select -->
+<script type="application/javascript"
+        src="https://cdn.jsdelivr.net/npm/tail.select@0.5.15/js/tail.select-full.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        tail.select(".zoneid-select", {
+            animate: false,
+            search: true,
+            width: '100%',
+        });
+    });
+</script>
 </body>
 </html>
