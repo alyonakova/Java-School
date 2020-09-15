@@ -79,18 +79,15 @@ public class UserController {
 
     @PostMapping(value = "/employee_account")
     public String changeEmployeeData(@Valid @ModelAttribute ChangeUserDataDTO changeUserDataDTO,
-                                     BindingResult validationResult, Model model,
-                                     @AuthenticationPrincipal UserDetailsDTO authorizedUserDetails) {
-        model.addAttribute("validationErrors", validationResult.getAllErrors());
-        model.addAttribute("userDetails", authorizedUserDetails);
-        model.addAttribute("user", userService.getUserById(authorizedUserDetails.getId()));
-        model.addAttribute("changeUserDataDTO", new ChangeUserDataDTO());
+                                     BindingResult validationResult,
+                                     RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("validationErrors", validationResult.getAllErrors());
         if (validationResult.hasErrors()) {
-            return "employeeAccount";
+            return "redirect:/employee_account";
         }
         OperationResultDTO result = userService.updateEmployeeData(changeUserDataDTO);
-        model.addAttribute("messages", result.getMessages());
-        return "employeeAccount";
+        redirectAttributes.addFlashAttribute("messages", result.getMessages());
+        return "redirect:/employee_account";
     }
 
     @PostMapping(value = "/customer_account")
