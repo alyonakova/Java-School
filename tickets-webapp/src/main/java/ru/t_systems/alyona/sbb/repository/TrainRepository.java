@@ -8,6 +8,7 @@ import java.util.List;
 @Repository
 public interface TrainRepository {
 
+    boolean existsById(String id);
     TrainEntity getById(String id);
     List<TrainEntity> getAll();
     TrainEntity create(TrainEntity train);

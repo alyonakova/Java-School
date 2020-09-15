@@ -14,6 +14,11 @@ public class TrainRepositoryImpl
         implements TrainRepository {
 
     @Override
+    public boolean existsById(String id) {
+        return getEntityManager().find(TrainEntity.class, id) != null;
+    }
+
+    @Override
     public TrainEntity getById(String id) {
         return getEntityManager().find(TrainEntity.class, id);
     }

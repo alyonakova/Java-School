@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.t_systems.alyona.sbb.entity.TrainDepartureEntity;
 import ru.t_systems.alyona.sbb.entity.TrainEntity;
+import ru.t_systems.alyona.sbb.exceptions.SBBApplicationException;
 import ru.t_systems.alyona.sbb.repository.TrainDepartureRepository;
 
 import javax.persistence.EntityManager;
@@ -78,7 +79,9 @@ public class TrainDepartureRepositoryImpl
         );
         query.setParameter("train", train);
         query.setParameter("departureTime", departureTime);
-        return query.getResultList().stream().findFirst().orElse(null);
+        return query.getResultList().stream().findFirst()
+                .orElseThrow(() -> new SBBApplicationException(
+                        "There is no departure at " + departureTime + " for train '" + train.getId() + "'"));
     }
 
     @Override

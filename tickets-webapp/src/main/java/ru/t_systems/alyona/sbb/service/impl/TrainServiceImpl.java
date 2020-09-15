@@ -11,6 +11,7 @@ import ru.t_systems.alyona.sbb.entity.SegmentTemplateEntity;
 import ru.t_systems.alyona.sbb.entity.StationEntity;
 import ru.t_systems.alyona.sbb.entity.TrainDepartureEntity;
 import ru.t_systems.alyona.sbb.entity.TrainEntity;
+import ru.t_systems.alyona.sbb.exceptions.SBBApplicationException;
 import ru.t_systems.alyona.sbb.repository.SegmentTemplateRepository;
 import ru.t_systems.alyona.sbb.repository.StationRepository;
 import ru.t_systems.alyona.sbb.repository.TrainDepartureRepository;
@@ -139,7 +140,7 @@ public class TrainServiceImpl implements TrainService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public boolean isTrainCancelled(List<TrainDepartureDTO> trainDepartures) {
         return trainDepartures.stream().allMatch(TrainDepartureDTO::isCancelled);
     }
@@ -211,19 +212,16 @@ public class TrainServiceImpl implements TrainService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public TrainDepartureDTO getTrainDeparture(String trainNumber, String departureTime) {
-        TrainDepartureDTO trainDeparture = null;
-        try {
-            TrainEntity trainEntity = trainRepository.getById(trainNumber);
-            Instant departureTimeDate = Instant.parse(departureTime);
-            trainDeparture = trainDepartureConverter.toDTO(
-                    departureRepository.getTrainDeparture(trainEntity, departureTimeDate)
-            );
-        } catch (Exception e) {
-            log.error("Failed to get train departure", e);
+        if (!trainRepository.existsById(trainNumber)) {
+            throw new SBBApplicationException("Train with number '" + trainNumber + "' does not exist");
         }
-        return trainDeparture;
+        TrainEntity trainEntity = trainRepository.getById(trainNumber);
+        Instant departureTimeDate = Instant.parse(departureTime);
+        TrainDepartureEntity trainDeparture = departureRepository.getTrainDeparture(trainEntity, departureTimeDate);
+        TrainDepartureDTO trainDepartureDTO = trainDepartureConverter.toDTO(trainDeparture);
+        return trainDepartureDTO;
     }
 
     @Override

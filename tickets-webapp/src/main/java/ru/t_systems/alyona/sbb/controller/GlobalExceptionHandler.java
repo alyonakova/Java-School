@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import ru.t_systems.alyona.sbb.exceptions.SBBApplicationException;
 
 @ControllerAdvice
 @Slf4j
@@ -19,11 +20,19 @@ public class GlobalExceptionHandler {
         return "error";
     }
 
+    @ExceptionHandler(value = {SBBApplicationException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleApplicationException(Model model, SBBApplicationException exception) {
+        log.error("Application error", exception);
+        model.addAttribute("errorMessage", exception.getMessage());
+        return "error";
+    }
+
     @ExceptionHandler(value = {Exception.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String handleOtherException(Model model, Exception exception) {
         log.error("Unexpected server error", exception);
-        model.addAttribute("errorMessage", exception.getMessage());
+        model.addAttribute("errorMessage", "Sorry! An unexpected technical error occurred. Please try again later.");
         return "error";
     }
 }
