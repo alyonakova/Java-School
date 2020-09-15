@@ -61,6 +61,16 @@ public class TrainServiceImpl implements TrainService {
                 return OperationResultDTO.error("Train with id " + request.getId() + " already exists.");
             }
 
+            for (SegmentTemplateDTO segment : request.getSegments()) {
+                StationEntity departureStation = stationRepository.getByName(segment.getSourceStation());
+                StationEntity arrivalStation = stationRepository.getByName(segment.getDestinationStation());
+                if (departureStation == null) return OperationResultDTO.error(
+                        "Station with name " + segment.getSourceStation() + " does not exists.");
+                if (arrivalStation == null) return OperationResultDTO.error(
+                        "Station with name " + segment.getDestinationStation() + " does not exists.");
+
+            }
+
             TrainDTO newTrain = new TrainDTO(request.getId(), request.getCapacity());
             TrainEntity trainEntity = trainRepository.create(trainConverter.toEntity(newTrain));
 
