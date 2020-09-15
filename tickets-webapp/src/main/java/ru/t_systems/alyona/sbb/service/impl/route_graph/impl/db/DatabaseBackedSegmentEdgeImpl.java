@@ -98,4 +98,9 @@ public class DatabaseBackedSegmentEdgeImpl implements SegmentEdge {
     private TrainConverterImpl getTrainConverter() {
         return new TrainConverterImpl();
     }
+
+    @Override
+    public String toString() {
+        return "Edge("+sourceStationNode.getName()+" -> "+segmentTemplateEntity.getStationTo().getName()+")";
+    }
 }

@@ -146,7 +146,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<TicketDTO> getUserTickets(UserDTO user) {
         List<TicketDTO> userTickets = null;
         try {

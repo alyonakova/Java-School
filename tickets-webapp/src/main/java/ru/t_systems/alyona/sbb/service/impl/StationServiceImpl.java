@@ -38,6 +38,7 @@ public class StationServiceImpl implements StationService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<StationDTO> getAllStations() {
         List<StationDTO> result = null;
         try {

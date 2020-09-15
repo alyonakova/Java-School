@@ -30,7 +30,7 @@ public class TimetableServiceImpl implements TimetableService {
     private final StationRepository stationRepository;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public TimetableDTO getTimetableByStationNameAndDate(String stationName, LocalDate date) {
 
         StationEntity station = stationRepository.getByName(stationName);

@@ -31,7 +31,7 @@ public class ConnectionSearchServiceImpl implements ConnectionSearchService {
     RouteGraph routeGraph;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public ConnectionSearchResultDTO findConnections(ConnectionSearchQueryDTO request) {
 
         if (request.getDepartureStationName().equals(request.getArrivalStationName()))
@@ -58,8 +58,14 @@ public class ConnectionSearchServiceImpl implements ConnectionSearchService {
 
         Collection<Path<StationNode, SegmentEdge>> paths = new DepthFirstSearch()
                 .findAllSimplePaths(departureNode, arrivalNode, (nextSegment, currentPath) -> {
-                    var minimumDepartureTime = (currentPath.isEmpty() ? requestedDepartureTime : currentPath.getLastEdge().getArrivalTime());
-                    return isSegmentInTimeRange(nextSegment, minimumDepartureTime, requestedArrivalTime);
+                    ZonedDateTime minimumAllowedDepartureTime;
+                    if (currentPath.isEmpty()) {
+                        minimumAllowedDepartureTime = requestedDepartureTime;
+                    } else {
+                        minimumAllowedDepartureTime = currentPath.getLastEdge().getArrivalTime();
+                    }
+                    ZonedDateTime maximumAllowedArrivalTime = requestedArrivalTime;
+                    return isSegmentInTimeRange(nextSegment, minimumAllowedDepartureTime, maximumAllowedArrivalTime);
                 });
 
         if (paths.size() == 0) {
@@ -74,7 +80,7 @@ public class ConnectionSearchServiceImpl implements ConnectionSearchService {
 
     private boolean isSegmentInTimeRange(SegmentEdge nextSegment, ZonedDateTime requestedDepartureTime, ZonedDateTime requestedArrivalTime) {
         return nextSegment.getDepartureTime().isAfter(requestedDepartureTime) &&
-                nextSegment.getArrivalTime().isBefore(requestedArrivalTime);
+               nextSegment.getArrivalTime().isBefore(requestedArrivalTime);
     }
 
     private List<ConnectionDTO> convertPathsToConnectionList(Collection<Path<StationNode, SegmentEdge>> paths) {

@@ -57,4 +57,9 @@ public class DatabaseBackedStationNodeImpl implements StationNode {
     public StationEntity getEntity() {
         return stationEntity;
     }
+
+    @Override
+    public String toString() {
+        return "Node(" + stationEntity.getName() + ")";
+    }
 }

@@ -29,7 +29,7 @@ public class SegmentServiceImpl implements SegmentService {
     private final StationConverter stationConverter;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<SegmentDTO> getAllSegments() {
         List<SegmentDTO> result = new ArrayList<>();
         try {

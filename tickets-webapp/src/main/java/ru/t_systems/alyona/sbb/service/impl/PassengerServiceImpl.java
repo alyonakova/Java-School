@@ -37,7 +37,7 @@ public class PassengerServiceImpl implements PassengerService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Set<PassengerWithTrainDTO> getPassengersWithTrains() {
         List<TicketEntity> allTickets = ticketRepository.getAll();
         Set<PassengerWithTrainDTO> passengerTrainSet = new HashSet<>();

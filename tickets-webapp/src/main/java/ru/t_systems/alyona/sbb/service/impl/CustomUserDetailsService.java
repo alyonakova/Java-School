@@ -8,11 +8,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.t_systems.alyona.sbb.dto.UserDTO;
 import ru.t_systems.alyona.sbb.dto.UserDetailsDTO;
 import ru.t_systems.alyona.sbb.service.UserService;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private UserService userService;
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         UserDTO user = userService.getUserByLogin(login);

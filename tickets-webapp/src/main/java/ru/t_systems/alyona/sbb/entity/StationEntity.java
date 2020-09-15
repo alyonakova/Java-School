@@ -28,7 +28,7 @@ public class StationEntity {
     @Convert(converter = ZoneIdConverter.class)
     private ZoneId zoneId;
 
-    @OneToMany(mappedBy = "stationFrom")
+    @OneToMany(mappedBy = "stationFrom", fetch = FetchType.EAGER)
     @ToString.Exclude
     private List<SegmentTemplateEntity> segmentsTemplateFromStation;
 

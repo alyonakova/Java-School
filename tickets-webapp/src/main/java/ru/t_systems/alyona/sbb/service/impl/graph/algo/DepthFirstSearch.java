@@ -5,6 +5,7 @@ import ru.t_systems.alyona.sbb.service.impl.graph.Path;
 import ru.t_systems.alyona.sbb.service.impl.graph.Vertex;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -35,6 +36,10 @@ public class DepthFirstSearch {
                 V source, V target,
                 Collection<Path<V, E>> pathsToSource,
                 PathEdgeFilter<V, E> pathEdgeFilter) {
+
+            if (pathsToSource.isEmpty()) {
+                return Collections.emptyList();
+            }
 
             if (Objects.equals(source, target)) {
                 return pathsToSource;
