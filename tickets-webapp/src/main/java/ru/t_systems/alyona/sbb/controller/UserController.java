@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.t_systems.alyona.sbb.dto.*;
 import ru.t_systems.alyona.sbb.service.PassengerService;
 import ru.t_systems.alyona.sbb.service.UserService;
@@ -94,20 +95,15 @@ public class UserController {
 
     @PostMapping(value = "/customer_account")
     public String changeCustomerData(@Valid @ModelAttribute ChangeUserDataDTO changeUserDataDTO,
-                                     BindingResult validationResult, Model model,
-                                     @AuthenticationPrincipal UserDetailsDTO authorizedUserDetails) {
-        model.addAttribute("validationErrors", validationResult.getAllErrors());
-        model.addAttribute("userDetails", authorizedUserDetails);
-        UserDTO user = userService.getUserById(authorizedUserDetails.getId());
-        model.addAttribute("user", user);
-        model.addAttribute("tickets", userService.getUserTickets(user));
-        model.addAttribute("changeUserDataDTO", new ChangeUserDataDTO());
+                                     BindingResult validationResult,
+                                     RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("validationErrors", validationResult.getAllErrors());
         if (validationResult.hasErrors()) {
-            return "customerAccount";
+            return "redirect:/customer_account";
         }
         OperationResultDTO result = passengerService.updatePassengerData(changeUserDataDTO);
-        model.addAttribute("messages", result.getMessages());
-        return "customerAccount";
+        redirectAttributes.addFlashAttribute("messages", result.getMessages());
+        return "redirect:/customer_account";
     }
 
     @GetMapping("/fail-sign-in")
