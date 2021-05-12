@@ -24,7 +24,7 @@
         <junit.version>5.6.2</junit.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-        <spring-security.version>5.3.3.RELEASE</spring-security.version>
+        <spring-security.version>5.3.9.RELEASE</spring-security.version>
         <spring-orm.version>5.2.8.RELEASE</spring-orm.version>
     </properties>
 
